@@ -1,10 +1,10 @@
-import { Links, Popup, PopupSchema, Tags, TagsOnPopups } from '../types/popup';
+import { Popup } from '../types/popup';
 import Image from 'next/image';
 import SocialMedia from './socialMedia';
 import PopupModal from './popupModal';
 import { useState } from 'react';
 import PopupTags from './tags';
-import { getTagsByPopupId } from './events';
+
 import { trpc } from '../utils/trpc';
 
 export function getLinksByPopupId(popupId: { popupId: string }) {

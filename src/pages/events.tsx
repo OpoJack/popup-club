@@ -2,9 +2,8 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Events from '../components/events';
 import Nav from '../components/Nav';
-import AllPopups from '../components/allPopups';
 import { trpc } from '../utils/trpc';
-import { Popup, Event, Location, Links } from '../types/popup';
+import { Popup } from '../types/popup';
 
 const EventsPage: NextPage = () => {
   const rawpopups = trpc.useQuery(['popup.getPopups']).data;

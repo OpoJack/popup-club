@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Events from '../components/events';
 import Nav from '../components/Nav';
 
 const Popups: NextPage = () => {
