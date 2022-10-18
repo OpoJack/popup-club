@@ -7,6 +7,9 @@ import { Popup } from '../types/popup';
 
 const Home: NextPage = () => {
   const rawpopups = trpc.useQuery(['popup.getPopups']).data;
+  
+
+  console.log(rawpopups);
 
   return (
     <>
