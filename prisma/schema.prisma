@@ -71,10 +71,12 @@ model Popup {
     orderType   String
     events      Event[]
     links       Links?
+
 }
 
 model Links {
     id        String  @id @default(cuid())
+
     popupId   String  @unique
     imageUrl  String?
     facebook  String?
@@ -120,4 +122,11 @@ model TagsOnPopups {
     popupId String
     tag     Tags   @relation(fields: [tagId], references: [id])
     tagId   String
+}
+
+generator trpc {
+    provider       = "prisma-trpc-generator"
+    withMiddleware = false
+    withShield     = false
+    contextPath    = "/src/server/context"
 }
