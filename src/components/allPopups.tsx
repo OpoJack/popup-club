@@ -28,10 +28,10 @@ export default function AllPopups({ popup }: { popup: Popup & PopupSchema }) {
       >
         <div className='p-4'>
           <div className='flex flex-row space-x-2 object-cover'>
-            <div className='flex h-fit space-y-3'>
+            <div className='flex space-y-3'>
               <Image
                 key={popup.links.id}
-                className='h-10 w-10 flex-shrink-0 rounded-full bg-gray-300'
+                className='h-fit w-fit flex-shrink-0 rounded-full bg-gray-300'
                 src={popup.links.imageUrl ?? '/hotdog.jpg'}
                 alt=''
                 width={75}

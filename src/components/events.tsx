@@ -39,7 +39,7 @@ export default function Events({ popup }: { popup: Popup }) {
                 <span className='relative inline-block'>
                   <Image
                     key={popup.id}
-                    className='h-10 w-10 flex-shrink-0 rounded-full bg-gray-300'
+                    className='h-fit w-fit flex-shrink-0 rounded-full bg-gray-300'
                     src={popup.links.imageUrl ?? '/hotdog.jpg'}
                     alt=''
                     width={75}
