@@ -25,7 +25,7 @@ export function convertTime(date: Date) {
 // }
 
 export default function Events({ popup }: { popup: Popup }) {
-  console.log(popup);
+  // console.log(popup);
   return (
     <>
       {popup.events?.slice(0, 1).map((event) => (

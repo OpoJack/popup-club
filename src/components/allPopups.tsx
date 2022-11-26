@@ -1,4 +1,4 @@
-import { Popup } from '../types/popup';
+import { Popup, PopupSchema } from '../types/popup';
 import Image from 'next/image';
 import SocialMedia from './socialMedia';
 import PopupModal from './popupModal';
@@ -6,11 +6,11 @@ import { useState } from 'react';
 import PopupTags from './tags';
 import { trpc } from '../utils/trpc';
 
-export function getLinksByPopupId(popupId: { popupId: string }) {
-  return trpc.tags.getTagsByPopupId.useQuery(popupId).data;
-}
+// export function getLinksByPopupId(popupId: { popupId: string }) {
+//   return trpc.tags.getTagsByPopupId.useQuery(popupId).data;
+// }
 
-export default function AllPopups({ popup }: { popup: Popup }) {
+export default function AllPopups({ popup }: { popup: Popup & PopupSchema }) {
   const [isShown, setIsShown] = useState(false);
   const handleClick = () => {
     setIsShown(!isShown);

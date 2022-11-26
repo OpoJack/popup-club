@@ -59,14 +59,10 @@ export type TagsOnPopups = {
 
 export interface PopupSchema {
   tags: (TagsOnPopups & {
-    popup: Popup;
     tag: Tags;
   })[];
   events: (Event & {
-    popup: Popup;
     location: Location;
   })[];
-  links: (Links & {
-    popup: Popup;
-  })[];
+  links: Links | null;
 }

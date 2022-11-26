@@ -4,8 +4,9 @@ import { publicProcedure, router } from '../trpc';
 //This will return all the popups in the database
 
 export const popupRouter = router({
-  getAllPopups: publicProcedure.query(async ({ ctx }) => {
-    const popups = await ctx.prisma.popup.findMany({
+  getAllPopups: publicProcedure.query(({ ctx }) => {
+    const popups = ctx.prisma.popup.findMany({
+      take: 100,
       include: {
         links: true,
         events: {
@@ -31,7 +32,6 @@ export const popupRouter = router({
         name: 'asc',
       },
     });
-    if (!popups) throw new Error('No popups found');
     return popups;
   }),
 });

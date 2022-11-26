@@ -10,10 +10,10 @@ import { router } from '../trpc';
 
 export const appRouter = router({
   popups: popupRouter,
-  events: eventRouter,
+  // events: eventRouter,
   // locations: locationRouter,
-  tags: tagsRouter,
-  links: linksRouter,
+  // tags: tagsRouter,
+  // links: linksRouter,
 });
 
 // export const appRouter = router({
