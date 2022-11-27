@@ -3,11 +3,16 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { SearchIcon } from '@heroicons/react/solid';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 
+import Link from 'next/link';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { trpc } from '../utils/trpc';
+import { Session } from 'next-auth';
+import Image from 'next/image';
+
 const user = {
-  name: 'Tom Cook',
-  email: 'Easy Luck Coffee',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  name: 'Tim Crook',
+  email: 'Your popup!',
+  imageUrl: 'hotdog.jpg',
 };
 const navigation = [
   { name: 'Dashboard', href: '/', current: true },
@@ -18,22 +23,37 @@ const navigation = [
 const userNavigation = [
   { name: 'Vendor Profile', href: '#' },
   { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
 ];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
+const DiscordLogin = ({ sessionData }: { sessionData: Session | null }) => {
+  return (
+    <div>
+      <Link
+        href=''
+        className='block rounded-md py-2 px-4 font-mono text-sm text-indigo-300 hover:bg-indigo-500/80 hover:text-white'
+        onClick={sessionData ? () => signOut() : () => signIn()}
+      >
+        {sessionData ? 'Sign out' : 'Sign in with Discord'}
+      </Link>
+    </div>
+  );
+};
+
 export default function Nav() {
+  const { data: sessionData } = useSession();
+
   return (
     <Disclosure as='header' className='bg-gray-800'>
       {({ open }) => (
         <>
-          <div className='max-w-7xl mx-auto px-2 sm:px-4 lg:divide-y lg:divide-gray-700 lg:px-8'>
-            <div className='relative h-16 flex justify-between'>
-              <div className='relative z-10 px-2 flex lg:px-0'>
-                <div className='flex-shrink-0 flex items-center'>
+          <div className='mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-gray-700 lg:px-8'>
+            <div className='relative flex h-16 justify-between'>
+              <div className='relative z-10 flex px-2 lg:px-0'>
+                <div className='flex flex-shrink-0 items-center'>
                   <img
                     className='block h-8 w-auto'
                     src='https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=500'
@@ -41,13 +61,13 @@ export default function Nav() {
                   />
                 </div>
               </div>
-              <div className='relative z-0 flex-1 px-2 flex items-center justify-center sm:absolute sm:inset-0'>
+              <div className='relative z-0 flex flex-1 items-center justify-center px-2 sm:absolute sm:inset-0'>
                 <div className='w-full sm:max-w-xs'>
                   <label htmlFor='search' className='sr-only'>
                     Search
                   </label>
                   <div className='relative'>
-                    <div className='pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center'>
+                    <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
                       <SearchIcon
                         className='h-5 w-5 text-gray-400'
                         aria-hidden='true'
@@ -56,7 +76,7 @@ export default function Nav() {
                     <input
                       id='search'
                       name='search'
-                      className='block w-full bg-gray-700 border border-transparent rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-400 focus:outline-none focus:bg-white focus:border-white focus:ring-white focus:text-gray-900 focus:placeholder-gray-500 sm:text-sm'
+                      className='block w-full rounded-md border border-transparent bg-gray-700 py-2 pl-10 pr-3 text-sm placeholder-gray-400 focus:border-white focus:bg-white focus:text-gray-900 focus:placeholder-gray-500 focus:outline-none focus:ring-white sm:text-sm'
                       placeholder='Search'
                       type='search'
                     />
@@ -65,7 +85,7 @@ export default function Nav() {
               </div>
               <div className='relative z-10 flex items-center lg:hidden'>
                 {/* Mobile menu button */}
-                <Disclosure.Button className='rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
+                <Disclosure.Button className='inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
                   <span className='sr-only'>Open menu</span>
                   {open ? (
                     <XIcon className='block h-6 w-6' aria-hidden='true' />
@@ -75,24 +95,31 @@ export default function Nav() {
                 </Disclosure.Button>
               </div>
               <div className='hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center'>
+                {/* Profile dropdown */}
                 <button
                   type='button'
-                  className='bg-gray-800 flex-shrink-0 rounded-full p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'
+                  className='flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'
                 >
                   <span className='sr-only'>View notifications</span>
                   <BellIcon className='h-6 w-6' aria-hidden='true' />
                 </button>
-
-                {/* Profile dropdown */}
-                <Menu as='div' className='flex-shrink-0 relative ml-4'>
+                <Menu as='div' className='relative ml-4 flex-shrink-0'>
                   <div>
-                    <Menu.Button className='bg-gray-800 rounded-full flex text-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'>
+                    <Menu.Button className='flex rounded-full bg-gray-800 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
                       <span className='sr-only'>Open Vendor menu</span>
-                      <img
-                        className='h-8 w-8 rounded-full'
-                        src={user.imageUrl}
-                        alt=''
-                      />
+                      {sessionData ? (
+                        <img
+                          className='h-8 w-8 rounded-full'
+                          src={sessionData.user.image}
+                          alt=''
+                        />
+                      ) : (
+                        <img
+                          className='h-8 w-8 rounded-full'
+                          src={user.imageUrl}
+                          alt=''
+                        />
+                      )}
                     </Menu.Button>
                   </div>
                   <Transition
@@ -104,7 +131,7 @@ export default function Nav() {
                     leaveFrom='transform opacity-100 scale-100'
                     leaveTo='transform opacity-0 scale-95'
                   >
-                    <Menu.Items className='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none'>
+                    <Menu.Items className='absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
                       {userNavigation.map((item) => (
                         <Menu.Item key={item.name}>
                           {({ active }) => (
@@ -120,13 +147,19 @@ export default function Nav() {
                           )}
                         </Menu.Item>
                       ))}
+                      <Menu.Item>
+                        <DiscordLogin sessionData={sessionData} />
+                      </Menu.Item>
                     </Menu.Items>
                   </Transition>
                 </Menu>
               </div>
             </div>
+
+            {/* SEPERATION BETWEEN TOP/NAVBAR */}
+
             <nav
-              className='hidden lg:py-2 lg:flex lg:space-x-8'
+              className='hidden lg:flex lg:space-x-8 lg:py-2'
               aria-label='Global'
             >
               {navigation.map((item) => (
@@ -137,7 +170,7 @@ export default function Nav() {
                     item.current
                       ? 'bg-gray-900 text-white'
                       : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'rounded-md py-2 px-3 inline-flex items-center text-sm font-medium'
+                    'inline-flex items-center rounded-md py-2 px-3 text-sm font-medium'
                   )}
                   aria-current={item.current ? 'page' : undefined}
                 >
@@ -147,8 +180,9 @@ export default function Nav() {
             </nav>
           </div>
 
+          {/* Mobile menu, show/hide based on menu state. */}
           <Disclosure.Panel as='nav' className='lg:hidden' aria-label='Global'>
-            <div className='pt-2 pb-3 px-2 space-y-1'>
+            <div className='space-y-1 px-2 pt-2 pb-3'>
               {navigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}
@@ -167,31 +201,35 @@ export default function Nav() {
               ))}
             </div>
             <div className='border-t border-gray-700 pt-4 pb-3'>
-              <div className='px-4 flex items-center'>
+              <div className='flex items-center px-4'>
                 <div className='flex-shrink-0'>
                   <img
                     className='h-10 w-10 rounded-full'
-                    src={user.imageUrl}
+                    src={
+                      sessionData?.user.image
+                        ? sessionData.user.image
+                        : user.imageUrl
+                    }
                     alt=''
                   />
                 </div>
                 <div className='ml-3'>
                   <div className='text-base font-medium text-white'>
-                    {user.name}
+                    {sessionData ? sessionData.user.name : user.name}
                   </div>
                   <div className='text-sm font-medium text-gray-400'>
-                    {user.email}
+                    {sessionData ? sessionData.user.email : user.email}
                   </div>
                 </div>
                 <button
                   type='button'
-                  className='ml-auto flex-shrink-0 bg-gray-800 rounded-full p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'
+                  className='ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'
                 >
                   <span className='sr-only'>Location: Orlando</span>
                   <BellIcon className='h-6 w-6' aria-hidden='true' />
                 </button>
               </div>
-              <div className='mt-3 px-2 space-y-1'>
+              <div className='mt-3 space-y-1 px-2'>
                 {userNavigation.map((item) => (
                   <Disclosure.Button
                     key={item.name}

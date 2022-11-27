@@ -7,8 +7,10 @@ import { locationRouter } from './locations.router';
 import { tagsRouter } from './tags.router';
 import { linksRouter } from './links.router';
 import { router } from '../trpc';
+import { authRouter } from './auth';
 
 export const appRouter = router({
+  auth: authRouter,
   popups: popupRouter,
   // events: eventRouter,
   // locations: locationRouter,
