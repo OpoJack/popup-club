@@ -5,6 +5,7 @@ import { Popup } from '../types/popup';
 import Image from 'next/image';
 import UpcomingEvents from './upcomingEvents';
 import SocialMedia from './socialMedia';
+import Link from 'next/link';
 
 export default function PopupModal({
   isShown,
@@ -76,13 +77,14 @@ export default function PopupModal({
                 </div>
 
                 <div className='mt-5 sm:mt-6'>
-                  <button
+                  <Link
+                    href={`/popup/${popup.id}`}
                     type='button'
                     className='inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm'
                     onClick={() => setIsShown(false)}
                   >
                     View Popup
-                  </button>
+                  </Link>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
