@@ -16,3 +16,5 @@ const User = () => {
     <p>Welcome {session ? session.user?.name : 'Could not find session'}!</p>
   );
 };
+
+export default User;
