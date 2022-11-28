@@ -54,7 +54,7 @@ export default function PopupModal({
                       alt='Popup logo'
                       height={125}
                       width={125}
-                      className='h-10 w-10 flex-shrink-0 rounded-full bg-gray-300'
+                      className='h-fit w-fit flex-shrink-0 rounded-full bg-gray-300'
                     />
                   </div>
                   <div className='mt-3 text-center sm:mt-5'>
