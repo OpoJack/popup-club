@@ -1,0 +1,51 @@
+import { router } from "@trpc/server";
+import { z } from "zod";
+import {
+  createTRPCRouter,
+  publicProcedure,
+  protectedProcedure,
+} from "~/server/api/trpc";
+
+export const popupRouter = createTRPCRouter({
+  getAll: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.prisma.popup.findMany({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
+
+  delete: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.popup.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
+
+  create: protectedProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        description: z.string(),
+        basedIn: z.string(),
+        isHot: z.boolean(),
+        orderType: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.popup.create({
+        data: {
+          name: input.name,
+          description: input.description,
+          basedIn: input.basedIn,
+          isHot: input.isHot,
+          orderType: input.orderType,
+        },
+      });
+    }),
+});
