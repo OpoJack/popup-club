@@ -81,7 +81,7 @@ model Popup {
     isHot       Boolean
     orderType   String
     events      Event[]
-    links       Link?
+    links       Link[]
 }
 
 model Link {

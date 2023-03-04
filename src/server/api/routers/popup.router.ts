@@ -17,16 +17,6 @@ export const popupRouter = createTRPCRouter({
       });
     }),
 
-  delete: protectedProcedure
-    .input(z.object({ id: z.string() }))
-    .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.popup.delete({
-        where: {
-          id: input.id,
-        },
-      });
-    }),
-
   create: protectedProcedure
     .input(
       z.object({
@@ -45,6 +35,16 @@ export const popupRouter = createTRPCRouter({
           basedIn: input.basedIn,
           isHot: input.isHot,
           orderType: input.orderType,
+        },
+      });
+    }),
+
+  delete: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.popup.delete({
+        where: {
+          id: input.id,
         },
       });
     }),
