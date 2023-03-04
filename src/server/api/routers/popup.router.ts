@@ -7,15 +7,9 @@ import {
 } from "~/server/api/trpc";
 
 export const popupRouter = createTRPCRouter({
-  getAll: publicProcedure
-    .input(z.object({ id: z.string() }))
-    .query(({ ctx, input }) => {
-      return ctx.prisma.popup.findMany({
-        where: {
-          id: input.id,
-        },
-      });
-    }),
+  getAll: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.popup.findMany();
+  }),
 
   create: protectedProcedure
     .input(

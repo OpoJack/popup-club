@@ -4,8 +4,29 @@ import { api, type RouterOutputs } from "../utils/api";
 
 import Nav from "../components/Nav";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
+import AllPopups from "~/components/AllPopups";
+import { Popup } from "../types/types";
 
 const Home: NextPage = () => {
+  const { data: sessionData } = useSession();
+
+  const [selectedPopup, setSelectedPopup] = useState<Popup | null>(null);
+
+  const { data: popups } = api.popup.getAll.useQuery();
+  // const { data: popups, refetch: refetchPopups } = api.popup.getAll.useQuery(
+  //   {
+  //     id: selectedPopup?.id ?? "",
+  //   },
+  //   { enabled: sessionData?.user !== undefined && selectedPopup !== null }
+  // );
+
+  // const createPopup = api.popup.create.useMutation({
+  //   onSuccess: () => {
+  //     void refetchPopups();
+  //   },
+  // });
+
   return (
     <>
       <Head>
@@ -27,7 +48,11 @@ const Home: NextPage = () => {
           <ul
             role="list"
             className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-          ></ul>
+          >
+            {popups?.map((popup) => (
+              <AllPopups popup={popup} />
+            ))}
+          </ul>
         </div>
       </main>
     </>
@@ -35,11 +60,3 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-
-type Popup = RouterOutputs["popup"]["getAll"][0];
-
-const Content: React.FC = () => {
-  const { data: sessionData } = useSession();
-
-  return <div>hello</div>;
-};
