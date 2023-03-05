@@ -5,16 +5,10 @@ import {
   protectedProcedure,
 } from "~/server/api/trpc";
 
-export const eventRouter = createTRPCRouter({
-  getAll: publicProcedure
-    .input(z.object({ id: z.string() }))
-    .query(({ ctx, input }) => {
-      return ctx.prisma.event.findMany({
-        where: {
-          id: input.id,
-        },
-      });
-    }),
+export const locationRouter = createTRPCRouter({
+  getAll: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.location.findMany();
+  }),
 
   getOne: publicProcedure
     .input(
@@ -23,7 +17,7 @@ export const eventRouter = createTRPCRouter({
       })
     )
     .query(({ ctx, input }) => {
-      return ctx.prisma.event.findUnique({
+      return ctx.prisma.location.findUnique({
         where: {
           id: input.id,
         },
@@ -34,20 +28,24 @@ export const eventRouter = createTRPCRouter({
     .input(
       z.object({
         name: z.string(),
-        description: z.string(),
-        date: z.date(),
-        popupId: z.string(),
-        locationId: z.string(),
+        address: z.string(),
+        city: z.string(),
+        state: z.string(),
+        zip: z.string(),
+        country: z.string(),
+        mapsUrl: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.event.create({
+      return ctx.prisma.location.create({
         data: {
           name: input.name,
-          description: input.description,
-          date: input.date,
-          popupId: input.popupId,
-          locationId: input.locationId,
+          address: input.address,
+          city: input.city,
+          state: input.state,
+          zip: input.zip,
+          country: input.country,
+          mapsUrl: input.mapsUrl,
         },
       });
     }),
@@ -55,7 +53,7 @@ export const eventRouter = createTRPCRouter({
   delete: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.event.delete({
+      return ctx.prisma.location.delete({
         where: {
           id: input.id,
         },

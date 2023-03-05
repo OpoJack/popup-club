@@ -60,6 +60,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    Popup         Popup[]
 }
 
 model VerificationToken {
@@ -74,6 +75,8 @@ model Popup {
     id          String   @id @default(cuid())
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
+    userid      String
+    user        User     @relation(fields: [userid], references: [id])
     name        String
     description String
     basedIn     String
@@ -82,6 +85,8 @@ model Popup {
     orderType   String
     events      Event[]
     links       Link[]
+
+    @@index([userid])
 }
 
 model Link {
@@ -90,6 +95,8 @@ model Link {
     imageUrl String?
     website  String?
     popup    Popup   @relation(fields: [popupId], references: [id])
+
+    @@unique([website])
 }
 
 model Event {
@@ -118,12 +125,16 @@ model Location {
     country String
     mapsUrl String
     events  Event[]
+
+    @@unique([name, address, city])
 }
 
 model Tag {
     id     String  @id @default(cuid())
     name   String
     popups Popup[]
+
+    @@unique([name])
 }
 
 enum Role {

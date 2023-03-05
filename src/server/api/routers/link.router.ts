@@ -5,27 +5,17 @@ import {
   protectedProcedure,
 } from "~/server/api/trpc";
 
-export const eventRouter = createTRPCRouter({
+export const linkRouter = createTRPCRouter({
   getAll: publicProcedure
-    .input(z.object({ id: z.string() }))
-    .query(({ ctx, input }) => {
-      return ctx.prisma.event.findMany({
-        where: {
-          id: input.id,
-        },
-      });
-    }),
-
-  getOne: publicProcedure
     .input(
       z.object({
-        id: z.string(),
+        popupId: z.string(),
       })
     )
     .query(({ ctx, input }) => {
-      return ctx.prisma.event.findUnique({
+      return ctx.prisma.link.findMany({
         where: {
-          id: input.id,
+          popupId: input.popupId,
         },
       });
     }),
@@ -33,21 +23,17 @@ export const eventRouter = createTRPCRouter({
   create: protectedProcedure
     .input(
       z.object({
-        name: z.string(),
-        description: z.string(),
-        date: z.date(),
         popupId: z.string(),
-        locationId: z.string(),
+        imageUrl: z.string(),
+        website: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.event.create({
+      return ctx.prisma.link.create({
         data: {
-          name: input.name,
-          description: input.description,
-          date: input.date,
           popupId: input.popupId,
-          locationId: input.locationId,
+          imageUrl: input.imageUrl,
+          website: input.website,
         },
       });
     }),
@@ -55,7 +41,7 @@ export const eventRouter = createTRPCRouter({
   delete: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.event.delete({
+      return ctx.prisma.link.delete({
         where: {
           id: input.id,
         },

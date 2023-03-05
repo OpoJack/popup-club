@@ -10,38 +10,29 @@ export const popupRouter = createTRPCRouter({
     return ctx.prisma.popup.findMany();
   }),
 
-  getOne: publicProcedure
-    .input(
-      z.object({
-        id: z.string(),
-      })
-    )
-    .query(({ ctx, input }) => {
-      return ctx.prisma.popup.findUnique({
-        where: {
-          id: input.id,
-        },
-      });
-    }),
-
   create: protectedProcedure
     .input(
       z.object({
         name: z.string(),
-        description: z.string(),
-        basedIn: z.string(),
-        isHot: z.boolean(),
-        orderType: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.popup.create({
+      return ctx.prisma.tag.create({
         data: {
           name: input.name,
-          description: input.description,
-          basedIn: input.basedIn,
-          isHot: input.isHot,
-          orderType: input.orderType,
+        },
+      });
+    }),
+
+  update: protectedProcedure
+    .input(z.object({ id: z.string(), name: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.tag.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          name: input.name,
         },
       });
     }),
@@ -49,7 +40,7 @@ export const popupRouter = createTRPCRouter({
   delete: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.popup.delete({
+      return ctx.prisma.tag.delete({
         where: {
           id: input.id,
         },
