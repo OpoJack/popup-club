@@ -7,7 +7,13 @@ import {
 
 export const popupRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.popup.findMany();
+    return ctx.prisma.popup.findMany({
+      include: {
+        links: true,
+        events: true,
+        tags: true,
+      },
+    });
   }),
 
   getOne: publicProcedure

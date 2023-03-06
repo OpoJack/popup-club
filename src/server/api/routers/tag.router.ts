@@ -10,6 +10,24 @@ export const tagRouter = createTRPCRouter({
     return ctx.prisma.tag.findMany();
   }),
 
+  getAllByPopup: publicProcedure
+    .input(
+      z.object({
+        popupId: z.string(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.tag.findMany({
+        where: {
+          popups: {
+            some: {
+              id: input.popupId,
+            },
+          },
+        },
+      });
+    }),
+
   create: protectedProcedure
     .input(
       z.object({

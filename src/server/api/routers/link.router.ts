@@ -40,7 +40,6 @@ export const linkRouter = createTRPCRouter({
         name: z.string(),
         popupId: z.string(),
         imageUrl: z.string(),
-        website: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -49,7 +48,6 @@ export const linkRouter = createTRPCRouter({
           name: input.name,
           popupId: input.popupId,
           imageUrl: input.imageUrl,
-          website: input.website,
         },
       });
     }),

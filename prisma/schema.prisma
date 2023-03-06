@@ -81,13 +81,13 @@ model Popup {
 model Link {
     id       String  @id @default(cuid())
     name     String
-    popupId  String  @unique
+    url      String?
     imageUrl String?
-    website  String?
+    popupId  String  @unique
     popup    Popup   @relation(fields: [popupId], references: [id], onDelete: Cascade)
 
     @@unique([name])
-    @@unique([website])
+    @@unique([url])
 }
 
 model Event {

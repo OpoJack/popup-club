@@ -2,15 +2,15 @@ import Image from "next/image";
 import { useState } from "react";
 import { Popup } from "~/types/types";
 import { api } from "../utils/api";
+import SocialMedia from "./SocialMedia";
+import PopupTags from "./Tags";
 
 export default function AllPopups({ popup }: { popup: Popup }) {
   const [isShown, setIsShown] = useState(false);
   const handleClick = () => {
     setIsShown(!isShown);
   };
-
-  const { data: popupPic } = api.link.getOne.useQuery({ name: "Instagram" });
-
+  const popupPic = popup.links?.find((link) => link.name === "Instagram");
   return (
     <>
       {/* {isShown && (
@@ -26,7 +26,7 @@ export default function AllPopups({ popup }: { popup: Popup }) {
               <Image
                 key={popupPic?.id}
                 className="h-fit w-fit flex-shrink-0 rounded-full bg-gray-300"
-                src={"/blackmagic.jpg" ?? ""}
+                src={popupPic?.imageUrl ?? "/hotdog.jpg"}
                 alt=""
                 width={75}
                 height={75}
@@ -34,7 +34,9 @@ export default function AllPopups({ popup }: { popup: Popup }) {
             </div>
             <div className="flex w-fit shrink flex-col">
               <div className="flex h-5 flex-row space-x-2">
-                {/* <SocialMedia links={popup.links} showAll={false} /> */}
+                {popup.links?.map((link) => (
+                  <SocialMedia key={link.id} links={link} />
+                ))}
               </div>
               <div className="-mt-1 text-xl font-bold tracking-tight text-gray-900 antialiased">
                 {popup.name}
@@ -47,11 +49,11 @@ export default function AllPopups({ popup }: { popup: Popup }) {
               </div>
             </div>
           </div>
-          {/* <div className="flex flex-row space-x-1">
+          <div className="flex flex-row space-x-1">
             {popup.tags?.map((tag) => (
-              <PopupTags key={tag.tag.id} name={tag.tag?.name} />
+              <PopupTags key={tag.id} name={tag?.name} />
             ))}
-          </div> */}
+          </div>
         </div>
       </li>
     </>

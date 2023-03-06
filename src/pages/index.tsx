@@ -6,7 +6,6 @@ import Nav from "../components/Nav";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import AllPopups from "~/components/AllPopups";
-import { Popup } from "../types/types";
 
 const Home: NextPage = () => {
   return (
@@ -48,7 +47,7 @@ const PopupContent: React.FC = () => {
           className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {popups?.map((popup) => (
-            <AllPopups popup={popup} />
+            <AllPopups popup={popup} key={popup.id} />
           ))}
         </ul>
       </div>
