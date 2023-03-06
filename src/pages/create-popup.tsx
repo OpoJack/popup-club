@@ -5,20 +5,18 @@ import { api, type RouterOutputs } from "../utils/api";
 import Nav from "../components/Nav";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import AllPopups from "~/components/AllPopups";
-import { Popup } from "../types/types";
 
 const Home: NextPage = () => {
   const { data: sessionData } = useSession();
 
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string>("");
   const [basedIn, setBasedIn] = useState<string>("");
   const [isHot, setIsHot] = useState<boolean>(false);
   const [orderType, setOrderType] = useState<string>("");
 
   const [url, setUrl] = useState<string>("");
-
   const createPopup = api.popup.create.useMutation();
 
   return (
@@ -174,6 +172,7 @@ const Home: NextPage = () => {
                           createPopup.mutate({
                             name: name,
                             description: description,
+                            imageUrl: imageUrl,
                             basedIn: basedIn,
                             isHot: isHot,
                             orderType: orderType,

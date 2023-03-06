@@ -70,6 +70,7 @@ model Popup {
     updatedAt   DateTime @updatedAt
     name        String
     description String
+    imageUrl    String
     basedIn     String
     tags        Tag[]
     isHot       Boolean
@@ -79,12 +80,11 @@ model Popup {
 }
 
 model Link {
-    id       String  @id @default(cuid())
-    name     String
-    url      String?
-    imageUrl String?
-    popupId  String  @unique
-    popup    Popup   @relation(fields: [popupId], references: [id], onDelete: Cascade)
+    id      String @id @default(cuid())
+    name    String
+    url     String
+    popupId String @unique
+    popup   Popup  @relation(fields: [popupId], references: [id], onDelete: Cascade)
 
     @@unique([name])
     @@unique([url])

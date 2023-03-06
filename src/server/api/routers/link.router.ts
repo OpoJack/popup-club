@@ -38,16 +38,16 @@ export const linkRouter = createTRPCRouter({
     .input(
       z.object({
         name: z.string(),
+        url: z.string(),
         popupId: z.string(),
-        imageUrl: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.link.create({
         data: {
           name: input.name,
+          url: input.url,
           popupId: input.popupId,
-          imageUrl: input.imageUrl,
         },
       });
     }),

@@ -5,7 +5,7 @@ import { api } from "../utils/api";
 import SocialMedia from "./SocialMedia";
 import PopupTags from "./Tags";
 
-export default function AllPopups({ popup }: { popup: Popup }) {
+export default function Popup({ popup }: { popup: Popup }) {
   const [isShown, setIsShown] = useState(false);
   const handleClick = () => {
     setIsShown(!isShown);
@@ -26,7 +26,7 @@ export default function AllPopups({ popup }: { popup: Popup }) {
               <Image
                 key={popupPic?.id}
                 className="h-fit w-fit flex-shrink-0 rounded-full bg-gray-300"
-                src={popupPic?.imageUrl ?? "/hotdog.jpg"}
+                src={popup.imageUrl ?? "/hotdog.jpg"}
                 alt=""
                 width={75}
                 height={75}

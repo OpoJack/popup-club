@@ -35,6 +35,7 @@ export const popupRouter = createTRPCRouter({
       z.object({
         name: z.string(),
         description: z.string(),
+        imageUrl: z.string(),
         basedIn: z.string(),
         isHot: z.boolean(),
         orderType: z.string(),
@@ -45,6 +46,7 @@ export const popupRouter = createTRPCRouter({
         data: {
           name: input.name,
           description: input.description,
+          imageUrl: input.imageUrl,
           basedIn: input.basedIn,
           isHot: input.isHot,
           orderType: input.orderType,
