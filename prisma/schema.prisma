@@ -15,12 +15,6 @@ datasource db {
     relationMode = "prisma"
 }
 
-model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-}
-
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
@@ -60,7 +54,6 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    Popup         Popup[]
 }
 
 model VerificationToken {
@@ -75,8 +68,6 @@ model Popup {
     id          String   @id @default(cuid())
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
-    userid      String
-    user        User     @relation(fields: [userid], references: [id])
     name        String
     description String
     basedIn     String
@@ -85,17 +76,17 @@ model Popup {
     orderType   String
     events      Event[]
     links       Link[]
-
-    @@index([userid])
 }
 
 model Link {
     id       String  @id @default(cuid())
+    name     String
     popupId  String  @unique
     imageUrl String?
     website  String?
-    popup    Popup   @relation(fields: [popupId], references: [id])
+    popup    Popup   @relation(fields: [popupId], references: [id], onDelete: Cascade)
 
+    @@unique([name])
     @@unique([website])
 }
 
@@ -108,8 +99,8 @@ model Event {
     name        String?
     description String?
     date        DateTime
-    location    Location @relation(fields: [locationId], references: [id])
-    popup       Popup    @relation(fields: [popupId], references: [id])
+    location    Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+    popup       Popup    @relation(fields: [popupId], references: [id], onDelete: Cascade)
 
     @@index([locationId])
     @@index([popupId])

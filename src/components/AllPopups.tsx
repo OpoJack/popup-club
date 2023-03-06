@@ -1,12 +1,15 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Popup } from "~/types/types";
+import { api } from "../utils/api";
 
 export default function AllPopups({ popup }: { popup: Popup }) {
   const [isShown, setIsShown] = useState(false);
   const handleClick = () => {
     setIsShown(!isShown);
   };
+
+  const { data: popupPic } = api.link.getOne.useQuery({ name: "Instagram" });
 
   return (
     <>
@@ -20,14 +23,14 @@ export default function AllPopups({ popup }: { popup: Popup }) {
         <div className="p-4">
           <div className="flex flex-row space-x-2 object-cover">
             <div className="flex space-y-3">
-              {/* <Image
-                key={popup.links.id}
+              <Image
+                key={popupPic?.id}
                 className="h-fit w-fit flex-shrink-0 rounded-full bg-gray-300"
-                src={popup.links.imageUrl ?? "/hotdog.jpg"}
+                src={"/blackmagic.jpg" ?? ""}
                 alt=""
                 width={75}
                 height={75}
-              /> */}
+              />
             </div>
             <div className="flex w-fit shrink flex-col">
               <div className="flex h-5 flex-row space-x-2">

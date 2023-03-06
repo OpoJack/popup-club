@@ -46,8 +46,16 @@ export const eventRouter = createTRPCRouter({
           name: input.name,
           description: input.description,
           date: input.date,
-          popupId: input.popupId,
-          locationId: input.locationId,
+          popup: {
+            connect: {
+              id: input.popupId,
+            },
+          },
+          location: {
+            connect: {
+              id: input.locationId,
+            },
+          },
         },
       });
     }),

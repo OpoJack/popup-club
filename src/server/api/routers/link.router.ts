@@ -20,9 +20,24 @@ export const linkRouter = createTRPCRouter({
       });
     }),
 
+  getOne: publicProcedure
+    .input(
+      z.object({
+        name: z.string(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.link.findUnique({
+        where: {
+          name: input.name,
+        },
+      });
+    }),
+
   create: protectedProcedure
     .input(
       z.object({
+        name: z.string(),
         popupId: z.string(),
         imageUrl: z.string(),
         website: z.string(),
@@ -31,6 +46,7 @@ export const linkRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.link.create({
         data: {
+          name: input.name,
           popupId: input.popupId,
           imageUrl: input.imageUrl,
           website: input.website,

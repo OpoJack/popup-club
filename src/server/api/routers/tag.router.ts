@@ -5,21 +5,27 @@ import {
   protectedProcedure,
 } from "~/server/api/trpc";
 
-export const popupRouter = createTRPCRouter({
+export const tagRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.popup.findMany();
+    return ctx.prisma.tag.findMany();
   }),
 
   create: protectedProcedure
     .input(
       z.object({
         name: z.string(),
+        popupId: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.tag.create({
         data: {
           name: input.name,
+          popups: {
+            connect: {
+              id: input.popupId,
+            },
+          },
         },
       });
     }),
