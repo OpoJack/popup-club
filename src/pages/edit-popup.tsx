@@ -1,15 +1,11 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { api, type RouterOutputs } from "../utils/api";
+import { api } from "../utils/api";
 
 import Nav from "../components/Nav";
-import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { Input } from "postcss";
 
 const Home: NextPage = () => {
-  const { data: sessionData } = useSession();
-
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("/hotdog.jpg");

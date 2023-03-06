@@ -1,10 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { api, type RouterOutputs } from "../utils/api";
+import { api } from "../utils/api";
 
 import Nav from "../components/Nav";
-import { useSession } from "next-auth/react";
-import { useState } from "react";
 import Popups from "~/components/Popups";
 
 const Home: NextPage = () => {
@@ -29,10 +27,6 @@ const Home: NextPage = () => {
 export default Home;
 
 const PopupContent: React.FC = () => {
-  // const { data: sessionData } = useSession();
-
-  // const [selectedPopup, setSelectedPopup] = useState<Popup | null>(null);
-
   const { data: popups } = api.popup.getAll.useQuery();
   return (
     <>

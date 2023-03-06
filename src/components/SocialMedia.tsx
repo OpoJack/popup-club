@@ -1,6 +1,6 @@
 import { HeartIcon, ShareIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
-import { Link } from "~/types/types";
+import type { Link } from "~/types/types";
 
 export default function SocialMedia({ links }: { links: Link }) {
   return (

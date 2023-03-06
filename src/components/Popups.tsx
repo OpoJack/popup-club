@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
-import { Popup } from "~/types/types";
+import type { Popup } from "~/types/types";
 import SocialMedia from "./SocialMedia";
 import Tag from "~/components/Tag";
 

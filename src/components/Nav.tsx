@@ -35,7 +35,7 @@ const DiscordLogin = ({ sessionData }: { sessionData: Session | null }) => {
       <Link
         href=""
         className="block rounded-md py-2 px-4 font-mono text-sm text-indigo-300 hover:bg-indigo-500/80 hover:text-white"
-        onClick={sessionData ? () => signOut() : () => signIn()}
+        onClick={sessionData ? () => void signOut() : () => void signIn()}
       >
         {sessionData ? "Sign out" : "Sign in with Discord"}
       </Link>
