@@ -13,9 +13,9 @@ const Home: NextPage = () => {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("/hotdog.jpg");
-  const [basedIn, setBasedIn] = useState<string>("");
+  const [basedIn, setBasedIn] = useState<string>("Orlando, FL");
   const [isHot, setIsHot] = useState<boolean>(false);
-  const [orderType, setOrderType] = useState<string>("");
+  const [orderType, setOrderType] = useState<string>("First come, first serve");
 
   const [instagramUrl, setInstagramUrl] = useState<string>("");
   const [webUrl, setWebUrl] = useState<string>("");
