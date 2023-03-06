@@ -1,16 +1,14 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Popup } from "~/types/types";
-import { api } from "../utils/api";
 import SocialMedia from "./SocialMedia";
-import PopupTags from "./Tags";
+import Tag from "~/components/Tag";
 
-export default function Popup({ popup }: { popup: Popup }) {
+export default function Popups({ popup }: { popup: Popup }) {
   const [isShown, setIsShown] = useState(false);
   const handleClick = () => {
     setIsShown(!isShown);
   };
-  const popupPic = popup.links?.find((link) => link.name === "Instagram");
   return (
     <>
       {/* {isShown && (
@@ -24,7 +22,7 @@ export default function Popup({ popup }: { popup: Popup }) {
           <div className="flex flex-row space-x-2 object-cover">
             <div className="flex space-y-3">
               <Image
-                key={popupPic?.id}
+                key={popup.links?.find((link) => link.name === "Instagram")?.id}
                 className="h-fit w-fit flex-shrink-0 rounded-full bg-gray-300"
                 src={popup.imageUrl ?? "/hotdog.jpg"}
                 alt=""
@@ -51,7 +49,7 @@ export default function Popup({ popup }: { popup: Popup }) {
           </div>
           <div className="flex flex-row space-x-1">
             {popup.tags?.map((tag) => (
-              <PopupTags key={tag.id} name={tag?.name} />
+              <Tag key={tag.id} name={tag?.name} />
             ))}
           </div>
         </div>

@@ -1,4 +1,4 @@
-export default function PopupTags(
+export default function Tag(
   { name }: { name: string },
   { key }: { key: string }
 ) {
