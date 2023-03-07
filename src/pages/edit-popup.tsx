@@ -313,7 +313,7 @@ const Home: NextPage = () => {
                             </span>
                             <input
                               type="text"
-                              name="popup-tiktok"
+                              name="tiktok"
                               id="popup-tiktok"
                               className="block w-full flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               placeholder=""
@@ -335,7 +335,7 @@ const Home: NextPage = () => {
                             </span>
                             <input
                               type="text"
-                              name="popup-facebook"
+                              name="facebook"
                               id="popup-facebook"
                               className="block w-full flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               placeholder=""
@@ -359,8 +359,8 @@ const Home: NextPage = () => {
                             </span>
                             <input
                               type="text"
-                              name="company-website"
-                              id="company-website"
+                              name="popup-website"
+                              id="popup-website"
                               className="block w-full flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               placeholder="www.example.com"
                               onChange={(e) => setWebsiteUrl(trimUrl(e.target))}
