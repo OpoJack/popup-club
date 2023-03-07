@@ -52,6 +52,24 @@ export const linkRouter = createTRPCRouter({
       });
     }),
 
+  createMany: protectedProcedure
+    .input(
+      z.object({
+        links: z.array(
+          z.object({
+            name: z.string(),
+            url: z.string(),
+            popupId: z.string(),
+          })
+        ),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.link.createMany({
+        data: input.links,
+      });
+    }),
+
   delete: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
