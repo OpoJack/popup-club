@@ -66,8 +66,6 @@ model VerificationToken {
 
 model Popup {
     id          String   @id @default(cuid())
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
     name        String
     description String
     imageUrl    String
@@ -77,6 +75,8 @@ model Popup {
     orderType   String
     events      Event[]
     links       Link[]
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 }
 
 model Link {
@@ -94,13 +94,13 @@ model Event {
     id          String   @id @default(cuid())
     popupId     String
     locationId  String
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
     name        String?
     description String?
     date        DateTime
     location    Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
     popup       Popup    @relation(fields: [popupId], references: [id], onDelete: Cascade)
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 
     @@index([locationId])
     @@index([popupId])
