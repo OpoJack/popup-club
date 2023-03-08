@@ -6,6 +6,7 @@ import Nav from "../components/Nav";
 import Popups from "~/components/Popups";
 import Gradient from "~/components/Gradient";
 import Footer from "~/components/Footer";
+import { Container } from "~/components/Container";
 
 const Home: NextPage = () => {
   return (
@@ -20,9 +21,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className="isolate bg-gray-900">
+        <Container>
           <PopupContent />
-        </div>
+        </Container>
       </main>
     </>
   );
@@ -34,8 +35,6 @@ const PopupContent: React.FC = () => {
   const { data: popups } = api.popup.getAll.useQuery();
   return (
     <>
-      <Nav />
-      <Gradient />
       <div className="relative sm:py-10 lg:pb-40">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="pb-20 pt-10">
@@ -54,7 +53,6 @@ const PopupContent: React.FC = () => {
           </ul>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

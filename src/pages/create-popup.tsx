@@ -1,14 +1,7 @@
 import { useState } from "react";
-import { Dialog } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { NextPage } from "next";
 import { api } from "~/utils/api";
-import Head from "next/head";
-import Footer from "~/components/Footer";
-import Gradient from "~/components/Gradient";
-import Link from "next/link";
-import Image from "next/image";
-import Nav from "~/components/Nav";
+import { Container } from "~/components/Container";
 
 const navigation = [
   { name: "Dashboard", href: "#" },
@@ -43,19 +36,7 @@ const CreatePopup: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Popup Club</title>
-        <meta
-          name="description"
-          content="Popup club - The latest and greatest"
-        />
-
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <div className="isolate bg-gray-900">
-        {/* Gradient stuff */}
-        <Gradient />
-        <Nav />
+      <Container>
         {/* Main Content */}
         <main>
           <div className="relative py-24 sm:py-32 lg:pb-40">
@@ -205,8 +186,7 @@ const CreatePopup: NextPage = () => {
             </div>
           </div>
         </main>
-        <Footer />
-      </div>
+      </Container>
     </>
   );
 };
