@@ -1,19 +1,11 @@
-import { Fragment, useState } from "react";
-import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import { forwardRef, Fragment, useState } from "react";
+import { Dialog, Menu, Transition } from "@headlessui/react";
 import { BellIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { api } from "../utils/api";
 import { Session } from "next-auth";
-import Image from "next/image";
 
-const user = {
-  name: "Tim Crook",
-  email: "Your popup!",
-  imageUrl: "hotdog.jpg",
-};
 const navigation = [
   { name: "Dashboard", href: "/", current: true },
   { name: "Vendors", href: "/popups", current: false },
@@ -31,15 +23,14 @@ function classNames(...classes: string[]) {
 
 const DiscordLogin = ({ sessionData }: { sessionData: Session | null }) => {
   return (
-    <div>
-      <Link
-        href=""
-        className="block rounded-md py-2 px-4 font-mono text-sm text-indigo-300 hover:bg-indigo-500/80 hover:text-white"
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
-      >
-        {sessionData ? "Sign out" : "Sign in with Discord"}
-      </Link>
-    </div>
+    <Link
+      href=""
+      className="text-sm font-semibold leading-6 text-white"
+      onClick={sessionData ? () => void signOut() : () => void signIn()}
+    >
+      {sessionData ? "Sign out" : "Sign in with Discord"}{" "}
+      <span aria-hidden="true">&rarr;</span>
+    </Link>
   );
 };
 
@@ -51,14 +42,14 @@ export default function Nav() {
     <div className=" mx-auto max-w-6xl px-6 pt-6 lg:px-8">
       <nav className="flex items-center justify-between " aria-label="Global">
         <div className="flex lg:flex-1">
-          <a href="/" className="-m-1.5 p-1.5">
+          <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Popup Club Logo.</span>
             <img
               className="h-8"
               src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
               alt=""
             />
-          </a>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -82,9 +73,9 @@ export default function Nav() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-white">
-            Log in <span aria-hidden="true">&rarr;</span>
-          </a>
+          {/* Log in/out */}
+          {!sessionData && <DiscordLogin sessionData={sessionData} />}
+          {sessionData && <UserProfile sessionData={sessionData} />}
         </div>
       </nav>
       <Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -135,3 +126,74 @@ export default function Nav() {
     </div>
   );
 }
+
+const UserProfile = ({ sessionData }: { sessionData: Session | null }) => {
+  return (
+    <Menu as="div" className="relative ml-3">
+      <div>
+        <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+          <span className="sr-only">Open user menu</span>
+          <img
+            className="h-8 w-8 rounded-full"
+            src={sessionData?.user?.image ?? ""}
+            alt=""
+          />
+        </Menu.Button>
+      </div>
+      <Transition
+        as={Fragment}
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95"
+      >
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Item>
+            {({ active }) => (
+              <a
+                href="#"
+                className={classNames(
+                  active ? "bg-gray-100" : "",
+                  "block px-4 py-2 text-sm text-gray-700"
+                )}
+              >
+                Your Profile
+              </a>
+            )}
+          </Menu.Item>
+          <Menu.Item>
+            {({ active }) => (
+              <a
+                href="#"
+                className={classNames(
+                  active ? "bg-gray-100" : "",
+                  "block px-4 py-2 text-sm text-gray-700"
+                )}
+              >
+                Settings
+              </a>
+            )}
+          </Menu.Item>
+          <Menu.Item>
+            {({ active }) => (
+              <a
+                href="#"
+                className={classNames(
+                  active ? "bg-gray-100" : "",
+                  "block px-4 py-2 text-sm text-gray-700"
+                )}
+                onClick={
+                  sessionData ? () => void signOut() : () => void signIn()
+                }
+              >
+                {sessionData ? "Sign out" : "Sign in with Discord"}{" "}
+              </a>
+            )}
+          </Menu.Item>
+        </Menu.Items>
+      </Transition>
+    </Menu>
+  );
+};
