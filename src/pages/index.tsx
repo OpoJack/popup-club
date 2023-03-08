@@ -4,6 +4,8 @@ import { api } from "../utils/api";
 
 import Nav from "../components/Nav";
 import Popups from "~/components/Popups";
+import Gradient from "~/components/Gradient";
+import Footer from "~/components/Footer";
 
 const Home: NextPage = () => {
   return (
@@ -18,7 +20,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <PopupContent />
+        <div className="isolate bg-gray-900">
+          <PopupContent />
+        </div>
       </main>
     </>
   );
@@ -31,20 +35,26 @@ const PopupContent: React.FC = () => {
   return (
     <>
       <Nav />
-      <div
-        className="
-      mx-auto max-w-7xl pb-32 sm:px-6 lg:px-8"
-      >
-        <div className="pt-6">All popups:</div>
-        <ul
-          role="list"
-          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {popups?.map((popup) => (
-            <Popups popup={popup} key={popup.id} />
-          ))}
-        </ul>
+      <Gradient />
+      <div className="relative sm:py-10 lg:pb-40">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="py-20">
+            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+              <span className="block">The latest and greatest</span>
+              <span className="block text-indigo-400">Popups</span>
+            </h1>
+          </div>
+          <ul
+            role="list"
+            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          >
+            {popups?.map((popup) => (
+              <Popups popup={popup} key={popup.id} />
+            ))}
+          </ul>
+        </div>
       </div>
+      <Footer />
     </>
   );
 };

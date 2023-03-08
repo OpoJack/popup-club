@@ -4,9 +4,8 @@ import { api } from "../utils/api";
 
 import Nav from "../components/Nav";
 import { useState } from "react";
-import { randomUUID } from "crypto";
 
-const Home: NextPage = () => {
+const EditPopup: NextPage = () => {
   //Popup data
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -21,9 +20,17 @@ const Home: NextPage = () => {
   const [tiktokUrl, setTiktokUrl] = useState<string>("");
 
   const createPopup = api.popup.create.useMutation();
-  const createLinks = api.link.createMany.useMutation();
+  const createLinks = api.link.createMany.useMutation({
+    onSuccess: () => {
+      console.log("success");
+    },
 
-  const handleSubmit = () => {
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const handleSubmitPopup = () => {
     const popupData = {
       name,
       description,
@@ -32,34 +39,35 @@ const Home: NextPage = () => {
       isHot,
       orderType,
     };
-
-    //TODO: Need a way to access the popup ID after it's created
-    // const linkData = {
-    //   links: [
-    //     {
-    //       name: "website",
-    //       url: websiteUrl,
-    //       popupId: TODO,
-    //     },
-    //     {
-    //       name: "instagram",
-    //       url: instagramUrl,
-    //       popupId: TODO,
-    //     },
-    //     {
-    //       name: "facebook",
-    //       url: facebookUrl,
-    //       popupId: TODO,
-    //     },
-    //     {
-    //       name: "tiktok",
-    //       url: tiktokUrl,
-    //       popupId: TODO,
-    //     },
-    //   ],
-    // };
     createPopup.mutate(popupData);
-    // createLinks.mutate(linkData);
+  };
+  const handleSubmitLinks = () => {
+    // TODO: Need a way to access the popup ID after it's created
+    const linkData = {
+      links: [
+        {
+          name: "website",
+          url: websiteUrl,
+          popupId: "123",
+        },
+        {
+          name: "instagram",
+          url: instagramUrl,
+          popupId: "123",
+        },
+        {
+          name: "facebook",
+          url: facebookUrl,
+          popupId: "123",
+        },
+        {
+          name: "tiktok",
+          url: tiktokUrl,
+          popupId: "123",
+        },
+      ],
+    };
+    createLinks.mutate(linkData);
   };
 
   const trimUrl = (target: HTMLInputElement) => {
@@ -241,7 +249,7 @@ const Home: NextPage = () => {
                       <button
                         type="submit"
                         className="inline-flex justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                        onClick={() => handleSubmit()}
+                        onClick={() => handleSubmitPopup()}
                       >
                         Save
                       </button>
@@ -288,7 +296,7 @@ const Home: NextPage = () => {
                               instagram.com/
                             </span>
                             <input
-                              type="text"
+                              type="url"
                               name="instagram"
                               id="instagram"
                               className="block w-full flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -312,7 +320,7 @@ const Home: NextPage = () => {
                               tiktok.com/@
                             </span>
                             <input
-                              type="text"
+                              type="url"
                               name="tiktok"
                               id="popup-tiktok"
                               className="block w-full flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -334,7 +342,7 @@ const Home: NextPage = () => {
                               facebook.com/
                             </span>
                             <input
-                              type="text"
+                              type="url"
                               name="facebook"
                               id="popup-facebook"
                               className="block w-full flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -358,7 +366,7 @@ const Home: NextPage = () => {
                               https://
                             </span>
                             <input
-                              type="text"
+                              type="url"
                               name="popup-website"
                               id="popup-website"
                               className="block w-full flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -373,6 +381,9 @@ const Home: NextPage = () => {
                       <button
                         type="submit"
                         className="inline-flex justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                        onClick={() => {
+                          handleSubmitLinks;
+                        }}
                       >
                         Save
                       </button>
@@ -388,4 +399,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default EditPopup;
