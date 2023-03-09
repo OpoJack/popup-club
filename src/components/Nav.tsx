@@ -10,18 +10,14 @@ const navigation = [
   { name: "Dashboard", href: "/", current: true },
   { name: "Vendors", href: "/popups", current: false },
   { name: "Events", href: "/events", current: false },
-  { name: "Calendar", href: "#", current: false },
-];
-const userNavigation = [
-  { name: "Vendor Profile", href: "#" },
-  { name: "Settings", href: "#" },
+  { name: "Calendar", href: "/", current: false },
 ];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const DiscordLogin = ({ sessionData }: { sessionData: Session }) => {
+const DiscordLogin = ({ sessionData }: { sessionData: Session | null }) => {
   return (
     <Link
       href=""
@@ -37,20 +33,6 @@ const DiscordLogin = ({ sessionData }: { sessionData: Session }) => {
 export default function Nav() {
   const { data: sessionData } = useSession();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  if (!sessionData) {
-    return (
-      <div className=" mx-auto max-w-6xl px-6 pt-6 lg:px-8">
-        <nav className="flex items-center justify-between " aria-label="Global">
-          <div className="flex lg:flex-1">
-            <Link href="/" className="-m-1.5 p-1.5">
-              <span className="sr-only">Loading...</span>
-            </Link>
-          </div>
-        </nav>
-      </div>
-    );
-  }
 
   return (
     <div className=" mx-auto max-w-6xl px-6 pt-6 lg:px-8">
@@ -88,8 +70,8 @@ export default function Nav() {
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           {/* Log in/out */}
-          {!sessionData && <DiscordLogin sessionData={sessionData} />}
           {sessionData && <UserProfile sessionData={sessionData} />}
+          {!sessionData && <DiscordLogin sessionData={sessionData} />}
         </div>
       </nav>
       <Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -167,7 +149,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
           <Menu.Item>
             {({ active }) => (
               <Link
-                href={`/user/${sessionData.user?.id}`}
+                href={`/user/${sessionData.user.id}`}
                 className={classNames(
                   active ? "bg-gray-100" : "",
                   "block px-4 py-2 text-sm text-gray-700"
@@ -187,6 +169,19 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
                 )}
               >
                 Popup Settings
+              </a>
+            )}
+          </Menu.Item>
+          <Menu.Item>
+            {({ active }) => (
+              <a
+                href={`/user/${sessionData.user.id}/create-popup`}
+                className={classNames(
+                  active ? "bg-gray-100" : "",
+                  "block px-4 py-2 text-sm text-gray-700"
+                )}
+              >
+                Create Popup
               </a>
             )}
           </Menu.Item>

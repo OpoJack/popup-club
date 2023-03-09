@@ -3,6 +3,7 @@ import { NextPage } from "next";
 import { api } from "~/utils/api";
 import { Container } from "~/components/Container";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const navigation = [
   { name: "Dashboard", href: "#" },
@@ -12,6 +13,11 @@ const navigation = [
 ];
 
 const CreatePopup: NextPage = () => {
+  const router = useRouter();
+  const createPopup = api.popup.create.useMutation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { data: session } = useSession();
+
   //Popup data
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -20,15 +26,11 @@ const CreatePopup: NextPage = () => {
   const [isHot, setIsHot] = useState<boolean>(false);
   const [orderType, setOrderType] = useState<string>("First come, first serve");
 
-  const createPopup = api.popup.create.useMutation();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { data: session } = useSession();
-
   const handleSubmitPopup = () => {
     if (!session) {
       return;
     }
-    const user = session.user;
+    const userId = session.user.id;
 
     const popupData = {
       name,
@@ -37,17 +39,32 @@ const CreatePopup: NextPage = () => {
       basedIn,
       isHot,
       orderType,
-      user,
+      userId,
     };
     createPopup.mutate(popupData);
   };
 
+  //Checks if the user already has a popup and redirects them to their edit popup page if they do.
+  if (session?.user.popupId) {
+    router.push(`/user/${session.user.id}/edit-popup`);
+  }
+
   if (!session) {
     // Handle unauthenticated state, e.g. render a SignIn component
     return (
-      <div>
+      <Container>
         <h1>Please sign in</h1>
-      </div>
+      </Container>
+    );
+  }
+
+  console.table(session.user);
+
+  if (session.user.role === "USER") {
+    return (
+      <Container>
+        <h1>Please contact us to get started as a popup vendor.</h1>
+      </Container>
     );
   }
 

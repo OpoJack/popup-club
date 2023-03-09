@@ -4,8 +4,6 @@ import { useRouter } from "next/router";
 
 const User = () => {
   const { data: session } = useSession();
-  const router = useRouter();
-  const { idss } = router.query;
 
   if (!session) {
     // Handle unauthenticated state, e.g. render a SignIn component

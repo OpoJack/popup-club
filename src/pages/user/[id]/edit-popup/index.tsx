@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
-import { api } from "../utils/api";
+import { api } from "../../../../utils/api";
 
-import Nav from "../components/Nav";
+import Nav from "../../../../components/Nav";
 import { useState } from "react";
 import { Container } from "~/components/Container";
 
@@ -106,7 +106,7 @@ const EditPopup: NextPage = () => {
           >
             <div className="hidden sm:block" aria-hidden="true">
               <div className="py-5">
-                <div className="border-t border-gray-200" />
+                <div className="border-t border-gray-700" />
               </div>
             </div>
 
@@ -115,10 +115,10 @@ const EditPopup: NextPage = () => {
               <div className="md:grid md:grid-cols-3 md:gap-6">
                 <div className="md:col-span-1">
                   <div className="px-4 sm:px-0">
-                    <h3 className="text-base font-semibold leading-6 text-gray-900">
+                    <h3 className="text-base font-semibold leading-6 text-gray-100">
                       Popup deets
                     </h3>
-                    <p className="mt-1 text-sm text-gray-600">
+                    <p className="mt-1 text-sm text-gray-300">
                       Tell us about your popup!
                     </p>
                   </div>
@@ -255,7 +255,7 @@ const EditPopup: NextPage = () => {
             {/* Divider */}
             <div className="hidden sm:block" aria-hidden="true">
               <div className="py-5">
-                <div className="border-t border-gray-200" />
+                <div className="border-t border-gray-700" />
               </div>
             </div>
             {/* Social Media */}
@@ -263,10 +263,10 @@ const EditPopup: NextPage = () => {
               <div className="md:grid md:grid-cols-3 md:gap-6">
                 <div className="md:col-span-1">
                   <div className="px-4 sm:px-0">
-                    <h3 className="text-base font-semibold leading-6 text-gray-900">
+                    <h3 className="text-base font-semibold leading-6 text-gray-100">
                       Social Media
                     </h3>
-                    <p className="mt-1 text-sm text-gray-600">
+                    <p className="mt-1 text-sm text-gray-300">
                       Where can your customers find out more?
                     </p>
                   </div>
