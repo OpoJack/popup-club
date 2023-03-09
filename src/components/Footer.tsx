@@ -48,16 +48,39 @@ const navigation = {
   ],
 };
 
+function Footer2() {
+  return (
+    //Pins footer to bottom of page
+    <div className="flex min-h-screen flex-col">
+      <div className="flex-grow">
+        <div className="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:px-8">
+          <div className="mt-8 flex justify-center space-x-6">
+            {navigation.social.map((item) => (
+              <a key={item.name}>
+                <span className="sr-only">{item.name}</span>
+                <item.icon className="h-6 w-6 text-gray-400 hover:text-gray-500" />
+              </a>
+            ))}
+          </div>
+          <p className="mt-8 text-center text-base text-gray-400">
+            &copy; 2021 Popup Club, LLC. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Footer() {
   return (
-    <footer className="">
+    <footer className="fixed inset-x-0 bottom-0">
       <div className="mx-auto max-w-xl overflow-hidden py-20 px-6 sm:py-10 lg:px-8">
         <nav
-          className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
+          className="sm:rows-1 row-span-3 -mb-6 text-center sm:flex sm:justify-center sm:space-x-12"
           aria-label="Footer"
         >
           {navigation.main.map((item) => (
-            <div key={item.name} className="pb-6">
+            <div key={item.name} className="pb-4 sm:pb-6">
               <a
                 href={item.href}
                 className="text-sm leading-6 text-gray-300 hover:text-gray-400"

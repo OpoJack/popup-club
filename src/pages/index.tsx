@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import Head from "next/head";
 import { api } from "../utils/api";
 
 import Nav from "../components/Nav";
@@ -11,15 +10,6 @@ import { Container } from "~/components/Container";
 const Home: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>Popup Club</title>
-        <meta
-          name="description"
-          content="Popup club - The latest and greatest"
-        />
-
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <main>
         <Container>
           <PopupContent />

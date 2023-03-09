@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import Head from "next/head";
 import { api } from "../utils/api";
 
 import Nav from "../components/Nav";
@@ -40,7 +39,7 @@ const EditPopup: NextPage = () => {
       isHot,
       orderType,
     };
-    createPopup.mutate(popupData);
+    // createPopup.mutate(popupData);
   };
   const handleSubmitLinks = () => {
     // TODO: Need a way to access the popup ID after it's created

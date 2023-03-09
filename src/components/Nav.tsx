@@ -21,7 +21,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const DiscordLogin = ({ sessionData }: { sessionData: Session | null }) => {
+const DiscordLogin = ({ sessionData }: { sessionData: Session }) => {
   return (
     <Link
       href=""
@@ -37,6 +37,20 @@ const DiscordLogin = ({ sessionData }: { sessionData: Session | null }) => {
 export default function Nav() {
   const { data: sessionData } = useSession();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  if (!sessionData) {
+    return (
+      <div className=" mx-auto max-w-6xl px-6 pt-6 lg:px-8">
+        <nav className="flex items-center justify-between " aria-label="Global">
+          <div className="flex lg:flex-1">
+            <Link href="/" className="-m-1.5 p-1.5">
+              <span className="sr-only">Loading...</span>
+            </Link>
+          </div>
+        </nav>
+      </div>
+    );
+  }
 
   return (
     <div className=" mx-auto max-w-6xl px-6 pt-6 lg:px-8">
@@ -127,7 +141,7 @@ export default function Nav() {
   );
 }
 
-const UserProfile = ({ sessionData }: { sessionData: Session | null }) => {
+const UserProfile = ({ sessionData }: { sessionData: Session }) => {
   return (
     <Menu as="div" className="relative ml-3">
       <div>
@@ -135,7 +149,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session | null }) => {
           <span className="sr-only">Open user menu</span>
           <img
             className="h-8 w-8 rounded-full"
-            src={sessionData?.user?.image ?? ""}
+            src={sessionData.user.image ?? ""}
             alt=""
           />
         </Menu.Button>
@@ -153,10 +167,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session | null }) => {
           <Menu.Item>
             {({ active }) => (
               <Link
-                href={{
-                  pathname: "/user/[id]",
-                  query: { id: "id" },
-                }}
+                href={`/user/${sessionData.user?.id}`}
                 className={classNames(
                   active ? "bg-gray-100" : "",
                   "block px-4 py-2 text-sm text-gray-700"

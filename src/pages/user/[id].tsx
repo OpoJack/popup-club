@@ -1,7 +1,11 @@
 import { useSession } from "next-auth/react";
+import { Container } from "~/components/Container";
+import { useRouter } from "next/router";
 
 const User = () => {
   const { data: session } = useSession();
+  const router = useRouter();
+  const { idss } = router.query;
 
   if (!session) {
     // Handle unauthenticated state, e.g. render a SignIn component
@@ -13,7 +17,9 @@ const User = () => {
   }
 
   return (
-    <p>Welcome {session ? session.user?.name : "Could not find session"}!</p>
+    <Container>
+      <div>hi</div>
+    </Container>
   );
 };
 

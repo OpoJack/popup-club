@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NextPage } from "next";
 import { api } from "~/utils/api";
 import { Container } from "~/components/Container";
+import { useSession } from "next-auth/react";
 
 const navigation = [
   { name: "Dashboard", href: "#" },
@@ -21,8 +22,14 @@ const CreatePopup: NextPage = () => {
 
   const createPopup = api.popup.create.useMutation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { data: session } = useSession();
 
   const handleSubmitPopup = () => {
+    if (!session) {
+      return;
+    }
+    const user = session.user;
+
     const popupData = {
       name,
       description,
@@ -30,9 +37,19 @@ const CreatePopup: NextPage = () => {
       basedIn,
       isHot,
       orderType,
+      user,
     };
     createPopup.mutate(popupData);
   };
+
+  if (!session) {
+    // Handle unauthenticated state, e.g. render a SignIn component
+    return (
+      <div>
+        <h1>Please sign in</h1>
+      </div>
+    );
+  }
 
   return (
     <>
