@@ -73,8 +73,8 @@ function Footer2() {
 
 export default function Footer() {
   return (
-    <footer className="fixed inset-x-0 bottom-0">
-      <div className="mx-auto max-w-xl overflow-hidden py-20 px-6 sm:py-10 lg:px-8">
+    <footer className="">
+      <div className="mx-auto max-w-7xl overflow-hidden py-20 px-6 sm:py-24 lg:px-8">
         <nav
           className="sm:rows-1 row-span-3 -mb-6 text-center sm:flex sm:justify-center sm:space-x-12"
           aria-label="Footer"

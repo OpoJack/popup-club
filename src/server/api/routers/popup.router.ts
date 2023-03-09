@@ -39,9 +39,7 @@ export const popupRouter = createTRPCRouter({
         basedIn: z.string(),
         isHot: z.boolean(),
         orderType: z.string(),
-        user: z.object({
-          id: z.string(),
-        }),
+        userId: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -55,7 +53,7 @@ export const popupRouter = createTRPCRouter({
           orderType: input.orderType,
           user: {
             connect: {
-              id: input.user.id,
+              id: input.userId,
             },
           },
         },
