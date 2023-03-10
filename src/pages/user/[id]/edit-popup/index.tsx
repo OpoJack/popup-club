@@ -1,9 +1,8 @@
 import type { NextPage } from "next";
-import { api } from "../../../../utils/api";
 
-import Nav from "../../../../components/Nav";
 import { useState } from "react";
 import { Container } from "~/components/Container";
+import { api } from "~/utils/api";
 
 const EditPopup: NextPage = () => {
   //Popup data
@@ -19,7 +18,6 @@ const EditPopup: NextPage = () => {
   const [facebookUrl, setFacebookUrl] = useState<string>("");
   const [tiktokUrl, setTiktokUrl] = useState<string>("");
 
-  const createPopup = api.popup.create.useMutation();
   const createLinks = api.link.createMany.useMutation({
     onSuccess: () => {
       console.log("success");
@@ -30,7 +28,7 @@ const EditPopup: NextPage = () => {
     },
   });
 
-  const handleSubmitPopup = () => {
+  const handleEditPopup = () => {
     const popupData = {
       name,
       description,
@@ -42,7 +40,6 @@ const EditPopup: NextPage = () => {
     // createPopup.mutate(popupData);
   };
   const handleSubmitLinks = () => {
-    // TODO: Need a way to access the popup ID after it's created
     const linkData = {
       links: [
         {
@@ -242,7 +239,7 @@ const EditPopup: NextPage = () => {
                         <button
                           type="submit"
                           className="inline-flex justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                          onClick={() => handleSubmitPopup()}
+                          onClick={() => handleEditPopup()}
                         >
                           Save
                         </button>
