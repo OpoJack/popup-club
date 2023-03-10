@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SVGProps } from "react";
 
 const navigation = {
@@ -48,29 +49,6 @@ const navigation = {
   ],
 };
 
-function Footer2() {
-  return (
-    //Pins footer to bottom of page
-    <div className="flex min-h-screen flex-col">
-      <div className="flex-grow">
-        <div className="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:px-8">
-          <div className="mt-8 flex justify-center space-x-6">
-            {navigation.social.map((item) => (
-              <a key={item.name}>
-                <span className="sr-only">{item.name}</span>
-                <item.icon className="h-6 w-6 text-gray-400 hover:text-gray-500" />
-              </a>
-            ))}
-          </div>
-          <p className="mt-8 text-center text-base text-gray-400">
-            &copy; 2021 Popup Club, LLC. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function Footer() {
   return (
     <footer className="">
@@ -81,25 +59,25 @@ export default function Footer() {
         >
           {navigation.main.map((item) => (
             <div key={item.name} className="pb-4 sm:pb-6">
-              <a
+              <Link
                 href={item.href}
                 className="text-sm leading-6 text-gray-300 hover:text-gray-400"
               >
                 {item.name}
-              </a>
+              </Link>
             </div>
           ))}
         </nav>
         <div className="mt-10 flex justify-center space-x-10">
           {navigation.social.map((item) => (
-            <a
+            <Link
               key={item.name}
               href={item.href}
               className="text-gray-200 hover:text-gray-400"
             >
               <span className="sr-only">{item.name}</span>
               <item.icon className="h-6 w-6" aria-hidden="true" />
-            </a>
+            </Link>
           ))}
         </div>
         <p className="mt-10 text-center text-xs leading-5 text-gray-500">
