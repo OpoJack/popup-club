@@ -83,9 +83,9 @@ const CreatePopup: NextPage = () => {
                   Welcome to Popup Club!
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-300">
-                  We&apos;re happy to have you. This is a community of people
-                  who love food and cooking. Thank you for sharing your passion
-                  with us.
+                  We&apos;re building a community of people who love food and
+                  cooking. You bring the food, we let the people know. Thank you
+                  for sharing your passion with us.
                 </p>
                 <p className="mt-6 text-xl font-semibold leading-8 text-gray-100">
                   When&apos;s the next popup?

@@ -56,7 +56,7 @@ model User {
     sessions      Session[]
     // popup         Popup?
     popupId       String?
-    popup         Popup?    @relation(fields: [popupId], references: [id], onDelete: Cascade)
+    popup         Popup?    @relation(fields: [popupId], references: [id])
 
     @@unique([popupId])
 }
