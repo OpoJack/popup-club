@@ -4,6 +4,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { Session } from "next-auth";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { NextRouter, useRouter } from "next/router";
 
 const navigation = [
   { name: "Dashboard", href: "/", current: true },
@@ -12,30 +13,12 @@ const navigation = [
   { name: "Calendar", href: "/", current: false },
 ];
 
-const userNavigation = [
-  { name: "Your Profile", href: "/user/${sessionData.user.id}" },
-  { name: "Popup Settings", href: "/user/${session.user.id}/edit-popup" },
-  { name: "Create Popup", href: "/user/${sessionData.user.id}/create-popup" },
-];
-
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const DiscordLogin = ({ sessionData }: { sessionData: Session | null }) => {
-  return (
-    <Link
-      href=""
-      className="text-sm font-semibold leading-6 text-white"
-      onClick={sessionData ? () => void signOut() : () => void signIn()}
-    >
-      {sessionData ? "Sign out" : "Sign in with Discord"}{" "}
-      <span aria-hidden="true">&rarr;</span>
-    </Link>
-  );
-};
-
 export default function Nav() {
+  const router = useRouter();
   const { data: sessionData } = useSession();
   return (
     <Disclosure as="nav">
@@ -86,7 +69,7 @@ export default function Nav() {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
                 {sessionData && <UserProfile sessionData={sessionData} />}
-                {!sessionData && <DiscordLogin sessionData={sessionData} />}
+                {!sessionData && <Login router={router} />}
               </div>
             </div>
           </div>
@@ -111,6 +94,19 @@ export default function Nav() {
     </Disclosure>
   );
 }
+
+const Login = ({ router }: { router: NextRouter }) => {
+  return (
+    <Link
+      href=""
+      className="text-sm font-semibold leading-6 text-white"
+      onClick={() => router.push("/login")}
+    >
+      Sign in
+      <span aria-hidden="true"> &rarr;</span>
+    </Link>
+  );
+};
 
 const UserProfile = ({ sessionData }: { sessionData: Session }) => {
   return (
@@ -169,8 +165,8 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
                 <Link
                   href={`/user/${sessionData.user.id}/create-popup`}
                   className={classNames(
-                    active ? "bg-gray-100" : "",
-                    "block px-4 py-2 text-sm text-gray-700"
+                    active ? "bg-gray-300" : "",
+                    "block px-4 py-2 text-sm font-semibold text-gray-700"
                   )}
                 >
                   Create Popup
@@ -190,7 +186,8 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
                   sessionData ? () => void signOut() : () => void signIn()
                 }
               >
-                {sessionData ? "Sign out" : "Sign in with Discord"}{" "}
+                {sessionData ? "Sign out" : "Sign in with Discord"}
+                <span aria-hidden="true"> &rarr;</span>
               </Link>
             )}
           </Menu.Item>

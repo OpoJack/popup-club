@@ -1,10 +1,7 @@
 import type { NextPage } from "next";
 import { api } from "../utils/api";
 
-import Nav from "../components/Nav";
 import Popups from "~/components/Popups";
-import Gradient from "~/components/Gradient";
-import Footer from "~/components/Footer";
 import { Container } from "~/components/Container";
 
 const Home: NextPage = () => {
