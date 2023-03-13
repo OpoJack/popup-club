@@ -1,4 +1,7 @@
 import type { NextPage } from "next";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
 import { useState } from "react";
 import { Container } from "~/components/Container";
@@ -6,65 +9,61 @@ import { api } from "~/utils/api";
 
 const EditPopup: NextPage = () => {
   //Popup data
-  const [name, setName] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [imageUrl, setImageUrl] = useState<string>("/hotdog.jpg");
-  const [basedIn, setBasedIn] = useState<string>("Orlando, FL");
-  const [isHot, setIsHot] = useState<boolean>(false);
-  const [orderType, setOrderType] = useState<string>("First come, first serve");
+  const { data: session } = useSession();
+  const mutatePopup = api.popup.updateOne.useMutation();
+  const mutateLinks = api.link.createMany.useMutation();
+  const popupId = "clf5szzbe0002y7sz8bf2u49b";
+  const { data: popup } = api.popup.getOne.useQuery({
+    id: popupId,
+  });
 
+  const [popupInput, setPopupInput] = useState({
+    id: "",
+    name: "",
+    description: "",
+    imageUrl: "",
+    basedIn: "Orlando, FL",
+    isHot: false,
+    orderType: "First come, first serve",
+  });
   const [websiteUrl, setWebsiteUrl] = useState<string>("");
   const [instagramUrl, setInstagramUrl] = useState<string>("");
   const [facebookUrl, setFacebookUrl] = useState<string>("");
   const [tiktokUrl, setTiktokUrl] = useState<string>("");
 
-  const createLinks = api.link.createMany.useMutation({
-    onSuccess: () => {
-      console.log("success");
-    },
-
-    onError: (error) => {
-      console.log(error);
-    },
-  });
-
   const handleEditPopup = () => {
-    const popupData = {
-      name,
-      description,
-      imageUrl,
-      basedIn,
-      isHot,
-      orderType,
-    };
-    // createPopup.mutate(popupData);
+    if (!popup) {
+      return;
+    }
+    setPopupInput(popup);
+    mutatePopup.mutate(popupInput);
   };
   const handleSubmitLinks = () => {
     const linkData = {
       links: [
         {
-          name: "website",
+          name: "Website",
           url: websiteUrl,
-          popupId: "123",
+          popupId: "clf5szzbe0002y7sz8bf2u49b",
         },
         {
-          name: "instagram",
+          name: "Instagram",
           url: instagramUrl,
-          popupId: "123",
+          popupId: "clf5szzbe0002y7sz8bf2u49b",
         },
         {
-          name: "facebook",
+          name: "Facebook",
           url: facebookUrl,
-          popupId: "123",
+          popupId: "clf5szzbe0002y7sz8bf2u49b",
         },
         {
-          name: "tiktok",
+          name: "Tiktok",
           url: tiktokUrl,
-          popupId: "123",
+          popupId: "clf5szzbe0002y7sz8bf2u49b",
         },
       ],
     };
-    createLinks.mutate(linkData);
+    mutateLinks.mutate(linkData);
   };
 
   const trimUrl = (target: HTMLInputElement) => {
@@ -92,6 +91,15 @@ const EditPopup: NextPage = () => {
     }
     return `https://${newInput}`;
   };
+
+  if (!session) {
+    // Handle unauthenticated state, e.g. render a SignIn component
+    return (
+      <div>
+        <h1>Please sign in</h1>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -131,16 +139,25 @@ const EditPopup: NextPage = () => {
                               htmlFor="popup-name"
                               className="block text-lg font-medium leading-6 text-gray-900"
                             >
+                              {}
                               Popup name
                             </label>
-                            <input
-                              type="text"
-                              name="popup-name"
-                              id="popup-name"
-                              autoComplete="popup-name"
-                              className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                              onChange={(e) => setName(e.target.value)}
-                            />
+                            {popup && (
+                              <input
+                                type="text"
+                                name="popup-name"
+                                id="popup-name"
+                                autoComplete="popup-name"
+                                className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                defaultValue={popup.name}
+                                onChange={(e) =>
+                                  setPopupInput({
+                                    ...popupInput,
+                                    name: e.target.value,
+                                  })
+                                }
+                              />
+                            )}
                           </div>
                           {/* Photo */}
                           <div className="col-span-6 sm:col-span-4">
@@ -149,13 +166,12 @@ const EditPopup: NextPage = () => {
                             </label>
                             <div className="mt-2 flex items-center">
                               <span className="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100">
-                                <svg
-                                  className="h-full w-full text-gray-300"
-                                  fill="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                                </svg>
+                                <Image
+                                  src={"/hotdog.jpg"}
+                                  alt={""}
+                                  width={50}
+                                  height={50}
+                                />
                               </span>
                               <button
                                 type="button"
@@ -174,15 +190,22 @@ const EditPopup: NextPage = () => {
                               Bio
                             </label>
                             <div className="mt-2">
-                              <textarea
-                                id="bio"
-                                name="bio"
-                                rows={3}
-                                className="mt-1 block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
-                                placeholder="Serving up beans, greens, potatoes, tomatoes "
-                                defaultValue={""}
-                                onChange={(e) => setDescription(e.target.value)}
-                              />
+                              {popup && (
+                                <textarea
+                                  id="bio"
+                                  name="bio"
+                                  rows={3}
+                                  className="mt-1 block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
+                                  placeholder="Serving up beans, greens, potatoes, tomatoes "
+                                  defaultValue={popup.description}
+                                  onChange={(e) =>
+                                    setPopupInput({
+                                      ...popupInput,
+                                      description: e.target.value,
+                                    })
+                                  }
+                                />
+                              )}
                             </div>
                             <p className="mt-2 text-sm text-gray-500">
                               Brief description of your popup
@@ -196,20 +219,25 @@ const EditPopup: NextPage = () => {
                             >
                               Which city are you based in?
                             </label>
-                            <select
-                              id="city"
-                              name="city"
-                              autoComplete="city-name"
-                              className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                              value={basedIn}
-                              onChange={(e) =>
-                                setBasedIn(e.currentTarget.value)
-                              }
-                            >
-                              <option>Orlando, FL</option>
-                              <option>Tampa, FL</option>
-                              <option>Miami, FL</option>
-                            </select>
+                            {popup && (
+                              <select
+                                id="city"
+                                name="city"
+                                autoComplete="city-name"
+                                className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                defaultValue={popupInput.basedIn}
+                                onChange={(e) =>
+                                  setPopupInput({
+                                    ...popupInput,
+                                    basedIn: e.target.value,
+                                  })
+                                }
+                              >
+                                <option>Orlando, FL</option>
+                                <option>Tampa, FL</option>
+                                <option>Miami, FL</option>
+                              </select>
+                            )}
                           </div>
                           {/* Order style */}
                           <div className="col-span-6  sm:col-span-3">
@@ -219,19 +247,24 @@ const EditPopup: NextPage = () => {
                             >
                               Order style?
                             </label>
-                            <select
-                              id="city"
-                              name="city"
-                              autoComplete="city-name"
-                              className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                              value={orderType}
-                              onChange={(e) =>
-                                setOrderType(e.currentTarget.value)
-                              }
-                            >
-                              <option>First come, first serve</option>
-                              <option>Preorder only</option>
-                            </select>
+                            {popup && (
+                              <select
+                                id="city"
+                                name="city"
+                                autoComplete="city-name"
+                                className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                value={popup.orderType}
+                                onChange={(e) =>
+                                  setPopupInput({
+                                    ...popupInput,
+                                    orderType: e.target.value,
+                                  })
+                                }
+                              >
+                                <option>First come, first serve</option>
+                                <option>Preorder only</option>
+                              </select>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -286,7 +319,6 @@ const EditPopup: NextPage = () => {
                                 instagram.com/
                               </span>
                               <input
-                                type="url"
                                 name="instagram"
                                 id="instagram"
                                 className="block w-full flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -393,5 +425,4 @@ const EditPopup: NextPage = () => {
     </>
   );
 };
-
 export default EditPopup;

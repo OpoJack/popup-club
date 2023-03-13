@@ -100,7 +100,7 @@ const Login = ({ router }: { router: NextRouter }) => {
     <Link
       href=""
       className="text-sm font-semibold leading-6 text-white"
-      onClick={() => router.push("/login")}
+      onClick={() => void router.push("/login")}
     >
       Sign in
       <span aria-hidden="true"> &rarr;</span>

@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { api } from "../utils/api";
+import { api } from "~/utils/api";
 
 import Popups from "~/components/Popups";
 import { Container } from "~/components/Container";

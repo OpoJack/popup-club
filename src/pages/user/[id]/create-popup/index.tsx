@@ -5,17 +5,9 @@ import { Container } from "~/components/Container";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-const navigation = [
-  { name: "Dashboard", href: "#" },
-  { name: "Vendors", href: "#" },
-  { name: "Events", href: "#" },
-  { name: "Calendar", href: "#" },
-];
-
 const CreatePopup: NextPage = () => {
   const router = useRouter();
   const createPopup = api.popup.create.useMutation();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { data: session } = useSession();
 
   //Popup data
@@ -44,13 +36,6 @@ const CreatePopup: NextPage = () => {
     createPopup.mutate(popupData);
   };
 
-  //Checks if the user already has a popup and redirects them to their edit popup page if they do.
-  if (session?.user.popupId) {
-    router.push(`/user/${session.user.id}/edit-popup`).catch((err) => {
-      console.error(err);
-    });
-  }
-
   if (!session) {
     // Handle unauthenticated state, e.g. render a SignIn component
     return (
@@ -60,7 +45,12 @@ const CreatePopup: NextPage = () => {
     );
   }
 
-  console.table(session.user);
+  //Checks if the user already has a popup and redirects them to their edit popup page if they do.
+  if (session.user) {
+    router.push(`/user/${session.user.id}/edit-popup`).catch((err) => {
+      console.error(err);
+    });
+  }
 
   if (session.user.role === "USER") {
     return (

@@ -16,16 +16,51 @@ export const popupRouter = createTRPCRouter({
     });
   }),
 
+  //This will find the popup by the given popup id
   getOne: publicProcedure
-    .input(
-      z.object({
-        id: z.string(),
-      })
-    )
-    .query(({ ctx, input }) => {
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
       return ctx.prisma.popup.findUnique({
         where: {
           id: input.id,
+        },
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          imageUrl: true,
+          basedIn: true,
+          isHot: true,
+          orderType: true,
+        },
+      });
+    }),
+
+  updateOne: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+        description: z.string(),
+        imageUrl: z.string(),
+        basedIn: z.string(),
+        isHot: z.boolean(),
+        orderType: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.popup.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          id: input.id,
+          name: input.name,
+          description: input.description,
+          imageUrl: input.imageUrl,
+          basedIn: input.basedIn,
+          isHot: input.isHot,
+          orderType: input.orderType,
         },
       });
     }),
