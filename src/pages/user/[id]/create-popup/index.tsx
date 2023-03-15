@@ -8,9 +8,18 @@ import { useRouter } from "next/router";
 const CreatePopup: NextPage = () => {
   const router = useRouter();
   const createPopup = api.popup.create.useMutation();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   //Popup data
+  const [popupInput, setPopupInput] = useState({
+    id: "",
+    name: "",
+    description: "",
+    imageUrl: "",
+    basedIn: "Orlando, FL",
+    isHot: false,
+    orderType: "First come, first serve",
+  });
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("/hotdog.jpg");
@@ -36,8 +45,15 @@ const CreatePopup: NextPage = () => {
     createPopup.mutate(popupData);
   };
 
-  if (!session) {
-    // Handle unauthenticated state, e.g. render a SignIn component
+  if (status === "loading") {
+    return (
+      <Container>
+        <h1>Loading...</h1>
+      </Container>
+    );
+  }
+
+  if (status === "unauthenticated") {
     return (
       <Container>
         <h1>Please sign in</h1>
@@ -46,13 +62,13 @@ const CreatePopup: NextPage = () => {
   }
 
   //Checks if the user already has a popup and redirects them to their edit popup page if they do.
-  if (session.user) {
+  if (status === "authenticated") {
     router.push(`/user/${session.user.id}/edit-popup`).catch((err) => {
       console.error(err);
     });
   }
 
-  if (session.user.role === "USER") {
+  if (session?.user.role === "USER") {
     return (
       <Container>
         <h1>Please contact us to get started as a popup vendor.</h1>

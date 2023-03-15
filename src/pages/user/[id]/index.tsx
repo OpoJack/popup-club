@@ -1,16 +1,22 @@
 import { useSession } from "next-auth/react";
 import { Container } from "~/components/Container";
-import { useRouter } from "next/router";
 
 const User = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
-  if (!session) {
-    // Handle unauthenticated state, e.g. render a SignIn component
+  if (status === "loading") {
     return (
-      <div>
+      <Container>
+        <h1>Loading...</h1>
+      </Container>
+    );
+  }
+
+  if (status === "unauthenticated") {
+    return (
+      <Container>
         <h1>Please sign in</h1>
-      </div>
+      </Container>
     );
   }
 
