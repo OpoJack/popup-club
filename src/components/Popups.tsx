@@ -30,7 +30,7 @@ export default function Popups({ popup }: { popup: Popup }) {
           <div className="flex w-fit shrink flex-col">
             <div className="flex h-5 flex-row space-x-2">
               {popup.links?.map((link) => (
-                <SocialMedia key={link.id} links={link} />
+                <SocialMedia key={link.id} link={link} />
               ))}
               <ShareIcon fill="black" width={17} height={17} className="" />{" "}
               <HeartIcon fill="red" width={17} height={17} className="" />

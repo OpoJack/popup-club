@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import { Container } from "~/components/Container";
 import { useRouter } from "next/router";
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import SignIn from "~/components/SignIn";
 
 const Login: NextPage = () => {

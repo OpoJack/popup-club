@@ -1,16 +1,16 @@
 import Image from "next/image";
 import type { Link } from "~/types/types";
 
-export default function SocialMedia({ links }: { links: Link }) {
-  return <InstagramLink links={links} />;
+export default function SocialMedia({ link }: { link: Link }) {
+  return <InstagramLink link={link} />;
 }
 
-function InstagramLink({ links }: { links: Link }) {
+function InstagramLink({ link }: { link: Link }) {
   return (
     <a
       target={"_blank"}
       rel={"noreferrer"}
-      href={links.url ?? "/"}
+      href={link.url ?? "/"}
       className="hover:cursor-pointer"
     >
       <Image

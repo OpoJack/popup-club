@@ -24,14 +24,10 @@ export const popupRouter = createTRPCRouter({
         where: {
           id: input.id,
         },
-        select: {
-          id: true,
-          name: true,
-          description: true,
-          imageUrl: true,
-          basedIn: true,
-          isHot: true,
-          orderType: true,
+        include: {
+          links: true,
+          events: true,
+          tags: true,
         },
       });
     }),

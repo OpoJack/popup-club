@@ -1,10 +1,16 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Container } from "~/components/Container";
+import { api } from "~/utils/api";
+import Image from "next/image";
+import SocialMedia from "~/components/SocialMedia";
+import { Loading } from "~/components/Loading";
 
-const User = () => {
+const PopupPage = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const { id } = router.query;
+  const { data: popup } = api.popup.getOne.useQuery({ id: id as string });
 
   if (status === "loading") {
     return (
@@ -14,36 +20,29 @@ const User = () => {
     );
   }
 
-  if (status === "unauthenticated") {
-    router.push("/login").catch((err) => {
-      console.error(err);
-    });
-  }
-
-  if (!session?.user) {
-    return (
-      <Container>
-        <h1>Something went wrong</h1>
-      </Container>
-    );
-  }
-
   return (
     <Container>
-      <div className="mx-auto max-w-7xl px-4 pt-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-xl px-4 pt-20 sm:px-6 lg:px-8">
         {/* We've used 3xl here, but feel free to try other max-widths based on your needs */}
         <div className="-mb-5">
-          <img
-            className="mx-auto h-32 w-32 rounded-full shadow-2xl"
-            src={session.user.image ?? "/hotdog.jpg"}
+          <Image
+            className="mx-auto rounded-full shadow-2xl"
+            src={popup?.imageUrl ?? "/"}
             alt=""
+            width={200}
+            height={200}
           />
         </div>
         <div className="mx-auto max-w-3xl">
-          <div className="divide-y divide-gray-900 overflow-hidden rounded-lg bg-gradient-to-t from-gray-50 via-blurple-200 to-blurple-500 shadow">
-            <div className="px-4 py-5 sm:px-6">
-              <h3 className="text-center text-lg font-medium leading-6 text-gray-900">
-                {session.user.name}
+          <div className="overflow-hidden rounded-lg bg-gray-100 shadow">
+            <div className="flex justify-end pr-2 pt-2">
+              {popup?.links?.map((link) => (
+                <SocialMedia key={link.id} link={link} />
+              ))}
+            </div>
+            <div className="px-4 py-5  shadow-lg sm:px-6">
+              <h3 className="text-center text-3xl font-semibold leading-6 text-gray-900">
+                {popup?.name}
               </h3>
             </div>
             <div className="px-4 py-5 sm:p-6">
@@ -51,19 +50,19 @@ const User = () => {
                 <div className="sm:col-span-2">
                   <dt className="text-sm font-medium text-gray-500">About</dt>
                   <dd className="mt-1 text-sm text-gray-900">
-                    {session.user.name}
+                    {popup?.description}
                   </dd>
 
                   <dt className="text-sm font-medium text-gray-500">
                     Email address
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900">
-                    {session.user.email}
+                    {popup?.basedIn}
                   </dd>
 
                   <dt className="text-sm font-medium text-gray-500">Role</dt>
                   <dd className="mt-1 text-sm text-gray-900">
-                    {session.user.role}
+                    {popup?.orderType}
                   </dd>
                 </div>
               </dl>
@@ -77,4 +76,4 @@ const User = () => {
   //Profile page
 };
 
-export default User;
+export default PopupPage;

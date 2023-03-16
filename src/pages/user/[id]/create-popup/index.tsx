@@ -62,7 +62,7 @@ const CreatePopup: NextPage = () => {
   }
 
   //Checks if the user already has a popup and redirects them to their edit popup page if they do.
-  if (status === "authenticated") {
+  if (session?.user.popupId) {
     router.push(`/user/${session.user.id}/edit-popup`).catch((err) => {
       console.error(err);
     });
@@ -89,9 +89,9 @@ const CreatePopup: NextPage = () => {
                   Welcome to Popup Club!
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-gray-300">
-                  We&apos;re building a community of people who love food and
-                  cooking. You bring the food, we let the people know. Thank you
-                  for sharing your passion with us.
+                  We&apos;re building a community of people who love food,
+                  cooking and small-businesses. You bring the food, we get the
+                  word out. Thank you for sharing your passion with us.
                 </p>
                 <p className="mt-6 text-xl font-semibold leading-8 text-gray-100">
                   When&apos;s the next popup?

@@ -1,10 +1,10 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { Session } from "next-auth";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { NextRouter, useRouter } from "next/router";
+import { type NextRouter, useRouter } from "next/router";
 
 const navigation = [
   { name: "Dashboard", href: "/", current: true },
@@ -98,9 +98,11 @@ export default function Nav() {
 const Login = ({ router }: { router: NextRouter }) => {
   return (
     <Link
-      href=""
+      href={{
+        pathname: "/login",
+        query: { callbackUrl: router.asPath },
+      }}
       className="text-sm font-semibold leading-6 text-white"
-      onClick={() => void router.push("/login")}
     >
       Sign in
       <span aria-hidden="true"> &rarr;</span>
@@ -148,7 +150,10 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  href={`/user/${sessionData.user.id}/edit-popup`}
+                  href={{
+                    pathname: `/user/${sessionData.user.id}/edit-popup`,
+                    query: { popupId: sessionData.user.popupId },
+                  }}
                   className={classNames(
                     active ? "bg-gray-100" : "",
                     "block px-4 py-2 text-sm text-gray-700"
@@ -163,7 +168,9 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  href={`/user/${sessionData.user.id}/create-popup`}
+                  href={{
+                    pathname: `/user/${sessionData.user.id}/create-popup`,
+                  }}
                   className={classNames(
                     active ? "bg-gray-300" : "",
                     "block px-4 py-2 text-sm font-semibold text-gray-700"

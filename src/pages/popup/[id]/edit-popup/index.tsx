@@ -8,17 +8,12 @@ import { Container } from "~/components/Container";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/utils/api";
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = await getServerAuthSession(ctx);
-  return {
-    props: { session },
-  };
-};
-
 const EditPopup: NextPage = () => {
   //Popup data
   const router = useRouter();
   const { data: session, status } = useSession();
+  const { id } = router.query;
+  const { data: popup } = api.popup.getOne.useQuery({ id: id as string });
 
   const mutatePopup = api.popup.updateOne.useMutation();
   const mutateLinks = api.link.createMany.useMutation();
@@ -176,7 +171,7 @@ const EditPopup: NextPage = () => {
                                 id="popup-name"
                                 autoComplete="popup-name"
                                 className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                defaultValue={popupInput.name}
+                                defaultValue={popup?.name}
                                 onChange={(e) =>
                                   setPopupInput({
                                     ...popupInput,
@@ -194,7 +189,7 @@ const EditPopup: NextPage = () => {
                             <div className="mt-2 flex items-center">
                               <span className="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100">
                                 <Image
-                                  src={"/hotdog.jpg"}
+                                  src={popup?.imageUrl || "/"}
                                   alt={""}
                                   width={50}
                                   height={50}
