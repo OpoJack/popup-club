@@ -19,7 +19,7 @@ export default function Popups({ popup }: { popup: Popup }) {
         <div className="flex flex-row space-x-2 object-cover">
           <div className="flex space-y-3">
             <Image
-              key={popup.links?.find((link) => link.name === "Instagram")?.id}
+              key={popup.links?.id}
               className="h-20 w-20 flex-shrink-0 rounded-full bg-gray-300"
               src={popup.imageUrl ?? "/hotdog.jpg"}
               alt=""
@@ -29,10 +29,13 @@ export default function Popups({ popup }: { popup: Popup }) {
           </div>
           <div className="flex w-fit shrink flex-col">
             <div className="flex h-5 flex-row space-x-2">
-              {popup.links?.map((link) => (
-                <SocialMedia key={link.id} link={link} />
-              ))}
-              <ShareIcon fill="black" width={17} height={17} className="" />{" "}
+              <SocialMedia links={popup.links} />
+              <ShareIcon
+                fill="black"
+                width={17}
+                height={17}
+                className=""
+              />{" "}
               <HeartIcon fill="red" width={17} height={17} className="" />
             </div>
             <div className="-mt-1 text-xl font-bold tracking-tight text-gray-900 antialiased">

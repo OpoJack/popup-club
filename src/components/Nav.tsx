@@ -20,6 +20,7 @@ function classNames(...classes: string[]) {
 export default function Nav() {
   const router = useRouter();
   const { data: sessionData } = useSession();
+
   return (
     <Disclosure as="nav">
       {({ open }) => (
@@ -146,13 +147,15 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
               </Link>
             )}
           </Menu.Item>
-          {sessionData.user.popupId && (
+          {sessionData && (
             <Menu.Item>
               {({ active }) => (
                 <Link
                   href={{
-                    pathname: `/user/${sessionData.user.id}/edit-popup`,
-                    query: { popupId: sessionData.user.popupId },
+                    pathname: `/popup/edit-popup/`,
+                    query: {
+                      popupId: sessionData.user.popupId,
+                    },
                   }}
                   className={classNames(
                     active ? "bg-gray-100" : "",

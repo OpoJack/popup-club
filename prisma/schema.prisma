@@ -54,7 +54,6 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    // popup         Popup?
     popupId       String?
     popup         Popup?    @relation(fields: [popupId], references: [id])
 
@@ -71,7 +70,7 @@ model Popup {
     isHot       Boolean
     orderType   String
     events      Event[]
-    links       Link[]
+    links       Link?
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
     user        User?
@@ -86,14 +85,15 @@ model VerificationToken {
 }
 
 model Link {
-    id      String @id @default(cuid())
-    name    String
-    url     String
-    popupId String @unique
-    popup   Popup  @relation(fields: [popupId], references: [id], onDelete: Cascade)
+    id        String  @id @default(cuid())
+    Instagram String?
+    Facebook  String?
+    TikTok    String?
+    Website   String?
+    popupId   String  @unique
+    popup     Popup   @relation(fields: [popupId], references: [id], onDelete: Cascade)
 
-    @@unique([name])
-    @@unique([url])
+    @@index([popupId])
 }
 
 model Event {

@@ -15,7 +15,7 @@ const PopupPage = () => {
   if (status === "loading") {
     return (
       <Container>
-        <h1>Loading...</h1>
+        <Loading />
       </Container>
     );
   }
@@ -36,9 +36,7 @@ const PopupPage = () => {
         <div className="mx-auto max-w-3xl">
           <div className="overflow-hidden rounded-lg bg-gray-100 shadow">
             <div className="flex justify-end pr-2 pt-2">
-              {popup?.links?.map((link) => (
-                <SocialMedia key={link.id} link={link} />
-              ))}
+              {popup?.links && <SocialMedia links={popup?.links} />}
             </div>
             <div className="px-4 py-5  shadow-lg sm:px-6">
               <h3 className="text-center text-3xl font-semibold leading-6 text-gray-900">

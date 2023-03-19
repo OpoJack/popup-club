@@ -11,38 +11,32 @@ const CreatePopup: NextPage = () => {
   const { data: session, status } = useSession();
 
   //Popup data
-  const [popupInput, setPopupInput] = useState({
-    id: "",
-    name: "",
-    description: "",
-    imageUrl: "",
-    basedIn: "Orlando, FL",
-    isHot: false,
-    orderType: "First come, first serve",
-  });
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("/hotdog.jpg");
   const [basedIn, setBasedIn] = useState<string>("Orlando, FL");
-  const [isHot, setIsHot] = useState<boolean>(false);
   const [orderType, setOrderType] = useState<string>("First come, first serve");
 
-  const handleSubmitPopup = () => {
+  const handleSubmitPopup = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
     if (!session) {
       return;
     }
     const userId = session.user.id;
 
     const popupData = {
-      name,
-      description,
-      imageUrl,
-      basedIn,
-      isHot,
-      orderType,
-      userId,
+      name: name,
+      description: description,
+      imageUrl: imageUrl,
+      basedIn: basedIn,
+      isHot: false,
+      orderType: orderType,
+      userId: userId,
     };
     createPopup.mutate(popupData);
+    router.push(`/user/${session.user.id}`).catch((err) => {
+      console.error(err);
+    });
   };
 
   if (status === "loading") {
@@ -63,7 +57,7 @@ const CreatePopup: NextPage = () => {
 
   //Checks if the user already has a popup and redirects them to their edit popup page if they do.
   if (session?.user.popupId) {
-    router.push(`/user/${session.user.id}/edit-popup`).catch((err) => {
+    router.push(`/popup/${session.user.id}/edit-popup`).catch((err) => {
       console.error(err);
     });
   }
@@ -98,7 +92,10 @@ const CreatePopup: NextPage = () => {
                 </p>
               </div>
               {/* Popup info */}
-              <form className="space-y-8 divide-y divide-gray-200">
+              <form
+                className="space-y-8 divide-y divide-gray-200"
+                onSubmit={handleSubmitPopup}
+              >
                 <div className="space-y-8 divide-y divide-gray-200">
                   <div>
                     <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 ">
@@ -218,7 +215,6 @@ const CreatePopup: NextPage = () => {
                     <button
                       type="submit"
                       className="ml-3 inline-flex justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                      onClick={() => handleSubmitPopup()}
                     >
                       Save
                     </button>

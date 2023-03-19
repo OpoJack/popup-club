@@ -6,67 +6,52 @@ import {
 } from "~/server/api/trpc";
 
 export const linkRouter = createTRPCRouter({
-  getAll: publicProcedure
+  get: publicProcedure
     .input(
       z.object({
         popupId: z.string(),
-      })
-    )
-    .query(({ ctx, input }) => {
-      return ctx.prisma.link.findMany({
-        where: {
-          popupId: input.popupId,
-        },
-      });
-    }),
-
-  getOne: publicProcedure
-    .input(
-      z.object({
-        name: z.string(),
       })
     )
     .query(({ ctx, input }) => {
       return ctx.prisma.link.findUnique({
         where: {
-          name: input.name,
-        },
-      });
-    }),
-
-  create: protectedProcedure
-    .input(
-      z.object({
-        name: z.string(),
-        url: z.string(),
-        popupId: z.string(),
-      })
-    )
-    .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.link.create({
-        data: {
-          name: input.name,
-          url: input.url,
           popupId: input.popupId,
         },
       });
     }),
 
-  createMany: protectedProcedure
+  upsert: protectedProcedure
     .input(
       z.object({
-        links: z.array(
-          z.object({
-            name: z.string(),
-            url: z.string(),
-            popupId: z.string(),
-          })
-        ),
+        popupId: z.string(),
+        Instagram: z.string(),
+        Facebook: z.string(),
+        TikTok: z.string(),
+        Website: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.link.createMany({
-        data: input.links,
+      return ctx.prisma.link.upsert({
+        where: {
+          popupId: input.popupId,
+        },
+        update: {
+          Instagram: input.Instagram,
+          Facebook: input.Facebook,
+          TikTok: input.TikTok,
+          Website: input.Website,
+        },
+        create: {
+          Instagram: input.Instagram,
+          Facebook: input.Facebook,
+          TikTok: input.TikTok,
+          Website: input.Website,
+          popup: {
+            connect: {
+              id: input.popupId,
+            },
+          },
+        },
       });
     }),
 

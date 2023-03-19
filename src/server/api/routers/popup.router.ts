@@ -25,9 +25,9 @@ export const popupRouter = createTRPCRouter({
           id: input.id,
         },
         include: {
-          links: true,
           events: true,
           tags: true,
+          links: true,
         },
       });
     }),
@@ -35,27 +35,24 @@ export const popupRouter = createTRPCRouter({
   updateOne: protectedProcedure
     .input(
       z.object({
-        id: z.string(),
+        popupId: z.string(),
         name: z.string(),
         description: z.string(),
         imageUrl: z.string(),
         basedIn: z.string(),
-        isHot: z.boolean(),
         orderType: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.popup.update({
         where: {
-          id: input.id,
+          id: input.popupId,
         },
         data: {
-          id: input.id,
           name: input.name,
           description: input.description,
           imageUrl: input.imageUrl,
           basedIn: input.basedIn,
-          isHot: input.isHot,
           orderType: input.orderType,
         },
       });
