@@ -17,14 +17,14 @@ export default function Popups({ popup }: { popup: Popup }) {
     >
       <div className="p-4">
         <div className="flex flex-row space-x-2 object-cover">
-          <div className="flex space-y-3">
+          <div className="flex-none space-y-3">
             <Image
               key={popup.links?.id}
-              className="h-20 w-20 flex-shrink-0 rounded-full bg-gray-300"
+              className="flex-shrink-1 h-20 w-20 rounded-full bg-gray-300"
               src={popup.imageUrl ?? "/hotdog.jpg"}
               alt=""
-              width={75}
-              height={75}
+              width={80}
+              height={80}
             />
           </div>
           <div className="flex w-fit shrink flex-col">

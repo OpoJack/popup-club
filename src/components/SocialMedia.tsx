@@ -12,7 +12,7 @@ function InstagramLink({ link }: { link: string | null }) {
     <a
       target={"_blank"}
       rel={"noreferrer"}
-      href={link ?? "/"}
+      href={link ?? "#"}
       className="hover:cursor-pointer"
     >
       <Image

@@ -139,7 +139,7 @@ export default function SignIn() {
                 <div>
                   <a
                     href="#"
-                    className="inline-flex h-11 w-full items-center justify-center rounded-md bg-twitter py-2 px-4 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0"
+                    className="inline-flex h-11 w-full items-center justify-center rounded-md bg-twitter py-2 px-4 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-twitter-400 focus:outline-offset-0"
                   >
                     <span className="sr-only">Sign in with Twitter</span>
                     <svg
@@ -169,7 +169,7 @@ export default function SignIn() {
                 </div>
                 <div>
                   <Link
-                    href="/"
+                    href="#"
                     className="inline-flex h-11 w-full justify-center rounded-md bg-blurple py-2 px-4 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-blurple-600 focus:outline-offset-0"
                     onClick={() => {
                       void signIn("discord");

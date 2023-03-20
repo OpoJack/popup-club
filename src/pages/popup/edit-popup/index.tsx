@@ -6,6 +6,7 @@ import type { LinkData } from "~/types/types";
 
 import { Container } from "~/components/Container";
 import { api } from "~/utils/api";
+import { Loading } from "~/components/Loading";
 
 const EditPopup: NextPage = () => {
   const router = useRouter();
@@ -53,6 +54,36 @@ const EditPopup: NextPage = () => {
     }
   };
 
+  // function trimUrl(url: string): string {
+  //   let trimmedUrl: string;
+
+  //   // Instagram
+  //   if (url.includes("instagram.com/")) {
+  //     const usernameStartIndex = url.indexOf(".com/") + 5;
+  //     const usernameEndIndex = url.indexOf("/", usernameStartIndex);
+  //     trimmedUrl = url.slice(usernameStartIndex, usernameEndIndex);
+  //   }
+  //   // Facebook
+  //   else if (url.includes("facebook.com/")) {
+  //     const usernameStartIndex = url.indexOf(".com/") + 5;
+  //     const usernameEndIndex = url.indexOf("/", usernameStartIndex);
+  //     trimmedUrl = url.slice(usernameStartIndex, usernameEndIndex);
+  //   }
+  //   // TikTok
+  //   else if (url.includes("tiktok.com/")) {
+  //     const usernameStartIndex = url.indexOf(".com/@") + 6;
+  //     const usernameEndIndex = url.indexOf("/", usernameStartIndex);
+  //     trimmedUrl = url.slice(usernameStartIndex, usernameEndIndex);
+  //   }
+  //   // Generic website
+  //   else {
+  //     const urlObject = new URL(url);
+  //     trimmedUrl = urlObject.hostname.replace("www.", "");
+  //   }
+
+  //   return trimmedUrl;
+  // }
+
   // const trimUrl = (target: HTMLInputElement) => {
   //   //This checks if the input starts with http:// or https:// and removes it, then sets the state and the input value to the new value
   //   const input = target.value;
@@ -79,13 +110,8 @@ const EditPopup: NextPage = () => {
   //   return `https://${newInput}`;
   // };
 
-  if (status === "loading") {
-    // Handle unloaded state, e.g. render a loading spinner
-    return (
-      <div>
-        <h1>Loading...</h1>
-      </div>
-    );
+  if (session?.user.popupId !== popupId) {
+    router.push("/").catch((err) => console.log(err));
   }
 
   if (session?.user.role === "USER") {

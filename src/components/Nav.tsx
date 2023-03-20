@@ -101,7 +101,6 @@ const Login = ({ router }: { router: NextRouter }) => {
     <Link
       href={{
         pathname: "/login",
-        query: { callbackUrl: router.asPath },
       }}
       className="text-sm font-semibold leading-6 text-white"
     >
@@ -137,7 +136,9 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
           <Menu.Item>
             {({ active }) => (
               <Link
-                href={`/user/${sessionData.user.id}`}
+                href={{
+                  pathname: `/user/${sessionData.user.id}`,
+                }}
                 className={classNames(
                   active ? "bg-gray-100" : "",
                   "block px-4 py-2 text-sm text-gray-700"
