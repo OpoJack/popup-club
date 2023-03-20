@@ -110,7 +110,7 @@ const EditPopup: NextPage = () => {
   //   return `https://${newInput}`;
   // };
 
-  if (session?.user.popupId !== popupId) {
+  if (status === "authenticated" && session.user.popupId !== popupId) {
     router.push("/").catch((err) => console.log(err));
   }
 
@@ -171,14 +171,19 @@ const EditPopup: NextPage = () => {
                               {}
                               Popup name
                             </label>
-                            {popup && (
+
+                            {status === "loading" ? (
+                              <div className="flex justify-center">
+                                <Loading />
+                              </div>
+                            ) : (
                               <input
                                 type="text"
                                 name="name"
                                 id="popup-name"
                                 autoComplete="popup-name"
                                 className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                defaultValue={popup.name}
+                                defaultValue={popup?.name ? popup.name : ""}
                               />
                             )}
                           </div>
