@@ -38,77 +38,63 @@ const EditPopup: NextPage = () => {
       const linkData: LinkData = {
         popupId: popup.id,
         Instagram: formData.get("Instagram")
-          ? (formData.get("Instagram") as string)
+          ? restoreUrl(formData.get("Instagram") as string, "Instagram")
           : "",
         Facebook: formData.get("Facebook")
-          ? (formData.get("Facebook") as string)
+          ? restoreUrl(formData.get("Facebook") as string, "Facebook")
           : "",
         TikTok: formData.get("TikTok")
-          ? (formData.get("TikTok") as string)
+          ? restoreUrl(formData.get("TikTok") as string, "TikTok")
           : "",
         Website: formData.get("Website")
-          ? (formData.get("Website") as string)
+          ? restoreUrl(formData.get("Website") as string, "Website")
           : "",
       };
       mutateLink.mutate(linkData);
     }
   };
 
-  // function trimUrl(url: string): string {
-  //   let trimmedUrl: string;
+  //This will take a string containing the social media name and a string defining the type of url (Instagram, Facebook, etc). Depending on the type, it will return a string with the full url.
+  const restoreUrl = (url: string, type: string) => {
+    if (type === "Instagram") {
+      return "https://www.instagram.com/" + url;
+    } else if (type === "Facebook") {
+      return "https://www.facebook.com/" + url;
+    } else if (type === "TikTok") {
+      return "https://www.tiktok.com/@" + url;
+    } else if (type === "Website") {
+      return "https://" + url;
+    }
+    return url;
+  };
 
-  //   // Instagram
-  //   if (url.includes("instagram.com/")) {
-  //     const usernameStartIndex = url.indexOf(".com/") + 5;
-  //     const usernameEndIndex = url.indexOf("/", usernameStartIndex);
-  //     trimmedUrl = url.slice(usernameStartIndex, usernameEndIndex);
-  //   }
-  //   // Facebook
-  //   else if (url.includes("facebook.com/")) {
-  //     const usernameStartIndex = url.indexOf(".com/") + 5;
-  //     const usernameEndIndex = url.indexOf("/", usernameStartIndex);
-  //     trimmedUrl = url.slice(usernameStartIndex, usernameEndIndex);
-  //   }
-  //   // TikTok
-  //   else if (url.includes("tiktok.com/")) {
-  //     const usernameStartIndex = url.indexOf(".com/@") + 6;
-  //     const usernameEndIndex = url.indexOf("/", usernameStartIndex);
-  //     trimmedUrl = url.slice(usernameStartIndex, usernameEndIndex);
-  //   }
-  //   // Generic website
-  //   else {
-  //     const urlObject = new URL(url);
-  //     trimmedUrl = urlObject.hostname.replace("www.", "");
-  //   }
+  //trimUrl will take a string containing the social media url and return a string with the username only. By passing in the HTMLInputElement, it will also update the value of the input.
+  const trimUrl = (target: HTMLInputElement) => {
+    const input = target.value;
 
-  //   return trimmedUrl;
-  // }
+    const newInput = input
+      .replace("http://", "")
+      .replace("https://", "")
+      .replace("www.", "")
+      .replace("instagram.com/", "")
+      .replace("facebook.com/", "")
+      .replace("tiktok.com/@", "");
 
-  // const trimUrl = (target: HTMLInputElement) => {
-  //   //This checks if the input starts with http:// or https:// and removes it, then sets the state and the input value to the new value
-  //   const input = target.value;
+    target.value = newInput;
 
-  //   const newInput = input
-  //     .replace("http://", "")
-  //     .replace("https://", "")
-  //     .replace("www.", "")
-  //     .replace("instagram.com/", "")
-  //     .replace("facebook.com/", "")
-  //     .replace("tiktok.com/@", "");
-
-  //   target.value = newInput;
-  //   //If social media detected, return full url, same for facebook and tiktok
-  //   if (target.name === "instagram") {
-  //     return `https://instagram.com/${newInput}`;
-  //   }
-  //   if (target.name === "facebook") {
-  //     return `https://facebook.com/${newInput}`;
-  //   }
-  //   if (target.name === "tiktok") {
-  //     return `https://tiktok.com/@${newInput}`;
-  //   }
-  //   return `https://${newInput}`;
-  // };
+    //Checks to see which social media the input is for and returns the username only
+    if (input.includes("instagram")) {
+      return newInput;
+    } else if (input.includes("facebook")) {
+      return newInput;
+    } else if (input.includes("tiktok")) {
+      return newInput;
+    } else if (input.includes("www")) {
+      return newInput;
+    } else {
+      return input;
+    }
+  };
 
   if (status === "authenticated" && session.user.popupId !== popupId) {
     router.push("/").catch((err) => console.log(err));
@@ -305,9 +291,9 @@ const EditPopup: NextPage = () => {
                   <div className="mt-5 md:col-span-2 md:mt-0">
                     <div className="overflow-hidden shadow sm:rounded-md">
                       <div className="bg-slate-50 px-4 py-5 sm:p-6">
-                        <div className="grid grid-cols-6 gap-6">
+                        <div className="grid grid-cols-6 grid-rows-2 gap-6">
                           {/* Instagram */}
-                          <div className="col-span-3 sm:col-span-4">
+                          <div className="col-span-6 row-start-1 sm:col-span-4">
                             <label
                               htmlFor="popup-instagram"
                               className="block text-sm font-medium leading-6 text-gray-900"
@@ -315,21 +301,30 @@ const EditPopup: NextPage = () => {
                               Instagram
                             </label>
                             <div className="mt-2 flex rounded-md shadow-sm">
-                              <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm">
+                              <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500  sm:text-sm">
                                 instagram.com/
                               </span>
                               <input
                                 name="Instagram"
                                 id="popup-instagram"
-                                className="block w-full flex-1 rounded-none rounded-r-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full flex-1  rounded-none rounded-r-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                // value={instagramLink}
                                 defaultValue={
-                                  links?.Instagram ? links.Instagram : ""
+                                  links?.Instagram
+                                    ? links.Instagram.replace(
+                                        "https://www.instagram.com/",
+                                        ""
+                                      )
+                                    : ""
                                 }
+                                onChange={(e) => {
+                                  trimUrl(e.target);
+                                }}
                               />
                             </div>
                           </div>
                           {/* TikTok */}
-                          {/* <div className="col-span-3 sm:col-span-4">
+                          <div className="col-span-6 row-start-2 sm:col-span-4">
                             <label
                               htmlFor="popup-tiktok"
                               className="block text-sm font-medium leading-6 text-gray-900"
@@ -345,14 +340,21 @@ const EditPopup: NextPage = () => {
                                 id="popup-tiktok"
                                 className="block w-full flex-1 rounded-none rounded-r-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 defaultValue={
-                                  links?.find((link) => link.type === "Tiktok")
-                                    ?.url
+                                  links?.TikTok
+                                    ? links.TikTok.replace(
+                                        "https://www.tiktok.com/@",
+                                        ""
+                                      )
+                                    : ""
                                 }
+                                onChange={(e) => {
+                                  trimUrl(e.target);
+                                }}
                               />
                             </div>
-                          </div> */}
+                          </div>
                           {/* Facebook */}
-                          {/* <div className="col-span-3 sm:col-span-4">
+                          <div className="col-span-6 row-start-3 sm:col-span-4">
                             <label
                               htmlFor="popup-facebook"
                               className="block text-sm font-medium leading-6 text-gray-900"
@@ -368,15 +370,21 @@ const EditPopup: NextPage = () => {
                                 id="popup-facebook"
                                 className="block w-full flex-1 rounded-none rounded-r-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 defaultValue={
-                                  links?.find(
-                                    (link) => link.type === "Facebook"
-                                  )?.url
+                                  links?.Facebook
+                                    ? links.Facebook.replace(
+                                        "https://www.facebook.com/",
+                                        ""
+                                      )
+                                    : ""
                                 }
+                                onChange={(e) => {
+                                  trimUrl(e.target);
+                                }}
                               />
                             </div>
-                          </div> */}
+                          </div>
                           {/* Website */}
-                          <div className="col-span-3 sm:col-span-4">
+                          <div className="col-span-6 row-start-4 sm:col-span-4">
                             <label
                               htmlFor="popup-website"
                               className="block text-sm font-medium leading-6 text-gray-900"
@@ -392,8 +400,13 @@ const EditPopup: NextPage = () => {
                                 id="popup-website"
                                 className="block w-full flex-1 rounded-none rounded-r-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 defaultValue={
-                                  links?.Website ? links.Website : ""
+                                  links?.Website
+                                    ? links.Website.replace("https://www./", "")
+                                    : ""
                                 }
+                                onChange={(e) => {
+                                  trimUrl(e.target);
+                                }}
                               />
                             </div>
                           </div>
