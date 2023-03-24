@@ -7,7 +7,7 @@ import type { LinkData } from "~/types/types";
 import { Container } from "~/components/Container";
 import { api } from "~/utils/api";
 import { Loading } from "~/components/Loading";
-import Test from "~/pages/test";
+import Tag from "~/components/Tag";
 
 const EditPopup: NextPage = () => {
   const router = useRouter();
@@ -23,6 +23,7 @@ const EditPopup: NextPage = () => {
   const { data: links } = api.link.get.useQuery({
     popupId: popupId as string,
   });
+  const { data: tags } = api.tag.getAll.useQuery();
 
   const handleSubmit = (formData: FormData) => {
     if (popup) {
@@ -68,18 +69,6 @@ const EditPopup: NextPage = () => {
     }
     return url;
   };
-
-  const testTags = [
-    "American",
-    "Asian",
-    "Australian",
-    "Austrian",
-    "African",
-    "BBQ",
-    "Burgers",
-    "Cajun",
-    "Caribbean",
-  ];
 
   //trimUrl will take a string containing the social media url and return a string with the username only. By passing in the HTMLInputElement, it will also update the value of the input.
   const trimUrl = (target: HTMLInputElement) => {
@@ -276,31 +265,23 @@ const EditPopup: NextPage = () => {
                               </select>
                             )}
                           </div>
-                          {/* Based in */}
+                          {/* Tags*/}
                           <div className="col-span-6 sm:col-span-3">
-                            <label
-                              htmlFor="popup-name"
-                              className="block text-sm font-medium leading-6 text-gray-900"
-                            >
-                              {}
-                              Tags
-                            </label>
-                            {/* Tag input */}
-                            {status === "loading" ? (
-                              <div className="flex justify-center">
-                                <Loading />
-                              </div>
-                            ) : (
-                              <TagInput name="Tags" suggestions={testTags} />
-                              // <input
-                              //   type="tags"
-                              //   name="tags"
-                              //   id="tags"
-                              //   autoComplete="tag"
-                              //   className="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                              //   defaultValue="Tags go here"
-                              // />
-                            )}
+                            <div className="flex flex-row justify-between align-middle">
+                              <label
+                                htmlFor="popup-name"
+                                className="flex self-center text-lg font-medium leading-6 text-gray-900"
+                              >
+                                {}
+                                Tags
+                              </label>
+                              {popup?.tags &&
+                                popup.tags.map((tag) => (
+                                  <Tag name={tag.name} key={tag.id} />
+                                ))}
+                            </div>
+                            {/* <Tag name={tag.name} key={tag.id} /> */}
+                            {tags !== undefined && <TagInput tags={tags} />}
                           </div>
                         </div>
                       </div>
@@ -474,35 +455,31 @@ const EditPopup: NextPage = () => {
 export default EditPopup;
 
 import { useState } from "react";
+import { TagType } from "~/types/types";
 
-interface AutocompleteInputProps {
-  name: string;
-  suggestions: string[];
-}
-
-function TagInput({ name, suggestions }: AutocompleteInputProps) {
+function TagInput({ tags }: { tags: TagType[] }) {
   const [value, setValue] = useState("");
-  const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
+  const [filteredTags, setFilteredTags] = useState<TagType[]>([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
     setValue(newValue);
 
-    // If the input value is empty, clear the suggestions
+    // If the input value is empty, clear the tags
     if (newValue.trim() === "") {
-      setFilteredSuggestions([]);
+      setFilteredTags([]);
     } else {
-      // Filter the suggestions based on the current input value
-      const filtered = suggestions.filter((suggestion) =>
-        suggestion.toLowerCase().startsWith(newValue.toLowerCase())
+      // Filter the tags based on the current input value
+      const filtered = tags.filter((tag) =>
+        tag.name.toLowerCase().startsWith(newValue.toLowerCase())
       );
-      setFilteredSuggestions(filtered.slice(0, 3));
+      setFilteredTags(filtered.slice(0, 3));
     }
   };
 
-  const handleSuggestionClick = (suggestion: string) => {
-    setValue(suggestion);
-    setFilteredSuggestions([]);
+  const handleTagClick = (tag: TagType) => {
+    setValue(tag.name);
+    setFilteredTags([]);
   };
 
   return (
@@ -510,23 +487,23 @@ function TagInput({ name, suggestions }: AutocompleteInputProps) {
       <div className="relative">
         <input
           type="text"
-          id={name}
-          name={name}
+          id="tag"
+          name="tag"
           value={value}
           onChange={handleChange}
           autoComplete="off"
           className="w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500"
         />
       </div>
-      {filteredSuggestions.length > 0 && (
-        <ul className="absolute z-50 w-full rounded-md border border-gray-300 bg-white py-1 shadow-lg">
-          {filteredSuggestions.map((suggestion) => (
+      {filteredTags.length > 0 && (
+        <ul className="absolute z-10 w-full rounded-md border border-gray-300 bg-white py-1 shadow-lg">
+          {filteredTags.map((tag) => (
             <li
-              key={suggestion}
+              key={tag.id}
               className="cursor-pointer px-4 py-2 hover:bg-gray-100"
-              onClick={() => handleSuggestionClick(suggestion)}
+              onClick={() => handleTagClick(tag)}
             >
-              {suggestion}
+              {tag.name}
             </li>
           ))}
         </ul>
