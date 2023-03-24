@@ -172,6 +172,9 @@ const EditPopup: NextPage = () => {
                                 autoComplete="popup-name"
                                 className="mt-2 block w-full rounded-md border-0 py-1.5  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 defaultValue={popup?.name ? popup.name : ""}
+                                onKeyDown={(e) => {
+                                  handleKeyDown(e);
+                                }}
                               />
                             )}
                           </div>
@@ -328,7 +331,9 @@ const EditPopup: NextPage = () => {
                                 name="Instagram"
                                 id="popup-instagram"
                                 className="block w-full flex-1  rounded-none rounded-r-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                // value={instagramLink}
+                                onKeyDown={(e) => {
+                                  handleKeyDown(e);
+                                }}
                                 defaultValue={
                                   links?.Instagram
                                     ? links.Instagram.replace(
@@ -359,6 +364,9 @@ const EditPopup: NextPage = () => {
                                 name="TikTok"
                                 id="popup-tiktok"
                                 className="block w-full flex-1 rounded-none rounded-r-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                onKeyDown={(e) => {
+                                  handleKeyDown(e);
+                                }}
                                 defaultValue={
                                   links?.TikTok
                                     ? links.TikTok.replace(
@@ -389,6 +397,9 @@ const EditPopup: NextPage = () => {
                                 name="Facebook"
                                 id="popup-facebook"
                                 className="block w-full flex-1 rounded-none rounded-r-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                onKeyDown={(e) => {
+                                  handleKeyDown(e);
+                                }}
                                 defaultValue={
                                   links?.Facebook
                                     ? links.Facebook.replace(
@@ -419,6 +430,9 @@ const EditPopup: NextPage = () => {
                                 name="Website"
                                 id="popup-website"
                                 className="block w-full flex-1 rounded-none rounded-r-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                onKeyDown={(e) => {
+                                  handleKeyDown(e);
+                                }}
                                 defaultValue={
                                   links?.Website
                                     ? links.Website.replace("https://www./", "")
@@ -460,6 +474,7 @@ import { TagType } from "~/types/types";
 function TagInput({ tags }: { tags: TagType[] }) {
   const [value, setValue] = useState("");
   const [filteredTags, setFilteredTags] = useState<TagType[]>([]);
+  const [inputFocused, setInputFocused] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
@@ -492,10 +507,15 @@ function TagInput({ tags }: { tags: TagType[] }) {
           value={value}
           onChange={handleChange}
           autoComplete="off"
-          className="w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500"
+          className="w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 "
+          onKeyDown={(e) => {
+            handleKeyDown(e);
+          }}
+          onFocus={() => setInputFocused(true)}
+          onBlur={() => setInputFocused(false)}
         />
       </div>
-      {filteredTags.length > 0 && (
+      {inputFocused && filteredTags.length > 0 && (
         <ul className="absolute z-10 w-full rounded-md border border-gray-300 bg-white py-1 shadow-lg">
           {filteredTags.map((tag) => (
             <li
@@ -510,4 +530,10 @@ function TagInput({ tags }: { tags: TagType[] }) {
       )}
     </div>
   );
+}
+
+function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+  if (e.key === "Enter") {
+    e.preventDefault();
+  }
 }
