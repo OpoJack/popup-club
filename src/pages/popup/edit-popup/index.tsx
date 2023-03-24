@@ -7,6 +7,7 @@ import type { LinkData } from "~/types/types";
 import { Container } from "~/components/Container";
 import { api } from "~/utils/api";
 import { Loading } from "~/components/Loading";
+import Test from "~/pages/test";
 
 const EditPopup: NextPage = () => {
   const router = useRouter();
@@ -67,6 +68,18 @@ const EditPopup: NextPage = () => {
     }
     return url;
   };
+
+  const testTags = [
+    "American",
+    "Asian",
+    "Australian",
+    "Austrian",
+    "African",
+    "BBQ",
+    "Burgers",
+    "Cajun",
+    "Caribbean",
+  ];
 
   //trimUrl will take a string containing the social media url and return a string with the username only. By passing in the HTMLInputElement, it will also update the value of the input.
   const trimUrl = (target: HTMLInputElement) => {
@@ -145,7 +158,7 @@ const EditPopup: NextPage = () => {
                     </div>
                   </div>
                   <div className="mt-5 md:col-span-2 md:mt-0">
-                    <div className="overflow-hidden shadow sm:rounded-md">
+                    <div className="overflow-visible shadow sm:rounded-md">
                       <div className="bg-slate-50 px-4 py-5 sm:p-6">
                         <div className="grid grid-cols-6 gap-6">
                           {/* Popup name */}
@@ -267,10 +280,10 @@ const EditPopup: NextPage = () => {
                           <div className="col-span-6 sm:col-span-3">
                             <label
                               htmlFor="popup-name"
-                              className="block text-sm leading-6 text-gray-900"
+                              className="block text-sm font-medium leading-6 text-gray-900"
                             >
                               {}
-                              Popup name
+                              Tags
                             </label>
                             {/* Tag input */}
                             {status === "loading" ? (
@@ -278,14 +291,15 @@ const EditPopup: NextPage = () => {
                                 <Loading />
                               </div>
                             ) : (
-                              <input
-                                type="tags"
-                                name="name"
-                                id="popup-name"
-                                autoComplete="popup-name"
-                                className="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                defaultValue="Tags go here"
-                              />
+                              <TagInput name="Tags" suggestions={testTags} />
+                              // <input
+                              //   type="tags"
+                              //   name="tags"
+                              //   id="tags"
+                              //   autoComplete="tag"
+                              //   className="mt-2 block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                              //   defaultValue="Tags go here"
+                              // />
                             )}
                           </div>
                         </div>
@@ -458,3 +472,65 @@ const EditPopup: NextPage = () => {
 };
 
 export default EditPopup;
+
+import { useState } from "react";
+
+interface AutocompleteInputProps {
+  name: string;
+  suggestions: string[];
+}
+
+function TagInput({ name, suggestions }: AutocompleteInputProps) {
+  const [value, setValue] = useState("");
+  const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+    setValue(newValue);
+
+    // If the input value is empty, clear the suggestions
+    if (newValue.trim() === "") {
+      setFilteredSuggestions([]);
+    } else {
+      // Filter the suggestions based on the current input value
+      const filtered = suggestions.filter((suggestion) =>
+        suggestion.toLowerCase().startsWith(newValue.toLowerCase())
+      );
+      setFilteredSuggestions(filtered.slice(0, 3));
+    }
+  };
+
+  const handleSuggestionClick = (suggestion: string) => {
+    setValue(suggestion);
+    setFilteredSuggestions([]);
+  };
+
+  return (
+    <div className="relative">
+      <div className="relative">
+        <input
+          type="text"
+          id={name}
+          name={name}
+          value={value}
+          onChange={handleChange}
+          autoComplete="off"
+          className="w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500"
+        />
+      </div>
+      {filteredSuggestions.length > 0 && (
+        <ul className="absolute z-50 w-full rounded-md border border-gray-300 bg-white py-1 shadow-lg">
+          {filteredSuggestions.map((suggestion) => (
+            <li
+              key={suggestion}
+              className="cursor-pointer px-4 py-2 hover:bg-gray-100"
+              onClick={() => handleSuggestionClick(suggestion)}
+            >
+              {suggestion}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
