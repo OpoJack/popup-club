@@ -23,7 +23,7 @@ const EditPopup: NextPage = () => {
   const { data: links } = api.link.get.useQuery({
     popupId: popupId as string,
   });
-  const { data: tags } = api.tag.getAll.useQuery();
+  const { data: tagSuggestions } = api.tag.getAll.useQuery();
 
   const handleSubmit = (formData: FormData) => {
     if (popup) {
@@ -269,23 +269,16 @@ const EditPopup: NextPage = () => {
                             )}
                           </div>
                           {/* Tags*/}
-                          <div className="col-span-6 sm:col-span-3">
-                            <div className="flex flex-row justify-between align-middle">
-                              <label
-                                htmlFor="popup-name"
-                                className="flex self-center text-lg font-medium leading-6 text-gray-900"
-                              >
-                                {}
-                                Tags
-                              </label>
-                              {popup?.tags &&
-                                popup.tags.map((tag) => (
-                                  <Tag name={tag.name} key={tag.id} />
-                                ))}
+                          {popup?.tags && tagSuggestions ? (
+                            <TagInput
+                              existingTags={popup.tags}
+                              suggestions={tagSuggestions}
+                            />
+                          ) : (
+                            <div className="flex justify-center">
+                              <Loading />
                             </div>
-                            {/* <Tag name={tag.name} key={tag.id} /> */}
-                            {tags !== undefined && <TagInput tags={tags} />}
-                          </div>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -471,57 +464,78 @@ export default EditPopup;
 import { useState } from "react";
 import { TagType } from "~/types/types";
 
-function TagInput({ tags }: { tags: TagType[] }) {
+function TagInput({
+  suggestions,
+  existingTags,
+}: {
+  suggestions: TagType[];
+  existingTags: TagType[];
+}) {
   const [value, setValue] = useState("");
   const [filteredTags, setFilteredTags] = useState<TagType[]>([]);
   const [inputFocused, setInputFocused] = useState(false);
+  const [selectedTags, setSelectedTags] = useState<TagType[]>(existingTags);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
     setValue(newValue);
 
-    // If the input value is empty, clear the tags
-    if (newValue.trim() === "") {
+    // Filter the tags based on the current input value
+    const filtered = suggestions.filter((tag) =>
+      tag.name.toLowerCase().startsWith(newValue.toLowerCase())
+    );
+    setFilteredTags(filtered.slice(0, 3));
+  };
+
+  const handleTagClick = (tagName: string) => {
+    const tag = suggestions.find((tag) => tag.name === tagName);
+    if (tag) {
+      setSelectedTags([...selectedTags, tag]);
+      setValue("");
       setFilteredTags([]);
-    } else {
-      // Filter the tags based on the current input value
-      const filtered = tags.filter((tag) =>
-        tag.name.toLowerCase().startsWith(newValue.toLowerCase())
-      );
-      setFilteredTags(filtered.slice(0, 3));
     }
   };
 
-  const handleTagClick = (tag: TagType) => {
-    setValue(tag.name);
-    setFilteredTags([]);
-  };
-
   return (
-    <div className="relative">
-      <div className="relative">
-        <input
-          type="text"
-          id="tag"
-          name="tag"
-          value={value}
-          onChange={handleChange}
-          autoComplete="off"
-          className="w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 "
-          onKeyDown={(e) => {
-            handleKeyDown(e);
-          }}
-          onFocus={() => setInputFocused(true)}
-          onBlur={() => setInputFocused(false)}
-        />
+    <div className="col-span-6 sm:col-span-3">
+      <div className="flex flex-row justify-between align-middle">
+        <label
+          htmlFor="popup-name"
+          className="flex self-center text-lg font-medium leading-6 text-gray-900"
+        >
+          {}
+          Tags
+        </label>
       </div>
+      {selectedTags.map((tag) => (
+        <Tag name={tag.name} key={tag.id} />
+      ))}
+      <div className="relative">
+        {/* {filteredTags.map((tag) => (
+          <li key={tag.id}>{tag.name}</li>
+        ))} */}
+      </div>
+      <input
+        type="text"
+        id="tag"
+        name="tag"
+        value={value}
+        onChange={handleChange}
+        autoComplete="off"
+        className="w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 "
+        onKeyDown={(e) => {
+          handleKeyDown(e);
+        }}
+        onFocus={() => setInputFocused(true)}
+        onBlur={() => setInputFocused(false)}
+      />
       {inputFocused && filteredTags.length > 0 && (
         <ul className="absolute z-10 w-full rounded-md border border-gray-300 bg-white py-1 shadow-lg">
           {filteredTags.map((tag) => (
             <li
               key={tag.id}
               className="cursor-pointer px-4 py-2 hover:bg-gray-100"
-              onClick={() => handleTagClick(tag)}
+              onClick={() => handleTagClick(tag.name)}
             >
               {tag.name}
             </li>
