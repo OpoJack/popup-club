@@ -16,8 +16,8 @@ export default function Popups({ popup }: { popup: Popup }) {
       onClick={handleClick}
     >
       <div className="p-4">
-        <div className="flex flex-row space-x-2 object-cover">
-          <div className="flex-none space-y-3">
+        <div className="flex flex-row space-x-2 object-cover sm:h-24">
+          <div className="flex-none">
             <Image
               key={popup.links?.id}
               className="flex-shrink-1 h-20 w-20 rounded-full bg-gray-300"

@@ -428,7 +428,7 @@ const EditPopup: NextPage = () => {
                                 }}
                                 defaultValue={
                                   links?.Website
-                                    ? links.Website.replace("https://www./", "")
+                                    ? links.Website.replace("https://", "")
                                     : ""
                                 }
                                 onChange={(e) => {
@@ -487,10 +487,10 @@ function TagInput({
     setFilteredTags(filtered.slice(0, 3));
   };
 
-  const handleTagClick = (tagName: string) => {
-    const tag = suggestions.find((tag) => tag.name === tagName);
-    if (tag) {
-      setSelectedTags([...selectedTags, tag]);
+  const handleTagClick = (selectedTag: TagType) => {
+    // const tag = suggestions.find((tag) => tag.name === selectedTag.name);
+    if (selectedTags.length < 3) {
+      setSelectedTags([...selectedTags, selectedTag]);
       setValue("");
       setFilteredTags([]);
     }
@@ -499,21 +499,20 @@ function TagInput({
   return (
     <div className="col-span-6 sm:col-span-3">
       <div className="flex flex-row justify-between align-middle">
-        <label
-          htmlFor="popup-name"
-          className="flex self-center text-lg font-medium leading-6 text-gray-900"
-        >
-          {}
-          Tags
-        </label>
-      </div>
-      {selectedTags.map((tag) => (
-        <Tag name={tag.name} key={tag.id} />
-      ))}
-      <div className="relative">
-        {/* {filteredTags.map((tag) => (
-          <li key={tag.id}>{tag.name}</li>
-        ))} */}
+        <div className="flex flex-row justify-start">
+          <label
+            htmlFor="popup-name"
+            className="flex self-center text-lg font-medium leading-6 text-gray-900"
+          >
+            {}
+            Tags
+          </label>
+        </div>
+        <div className="flex">
+          {selectedTags.map((tag) => (
+            <Tag name={tag.name} key={tag.id} />
+          ))}
+        </div>
       </div>
       <input
         type="text"
@@ -526,22 +525,22 @@ function TagInput({
         onKeyDown={(e) => {
           handleKeyDown(e);
         }}
-        onFocus={() => setInputFocused(true)}
-        onBlur={() => setInputFocused(false)}
       />
-      {inputFocused && filteredTags.length > 0 && (
-        <ul className="absolute z-10 w-full rounded-md border border-gray-300 bg-white py-1 shadow-lg">
-          {filteredTags.map((tag) => (
-            <li
-              key={tag.id}
-              className="cursor-pointer px-4 py-2 hover:bg-gray-100"
-              onClick={() => handleTagClick(tag.name)}
-            >
-              {tag.name}
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className="relative">
+        {filteredTags.length > 0 && (
+          <ul className="absolute z-10 w-full rounded-md border border-gray-300 bg-white py-1 shadow-lg">
+            {filteredTags.map((tag) => (
+              <li
+                key={tag.id}
+                className="max-w-full cursor-pointer px-4 py-2 hover:bg-gray-100"
+                onClick={() => handleTagClick(tag)}
+              >
+                {tag.name}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }
