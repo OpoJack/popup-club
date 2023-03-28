@@ -269,10 +269,11 @@ const EditPopup: NextPage = () => {
                             )}
                           </div>
                           {/* Tags*/}
-                          {popup?.tags && tagSuggestions ? (
+                          {popup?.tags && tagSuggestions && popupId ? (
                             <TagInput
                               existingTags={popup.tags}
                               suggestions={tagSuggestions}
+                              popupId={popupId as string}
                             />
                           ) : (
                             <div className="flex justify-center">
@@ -467,14 +468,18 @@ import { TagType } from "~/types/types";
 function TagInput({
   suggestions,
   existingTags,
+  popupId,
 }: {
   suggestions: TagType[];
   existingTags: TagType[];
+  popupId: string;
 }) {
   const [value, setValue] = useState("");
   const [filteredTags, setFilteredTags] = useState<TagType[]>([]);
   const [inputFocused, setInputFocused] = useState(false);
   const [selectedTags, setSelectedTags] = useState<TagType[]>(existingTags);
+
+  const tagUpdate = api.tag.updateTags.useMutation();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
@@ -488,11 +493,17 @@ function TagInput({
   };
 
   const handleTagClick = (selectedTag: TagType) => {
-    // const tag = suggestions.find((tag) => tag.name === selectedTag.name);
-    if (selectedTags.length < 3) {
+    //This will set all the values if the selectedTags.length is less than 3 and if the selectedTags array does not include the selectedTag
+    if (selectedTags.length < 3 && !selectedTags.includes(selectedTag)) {
+      tagUpdate.mutate({
+        popupId: popupId,
+        tags: selectedTags.map((tag) => tag.name).concat(selectedTag.name),
+      });
+
       setSelectedTags([...selectedTags, selectedTag]);
       setValue("");
       setFilteredTags([]);
+      setInputFocused(false);
     }
   };
 
@@ -527,7 +538,7 @@ function TagInput({
         }}
       />
       <div className="relative">
-        {filteredTags.length > 0 && (
+        {filteredTags.length > 0 && filteredTags.length < 3 && (
           <ul className="absolute z-10 w-full rounded-md border border-gray-300 bg-white py-1 shadow-lg">
             {filteredTags.map((tag) => (
               <li
