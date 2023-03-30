@@ -63,6 +63,30 @@ export const tagRouter = createTRPCRouter({
       });
     }),
 
+  //This will remove a tag from a popup
+  //If the tag does not exist, it will be ignored
+  removeTag: protectedProcedure
+    .input(
+      z.object({
+        popupId: z.string(),
+        tagId: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.popup.update({
+        where: {
+          id: input.popupId,
+        },
+        data: {
+          tags: {
+            disconnect: {
+              id: input.tagId,
+            },
+          },
+        },
+      });
+    }),
+
   //This will update the Tags array with a new tag
   //If the tag already exists, it will be ignored
   //If the tag does not exist, it will be created

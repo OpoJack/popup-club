@@ -10,6 +10,8 @@ import { Loading } from "~/components/Loading";
 import Tag from "~/components/Tag";
 
 const EditPopup: NextPage = () => {
+  //TODO BUG: When you remove a tag from the selected tags, it removes it from the database and the page, but it doesn't remove it from the selected tags list. This means that if you select a tag, delete it, then select it again, it isn't added to the list or the database.
+
   const router = useRouter();
   const { data: session, status } = useSession();
   const { popupId } = router.query;
@@ -521,7 +523,7 @@ function TagInput({
         </div>
         <div className="flex">
           {selectedTags.map((tag) => (
-            <Tag name={tag.name} key={tag.id} />
+            <Tag name={tag.name} id={tag.id} popupId={popupId} key={tag.id} />
           ))}
         </div>
       </div>

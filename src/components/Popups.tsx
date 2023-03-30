@@ -51,7 +51,7 @@ export default function Popups({ popup }: { popup: Popup }) {
         </div>
         <div className="flex flex-row space-x-1">
           {popup.tags?.map((tag) => (
-            <Tag key={tag.id} name={tag?.name} />
+            <Tag key={tag.id} id={tag.id} popupId={popup.id} name={tag?.name} />
           ))}
         </div>
       </div>
