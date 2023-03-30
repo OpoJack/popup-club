@@ -153,7 +153,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
               {({ active }) => (
                 <Link
                   href={{
-                    pathname: `/popup/edit-popup/`,
+                    pathname: `/popups/edit-popup/`,
                     query: {
                       popupId: sessionData.user.popupId,
                     },

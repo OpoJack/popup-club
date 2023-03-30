@@ -12,7 +12,7 @@ export default function Popups({ popup }: { popup: Popup }) {
   };
   return (
     <li
-      className="mx-2 flex flex-col divide-y divide-zinc-200 rounded-lg border bg-white shadow-sm transition-colors hover:bg-zinc-50 hover:shadow-md"
+      className="mx-2 flex flex-col divide-y divide-zinc-200 rounded-lg border bg-zinc-50 shadow-sm transition-colors hover:bg-blurple-100 hover:shadow-md"
       onClick={handleClick}
     >
       <div className="p-4">

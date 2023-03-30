@@ -10,7 +10,11 @@ export const popupRouter = createTRPCRouter({
     return ctx.prisma.popup.findMany({
       include: {
         links: true,
-        events: true,
+        events: {
+          include: {
+            location: true,
+          },
+        },
         tags: true,
       },
     });

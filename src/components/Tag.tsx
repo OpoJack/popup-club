@@ -34,7 +34,7 @@ export default function Tag({
 
           {
             //Renders the button if the tag is hovered over and if it's the edit page
-            isShown && router.pathname === "/popup/edit-popup" && (
+            isShown && router.pathname === "/popups/edit-popup" && (
               <button
                 className="absolute top-0 right-0 -mt-2 flex h-full w-4 items-center justify-center rounded-full align-top text-gray-50 hover:text-gray-900"
                 onClick={() => handleDeleteTag()}

@@ -6,15 +6,14 @@ import {
 } from "~/server/api/trpc";
 
 export const eventRouter = createTRPCRouter({
-  getAll: publicProcedure
-    .input(z.object({ id: z.string() }))
-    .query(({ ctx, input }) => {
-      return ctx.prisma.event.findMany({
-        where: {
-          id: input.id,
-        },
-      });
-    }),
+  getAll: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.event.findMany({
+      include: {
+        popup: true,
+        location: true,
+      },
+    });
+  }),
 
   getOne: publicProcedure
     .input(
