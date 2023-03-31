@@ -26,7 +26,7 @@ export default function Tag({
     <p className="mt-1 space-x-1 truncate py-2 text-sm text-gray-500">
       {showTag && (
         <span
-          className="relative inline-block rounded-full bg-gray-200 px-4 py-0.5 text-xs font-medium text-gray-800 hover:cursor-pointer hover:bg-gray-300"
+          className="relative inline-block rounded-full bg-gray-200 px-3 py-0.5 text-xs font-medium text-gray-800 hover:cursor-pointer hover:bg-gray-300"
           onMouseEnter={() => setIsShown(true)}
           onMouseLeave={() => setIsShown(false)}
         >

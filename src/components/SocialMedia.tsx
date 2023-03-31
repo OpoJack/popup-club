@@ -1,7 +1,8 @@
 import Image from "next/image";
-import type { Link } from "~/types/types";
+import Link from "next/link";
+import type { TLink } from "~/types/types";
 
-export default function SocialMedia({ links }: { links: Link }) {
+export default function SocialMedia({ links }: { links: TLink }) {
   if (links) {
     return <InstagramLink link={links.Instagram} />;
   } else return <></>;
@@ -9,7 +10,7 @@ export default function SocialMedia({ links }: { links: Link }) {
 
 function InstagramLink({ link }: { link: string | null }) {
   return (
-    <a
+    <Link
       target={"_blank"}
       rel={"noreferrer"}
       href={link ?? "#"}
@@ -22,6 +23,6 @@ function InstagramLink({ link }: { link: string | null }) {
         className="hover:cursor-pointer"
         alt="Instagram"
       />
-    </a>
+    </Link>
   );
 }
