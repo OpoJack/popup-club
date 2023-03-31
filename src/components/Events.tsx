@@ -21,7 +21,7 @@ export default function Events({ popup }: { popup: Popup }) {
           key={event.id}
           className="mx-2 flex border-collapse flex-col divide-y divide-zinc-200 rounded-lg border bg-zinc-50 shadow-sm transition-colors hover:shadow-md"
         >
-          <div className="p-4 ">
+          <div className="p-3 ">
             <div className="flex flex-row justify-between space-x-2 object-cover">
               <div className="flex flex-row space-x-2 object-cover sm:h-20">
                 <div className="flex-none">
@@ -42,17 +42,17 @@ export default function Events({ popup }: { popup: Popup }) {
                 </div>
               </div>
               <div className="flex w-fit shrink flex-col">
-                <div className="grid h-4 grid-cols-3">
-                  <div className="col-span-2 text-xs font-semibold text-gray-900">
+                {/* <div className="grid h-4 grid-cols-3"> */}
+                <div className="col-span-2 text-xs text-gray-900">
+                  <span className="font-semibold">
                     {`${
                       event.date.getMonth() + 1
                     }/${event.date.getDate()}/${event.date.getFullYear()}`}
                     {" • "}
-                    <span className="font-bold">
-                      @{convertTime(event.date)}
-                    </span>
-                  </div>
+                  </span>
+                  <span className="font-bold">@{convertTime(event.date)}</span>
                 </div>
+                {/* </div> */}
                 <div className="text-xl font-bold tracking-tight text-gray-900 antialiased">
                   {typeof event.name === "string" ? event.name : popup.name}
                 </div>
@@ -65,7 +65,9 @@ export default function Events({ popup }: { popup: Popup }) {
                       {" • "}
                     </>
                   ) : null}
-                  @{event.location.name}
+                  <span className="block text-xs font-semibold">
+                    @{event.location.name}
+                  </span>
                 </div>
                 <div className="-mt-1">
                   <a
