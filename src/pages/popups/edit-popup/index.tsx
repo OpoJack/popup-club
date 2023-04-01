@@ -136,11 +136,11 @@ const EditPopup: NextPage = () => {
               action="#"
               method="POST"
             >
-              <div className="mt-10 sm:mt-0">
+              <div className="mt-5 sm:mt-0">
                 <div className="md:grid md:grid-cols-3 md:gap-6">
                   <div className="md:col-span-1">
                     <div className="px-4 sm:px-0">
-                      <h3 className="text-base font-semibold leading-6 text-gray-100">
+                      <h3 className="text-xl font-semibold leading-6 text-gray-100 sm:text-base">
                         Popup deets
                       </h3>
                       <p className="mt-1 text-sm text-gray-300">
@@ -184,7 +184,7 @@ const EditPopup: NextPage = () => {
                           <div className="col-span-6 sm:col-span-4">
                             <label
                               htmlFor="bio"
-                              className="block text-sm font-medium leading-6 text-gray-900"
+                              className="block font-medium leading-6 text-gray-900"
                             >
                               Bio
                             </label>
@@ -220,7 +220,7 @@ const EditPopup: NextPage = () => {
                               </span>
                               <button
                                 type="button"
-                                className="ml-5 rounded-md border border-gray-300 bg-white py-1.5 px-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50"
+                                className="ml-5 rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50"
                               >
                                 Change
                               </button>
@@ -231,7 +231,7 @@ const EditPopup: NextPage = () => {
                           <div className="col-span-6 sm:col-span-3">
                             <label
                               htmlFor="city"
-                              className="block text-sm font-medium leading-6 text-gray-900"
+                              className="block font-medium leading-6 text-gray-900"
                             >
                               Which city are you based in?
                             </label>
@@ -253,7 +253,7 @@ const EditPopup: NextPage = () => {
                           <div className="col-span-6  sm:col-span-3">
                             <label
                               htmlFor="orderType"
-                              className="block text-sm font-medium leading-6 text-gray-900"
+                              className="block font-medium leading-6 text-gray-900"
                             >
                               Order style?
                             </label>
@@ -299,7 +299,7 @@ const EditPopup: NextPage = () => {
                 <div className="md:grid md:grid-cols-3 md:gap-6">
                   <div className="md:col-span-1">
                     <div className="px-4 sm:px-0">
-                      <h3 className="text-base font-semibold leading-6 text-gray-100">
+                      <h3 className="text-xl font-semibold leading-6 text-gray-100 sm:text-base">
                         Social Media
                       </h3>
                       <p className="mt-1 text-sm text-gray-300">
@@ -326,7 +326,7 @@ const EditPopup: NextPage = () => {
                               <input
                                 name="Instagram"
                                 id="popup-instagram"
-                                className="block w-full flex-1  rounded-none rounded-r-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full flex-1  rounded-none rounded-r-md border-0 px-2 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 onKeyDown={(e) => {
                                   handleKeyDown(e);
                                 }}
@@ -359,7 +359,7 @@ const EditPopup: NextPage = () => {
                               <input
                                 name="TikTok"
                                 id="popup-tiktok"
-                                className="block w-full flex-1 rounded-none rounded-r-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full flex-1 rounded-none rounded-r-md border-0 px-2 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 onKeyDown={(e) => {
                                   handleKeyDown(e);
                                 }}
@@ -392,7 +392,7 @@ const EditPopup: NextPage = () => {
                               <input
                                 name="Facebook"
                                 id="popup-facebook"
-                                className="block w-full flex-1 rounded-none rounded-r-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full flex-1 rounded-none rounded-r-md border-0 px-2 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 onKeyDown={(e) => {
                                   handleKeyDown(e);
                                 }}
@@ -425,7 +425,7 @@ const EditPopup: NextPage = () => {
                               <input
                                 name="Website"
                                 id="popup-website"
-                                className="block w-full flex-1 rounded-none rounded-r-md border-0 py-1.5 px-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full flex-1 rounded-none rounded-r-md border-0 px-2 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 onKeyDown={(e) => {
                                   handleKeyDown(e);
                                 }}
@@ -445,7 +445,7 @@ const EditPopup: NextPage = () => {
                       <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
                         <button
                           type="submit"
-                          className="inline-flex justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                          className="inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                         >
                           Save
                         </button>
@@ -515,7 +515,7 @@ function TagInput({
         <div className="flex flex-row justify-start">
           <label
             htmlFor="popup-name"
-            className="flex self-center text-lg font-medium leading-6 text-gray-900"
+            className="flex self-center text-base font-medium leading-6 text-gray-900"
           >
             {}
             Tags
