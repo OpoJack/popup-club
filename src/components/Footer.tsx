@@ -52,7 +52,7 @@ const navigation = {
 export default function Footer() {
   return (
     <footer className="">
-      <div className="mx-auto max-w-7xl overflow-hidden py-20 px-6 sm:py-24 lg:px-8">
+      <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
         <nav
           className="sm:rows-1 row-span-3 -mb-6 text-center sm:flex sm:justify-center sm:space-x-12"
           aria-label="Footer"
@@ -61,7 +61,7 @@ export default function Footer() {
             <div key={item.name} className="pb-4 sm:pb-6">
               <Link
                 href={item.href}
-                className="text-sm leading-6 text-gray-300 hover:text-gray-400"
+                className="text-sm leading-6 text-primary hover:text-primary-focus hover:text-opacity-80"
               >
                 {item.name}
               </Link>
@@ -73,14 +73,14 @@ export default function Footer() {
             <Link
               key={item.name}
               href={item.href}
-              className="text-gray-200 hover:text-gray-400"
+              className="text-primary hover:text-primary-focus hover:text-opacity-80"
             >
               <span className="sr-only">{item.name}</span>
               <item.icon className="h-6 w-6" aria-hidden="true" />
             </Link>
           ))}
         </div>
-        <p className="mt-10 text-center text-xs leading-5 text-gray-500">
+        <p className="mt-10 text-center text-xs leading-5 text-primary opacity-50">
           &copy; 2023 Popup Club, LLC. All rights reserved.
         </p>
       </div>
