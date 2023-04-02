@@ -9,17 +9,17 @@ import Link from "next/link";
 import UpcomingEvents from "./UpcomingEvents";
 
 export default function PopupModal({
-  isShown,
-  setIsShown,
+  open,
+  setOpen,
   popup,
 }: {
-  isShown: boolean;
-  setIsShown: React.Dispatch<React.SetStateAction<boolean>>;
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   popup: Popup;
 }) {
   return (
-    <Transition.Root show={isShown} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setIsShown}>
+    <Transition.Root show={open} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={setOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -43,7 +43,7 @@ export default function PopupModal({
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative w-full max-w-xs transform overflow-hidden rounded-lg bg-white px-11 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8  sm:max-w-sm sm:p-6">
+              <Dialog.Panel className="relative w-full max-w-xs transform overflow-hidden rounded-lg bg-white px-11 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8  sm:max-w-sm sm:p-6">
                 <div className="absolute right-4 top-2 flex space-x-2">
                   <SocialMedia links={popup.links} />
                 </div>
@@ -81,7 +81,7 @@ export default function PopupModal({
                     href={`/popups/${popup.id}`}
                     type="button"
                     className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm"
-                    onClick={() => setIsShown(false)}
+                    onClick={() => setOpen(false)}
                   >
                     View Popup
                   </Link>

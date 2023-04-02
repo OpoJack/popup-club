@@ -7,18 +7,13 @@ import { HeartIcon, ShareIcon } from "@heroicons/react/24/solid";
 import PopupModal from "./PopupModal";
 
 export default function Popups({ popup }: { popup: Popup }) {
-  const [isShown, setIsShown] = useState(false);
-  const handleClick = () => {
-    setIsShown(!isShown);
-  };
+  const [open, setOpen] = useState(false);
   return (
     <>
-      {isShown && (
-        <PopupModal isShown={isShown} setIsShown={setIsShown} popup={popup} />
-      )}
+      <PopupModal open={open} setOpen={setOpen} popup={popup} />
       <li
         className="mx-2 flex flex-col divide-y divide-zinc-200 rounded-lg border bg-zinc-50 shadow-sm transition-colors hover:bg-blurple-100 hover:shadow-md"
-        onClick={handleClick}
+        onClick={() => setOpen(true)}
       >
         <div className="p-4">
           <div className="flex flex-row space-x-2 object-cover sm:h-fit">
