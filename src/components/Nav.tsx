@@ -29,7 +29,7 @@ export default function Nav() {
             <div className="relative flex h-16  items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button */}
-                <Disclosure.Button className="p- inline-flex items-center justify-center rounded-md text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-1 text-primary focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -39,7 +39,11 @@ export default function Nav() {
                 </Disclosure.Button>
               </div>
               <div className="absolute inset-y-0 left-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <Link href="/">
+                <Link
+                  href={{
+                    pathname: "/",
+                  }}
+                >
                   <img
                     className="hidden h-8 w-auto lg:block"
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
@@ -48,7 +52,12 @@ export default function Nav() {
                 </Link>
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch">
-                <Link href="/" className="flex flex-shrink-0">
+                <Link
+                  href={{
+                    pathname: "/",
+                  }}
+                  className="flex flex-shrink-0"
+                >
                   <img
                     className="block h-8 w-auto lg:hidden"
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
@@ -59,8 +68,14 @@ export default function Nav() {
                   {navigation.map((item) => (
                     <Link
                       key={item.name}
-                      href={item.href}
-                      className="inline-flex items-center border-b-2 border-indigo-400 px-1 pt-1 text-sm font-medium text-white hover:border-indigo-200"
+                      href={{
+                        pathname: item.href,
+                      }}
+                      className={`nline-flex items-center border-b-2 border-base-content px-1 pt-1 text-sm font-medium text-primary hover:border-primary-focus ${
+                        router.asPath === item.href
+                          ? "border-primary-focus text-primary-focus"
+                          : ""
+                      }`}
                     >
                       {item.name}
                     </Link>
@@ -77,16 +92,17 @@ export default function Nav() {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 pb-4 pt-2">
-              {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
               {navigation.map((item) => (
-                <Disclosure.Button
+                <Link
                   as="a"
                   key={item.name}
-                  href={item.href}
-                  className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-100 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
+                  href={{
+                    pathname: item.href,
+                  }}
+                  className="block rounded-sm border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-base-content hover:bg-primary-focus hover:text-primary-content"
                 >
                   {item.name}
-                </Disclosure.Button>
+                </Link>
               ))}
             </div>
           </Disclosure.Panel>
@@ -102,7 +118,7 @@ const Login = ({ router }: { router: NextRouter }) => {
       href={{
         pathname: "/login",
       }}
-      className="text-sm font-semibold leading-6 text-white"
+      className="text-sm font-semibold leading-6 text-primary-content"
     >
       Sign in
       <span aria-hidden="true"> &rarr;</span>
@@ -114,7 +130,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
   return (
     <Menu as="div" className="relative ml-3">
       <div>
-        <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+        <Menu.Button className="flex rounded-full bg-primary-content text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-primary-content">
           <span className="sr-only">Open user menu</span>
           <img
             className="h-8 w-8 rounded-full"
@@ -132,7 +148,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-primary py-1 shadow-lg ring-1 ring-secondary ring-opacity-5 focus:outline-none">
           <Menu.Item>
             {({ active }) => (
               <Link
@@ -140,8 +156,8 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
                   pathname: `/user/${sessionData.user.id}`,
                 }}
                 className={classNames(
-                  active ? "bg-gray-100" : "",
-                  "block px-4 py-2 text-sm text-gray-700"
+                  active ? "bg-primary" : "",
+                  "block px-4 py-2 text-sm text-primary-content hover:bg-primary-focus"
                 )}
               >
                 Your Profile
@@ -159,8 +175,8 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
                     },
                   }}
                   className={classNames(
-                    active ? "bg-gray-100" : "",
-                    "block px-4 py-2 text-sm text-gray-700"
+                    active ? "bg-primary" : "",
+                    "block px-4 py-2 text-sm text-primary-content hover:bg-primary-focus"
                   )}
                 >
                   Popup Settings
@@ -168,30 +184,27 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
               )}
             </Menu.Item>
           )}
-          {!sessionData.user.popupId && (
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  href={{
-                    pathname: `/user/${sessionData.user.id}/create-popup`,
-                  }}
-                  className={classNames(
-                    active ? "bg-gray-300" : "",
-                    "block px-4 py-2 text-sm font-semibold text-gray-700"
-                  )}
-                >
-                  Create Popup
-                </Link>
-              )}
-            </Menu.Item>
-          )}
+          {/* {!sessionData.user.popupId && ( */}
+          <Menu.Item>
+            {({ active }) => (
+              <Link
+                href={{
+                  pathname: `/user/${sessionData.user.id}/create-popup`,
+                }}
+                className="block bg-info px-4 py-2 text-sm font-semibold text-primary-content"
+              >
+                Create Popup
+              </Link>
+            )}
+          </Menu.Item>
+          {/* )} */}
           <Menu.Item>
             {({ active }) => (
               <Link
                 href="#"
                 className={classNames(
-                  active ? "bg-gray-100" : "",
-                  "block px-4 py-2 text-sm text-gray-700"
+                  active ? "bg-primary" : "",
+                  "block px-4 py-2 text-sm text-primary-content hover:bg-primary-focus"
                 )}
                 onClick={
                   sessionData ? () => void signOut() : () => void signIn()
