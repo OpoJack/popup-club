@@ -29,7 +29,7 @@ export default function Nav() {
             <div className="relative flex h-16  items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button */}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-1 text-primary focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent">
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-1 text-base-content focus:outline-none focus:ring-2 focus:ring-inset focus:ring-secondary">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -71,9 +71,9 @@ export default function Nav() {
                       href={{
                         pathname: item.href,
                       }}
-                      className={`nline-flex items-center border-b-2 border-base-content px-1 pt-1 text-sm font-medium text-primary hover:border-primary-focus ${
+                      className={`inline-flex items-center border-b-2 border-base-content px-1 pt-1 text-sm font-medium text-base-content hover:border-secondary ${
                         router.asPath === item.href
-                          ? "border-primary-focus text-primary-focus"
+                          ? "border-secondary-focus text-base-content"
                           : ""
                       }`}
                     >
@@ -99,7 +99,7 @@ export default function Nav() {
                   href={{
                     pathname: item.href,
                   }}
-                  className="block rounded-sm border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-base-content hover:bg-primary-focus hover:text-primary-content"
+                  className="block rounded-sm border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-base-content hover:bg-neutral-focus hover:text-neutral-content"
                 >
                   {item.name}
                 </Link>
@@ -118,7 +118,7 @@ const Login = ({ router }: { router: NextRouter }) => {
       href={{
         pathname: "/login",
       }}
-      className="text-sm font-semibold leading-6 text-primary-content"
+      className="text-sm font-semibold leading-6 text-base-content"
     >
       Sign in
       <span aria-hidden="true"> &rarr;</span>
@@ -130,7 +130,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
   return (
     <Menu as="div" className="relative ml-3">
       <div>
-        <Menu.Button className="flex rounded-full bg-primary-content text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-primary-content">
+        <Menu.Button className="flex rounded-full bg-secondary-content text-sm focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-secondary-content">
           <span className="sr-only">Open user menu</span>
           <img
             className="h-8 w-8 rounded-full"
@@ -148,7 +148,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-primary py-1 shadow-lg ring-1 ring-secondary ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-secondary py-1 shadow-lg ring-1 ring-secondary ring-opacity-5 focus:outline-none">
           <Menu.Item>
             {({ active }) => (
               <Link
@@ -156,8 +156,8 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
                   pathname: `/user/${sessionData.user.id}`,
                 }}
                 className={classNames(
-                  active ? "bg-primary" : "",
-                  "block px-4 py-2 text-sm text-primary-content hover:bg-primary-focus"
+                  active ? "bg-secondary" : "",
+                  "block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus"
                 )}
               >
                 Your Profile
@@ -175,8 +175,8 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
                     },
                   }}
                   className={classNames(
-                    active ? "bg-primary" : "",
-                    "block px-4 py-2 text-sm text-primary-content hover:bg-primary-focus"
+                    active ? "bg-secondary" : "",
+                    "block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus"
                   )}
                 >
                   Popup Settings
@@ -184,27 +184,27 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
               )}
             </Menu.Item>
           )}
-          {/* {!sessionData.user.popupId && ( */}
-          <Menu.Item>
-            {({ active }) => (
-              <Link
-                href={{
-                  pathname: `/user/${sessionData.user.id}/create-popup`,
-                }}
-                className="block bg-info px-4 py-2 text-sm font-semibold text-primary-content"
-              >
-                Create Popup
-              </Link>
-            )}
-          </Menu.Item>
-          {/* )} */}
+          {!sessionData.user.popupId && (
+            <Menu.Item>
+              {({ active }) => (
+                <Link
+                  href={{
+                    pathname: `/user/${sessionData.user.id}/create-popup`,
+                  }}
+                  className="block bg-accent px-4 py-2 text-sm font-semibold text-secondary-content hover:bg-accent-focus"
+                >
+                  Create Popup
+                </Link>
+              )}
+            </Menu.Item>
+          )}
           <Menu.Item>
             {({ active }) => (
               <Link
                 href="#"
                 className={classNames(
-                  active ? "bg-primary" : "",
-                  "block px-4 py-2 text-sm text-primary-content hover:bg-primary-focus"
+                  active ? "bg-secondary" : "",
+                  "block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus"
                 )}
                 onClick={
                   sessionData ? () => void signOut() : () => void signIn()

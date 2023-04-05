@@ -61,7 +61,7 @@ export default function Footer() {
             <div key={item.name} className="pb-4 sm:pb-6">
               <Link
                 href={item.href}
-                className="text-sm leading-6 text-primary hover:text-primary-focus hover:text-opacity-80"
+                className="text-sm leading-6 text-neutral hover:text-neutral-focus hover:text-opacity-50"
               >
                 {item.name}
               </Link>
@@ -73,14 +73,14 @@ export default function Footer() {
             <Link
               key={item.name}
               href={item.href}
-              className="text-primary hover:text-primary-focus hover:text-opacity-80"
+              className="text-neutral hover:text-neutral-focus hover:text-opacity-60"
             >
               <span className="sr-only">{item.name}</span>
               <item.icon className="h-6 w-6" aria-hidden="true" />
             </Link>
           ))}
         </div>
-        <p className="mt-10 text-center text-xs leading-5 text-primary opacity-50">
+        <p className="mt-10 text-center text-xs leading-5 text-neutral text-opacity-80">
           &copy; 2023 Popup Club, LLC. All rights reserved.
         </p>
       </div>

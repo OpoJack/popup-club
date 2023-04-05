@@ -32,35 +32,34 @@ const config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#ffffff",
-          focus: "#e6e6e6",
-          content: "#000000",
+          DEFAULT: "#66cc8a",
+          focus: "#41be6d",
+          content: "#f9fafb",
         },
         secondary: {
-          DEFAULT: "#152747",
-          focus: "#091120",
-          content: "#ffffff",
+          DEFAULT: "#377cfb",
+          focus: "#055bfa",
+          content: "#f9fafb",
         },
         accent: {
-          DEFAULT: "#503447",
-          focus: "#32202c",
-          content: "#ffffff",
+          DEFAULT: "#ea5234",
+          focus: "#d03516",
+          content: "#f9fafb",
         },
         neutral: {
-          DEFAULT: "#171618",
-          focus: "#2e2d2f",
-          content: "#dca54c",
+          DEFAULT: "#333c4d",
+          focus: "#1f242e",
+          content: "#f9fafb",
         },
-        base: {
-          100: "#111827",
-          200: "#171618",
-          300: "#2e2d2f",
-          content: "#dca54c",
-        },
-        info: "#66c7ff",
-        success: "#87cf3a",
-        warning: "#e1d460",
-        error: "#ff6b6b",
+        "base-100": "#ffffff",
+        "base-200": "#f9fafb",
+        "base-300": "#f0f0f0",
+        "base-content": "#333c4d",
+
+        info: "#1c92f2",
+        success: "#009485",
+        warning: "#ff9900",
+        error: "#ff5724",
 
         blurple: {
           DEFAULT: "#5865F2",

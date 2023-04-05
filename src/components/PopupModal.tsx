@@ -61,13 +61,13 @@ export default function PopupModal({
                   <div className="mt-3 text-center sm:mt-5">
                     <Dialog.Title
                       as="h3"
-                      className="text-2xl font-medium leading-6 text-primary"
+                      className="text-2xl font-medium leading-6 text-neutral"
                     >
                       {popup.name}
                     </Dialog.Title>
                     <div className="mt-1">
                       {/* TODO: Add a field for a US state to popup properties */}
-                      <p className="pb-5 text-sm text-primary-focus text-opacity-60">
+                      <p className="pb-5 text-sm text-base-content text-opacity-60">
                         {popup.basedIn}
                       </p>
 
@@ -80,7 +80,7 @@ export default function PopupModal({
                   <Link
                     href={`/popups/${popup.id}`}
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md border border-transparent bg-secondary px-4 py-2 text-base font-medium text-primary shadow-sm hover:bg-opacity-80 hover:text-primary-focus focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 sm:text-sm"
+                    className="inline-flex w-full justify-center rounded-md border border-transparent bg-secondary px-4 py-2 text-base font-medium text-secondary-content shadow-sm hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-secondary-focus focus:ring-offset-1 sm:text-sm"
                     onClick={() => setOpen(false)}
                   >
                     View Popup

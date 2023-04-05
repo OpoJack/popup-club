@@ -16,7 +16,7 @@ export const Container = ({ children }: { children: ReactNode }) => {
 
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="isolate min-h-screen bg-base-200">
+      <div className="isolate min-h-screen bg-base-100">
         <Nav />
         {/* Gradient stuff */}
         <Gradient />

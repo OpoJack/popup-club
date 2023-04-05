@@ -12,7 +12,7 @@ export default function Popups({ popup }: { popup: Popup }) {
     <>
       <PopupModal open={open} setOpen={setOpen} popup={popup} />
       <li
-        className="mx-2 flex flex-col divide-y divide-zinc-200 rounded-lg border bg-zinc-50 shadow-sm transition-colors hover:bg-blurple-100 hover:shadow-md"
+        className="mx-2 flex flex-col divide-y divide-base-200 rounded-lg border  bg-base-100 shadow-md transition-all  hover:bg-base-200 hover:shadow-xl"
         onClick={() => setOpen(true)}
       >
         <div className="p-4">
@@ -20,7 +20,7 @@ export default function Popups({ popup }: { popup: Popup }) {
             <div className="flex-none">
               <Image
                 key={popup.links?.id}
-                className="flex-shrink-1 h-20 w-20 rounded-full bg-gray-300"
+                className="flex-shrink-1 h-20 w-20 rounded-full"
                 src={popup.imageUrl ?? "/hotdog.jpg"}
                 alt=""
                 width={80}
@@ -30,21 +30,16 @@ export default function Popups({ popup }: { popup: Popup }) {
             <div className="flex w-fit shrink flex-col">
               <div className="flex h-5 flex-row space-x-2">
                 <SocialMedia links={popup.links} />
-                <ShareIcon
-                  fill="black"
-                  width={17}
-                  height={17}
-                  className=""
-                />{" "}
-                <HeartIcon fill="red" width={17} height={17} className="" />
+                <ShareIcon fill="black" width={17} height={17} />{" "}
+                <HeartIcon fill="red" width={17} height={17} />
               </div>
-              <div className="-mt-1 text-xl font-bold tracking-tight text-gray-900 antialiased">
+              <div className="-mt-1 text-xl font-bold tracking-tight text-base-content antialiased">
                 {popup.name}
               </div>
-              <div className="inline-block flex-shrink-0 text-xs font-normal text-gray-800">
+              <div className="inline-block flex-shrink-0 text-xs font-normal text-base-content">
                 {popup.description}
               </div>
-              <div className="text-xs font-semibold text-gray-900">
+              <div className="text-xs font-semibold text-base-content">
                 Based in: {popup.basedIn}
               </div>
             </div>
