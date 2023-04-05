@@ -71,10 +71,10 @@ export default function Nav() {
                       href={{
                         pathname: item.href,
                       }}
-                      className={`inline-flex items-center border-b-2 border-base-content px-1 pt-1 text-sm font-medium text-base-content hover:border-secondary ${
+                      className={`inline-flex items-center border-b-2  px-1 pt-1 text-sm font-medium text-base-content hover:border-secondary ${
                         router.asPath === item.href
-                          ? "border-secondary-focus text-base-content"
-                          : ""
+                          ? "border-secondary-focus"
+                          : "border-base-content"
                       }`}
                     >
                       {item.name}
