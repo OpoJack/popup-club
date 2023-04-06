@@ -39,11 +39,9 @@ const EventsPage = () => {
             role="list"
             className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
-            {events !== undefined && events.length > 0 ? (
-              popups?.map((popup) => <Events popup={popup} key={popup.id} />)
-            ) : (
-              <div className="text-center">hi</div>
-            )}
+            {popups?.map((popup) => (
+              <Events popup={popup} key={popup.id} />
+            ))}
           </ul>
         </div>
       </div>
