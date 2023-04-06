@@ -127,6 +127,38 @@ const Login = ({ router }: { router: NextRouter }) => {
 };
 
 const UserProfile = ({ sessionData }: { sessionData: Session }) => {
+  const userNavigation = [
+    {
+      name: "Your Profile",
+      href: {
+        pathname: `/user/${sessionData.user.id}`,
+      },
+      display: true,
+      styles:
+        "block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus",
+    },
+    {
+      name: "Popup Settings",
+      href: {
+        pathname: `/popups/edit-popup/`,
+        query: {
+          popupId: sessionData.user.popupId,
+        },
+      },
+      display: sessionData.user.popupId ? true : false,
+      styles:
+        "block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus",
+    },
+    {
+      name: "Create popup",
+      href: {
+        pathname: `/user/${sessionData.user.id}/create-popup`,
+      },
+      display: sessionData.user.popupId ? false : true,
+      styles:
+        "block bg-accent px-4 py-2 text-sm font-semibold text-secondary-content hover:bg-accent-focus",
+    },
+  ];
   return (
     <Menu as="div" className="relative ml-3">
       <div>
