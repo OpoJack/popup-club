@@ -17,11 +17,14 @@ export default function UpcomingEvents({ popup }: { popup: Popup }) {
   };
   return (
     <>
-      <div className="overflow-hidden rounded-md border border-gray-300 bg-white">
-        <ol ref={parent} role="list" className="divide-y divide-gray-300">
+      <div className="overflow-hidden rounded-md border border-base-200 bg-base-200">
+        <div className="text-center text-sm text-base-content">
+          Recent + Upcoming Events
+        </div>
+        <ol ref={parent} role="list" className="divide-y divide-base-200">
           {popup.events.length === 0 ? (
             <li className="mx-1 px-1 py-4">
-              <span className="flex flex-row justify-center text-sm">
+              <span className="flex flex-row justify-center text-sm text-base-content">
                 No events posted 😢
               </span>
             </li>
@@ -29,7 +32,7 @@ export default function UpcomingEvents({ popup }: { popup: Popup }) {
           {popup.events?.slice(0, upperLimit).map((event) => (
             <li
               key={event.id}
-              className="-mx-3 flex flex-col px-6 py-4 text-xs"
+              className="-mx-3 flex flex-col bg-base-200 px-6 py-4 text-xs text-base-content hover:bg-base-300"
             >
               <div className="flex justify-between">
                 <div>

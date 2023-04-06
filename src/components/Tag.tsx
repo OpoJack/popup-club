@@ -23,10 +23,10 @@ export default function Tag({
   };
 
   return (
-    <p className="mt-1 space-x-1 truncate py-2 text-sm text-gray-500">
+    <p className="mt-1 space-x-1 truncate py-2 text-sm">
       {showTag && (
         <span
-          className="relative inline-block rounded-full bg-gray-200 px-3 py-0.5 text-xs font-medium text-gray-800 hover:cursor-pointer hover:bg-gray-300"
+          className="relative inline-block rounded-full bg-secondary px-3 py-0.5 text-xs font-medium text-secondary-content hover:cursor-pointer hover:bg-secondary-focus"
           onMouseEnter={() => setIsShown(true)}
           onMouseLeave={() => setIsShown(false)}
         >
@@ -36,11 +36,11 @@ export default function Tag({
             //Renders the button if the tag is hovered over and if it's the edit page
             isShown && router.pathname === "/popups/edit-popup" && (
               <button
-                className="absolute top-0 right-0 -mt-2 flex h-full w-4 items-center justify-center rounded-full align-top text-gray-50 hover:text-gray-900"
+                className="absolute right-0 top-0 -mt-2 flex h-full w-4 items-center justify-center rounded-full align-top"
                 onClick={() => handleDeleteTag()}
               >
                 <XCircleIcon
-                  className="text-red-400 hover:text-red-700"
+                  className="text-accent hover:text-accent-focus"
                   aria-hidden="true"
                 />
               </button>

@@ -122,7 +122,7 @@ const EditPopup: NextPage = () => {
           >
             <div className="hidden sm:block" aria-hidden="true">
               <div className="py-5">
-                <div className="border-t border-gray-700" />
+                <div className="border-t border-neutral" />
               </div>
             </div>
 
@@ -140,23 +140,23 @@ const EditPopup: NextPage = () => {
                 <div className="md:grid md:grid-cols-3 md:gap-6">
                   <div className="md:col-span-1">
                     <div className="px-4 sm:px-0">
-                      <h3 className="text-xl font-semibold leading-6 text-gray-100 sm:text-base">
+                      <h3 className="text-xl font-semibold leading-6 text-neutral-focus sm:text-base">
                         Popup deets
                       </h3>
-                      <p className="mt-1 text-sm text-gray-300">
+                      <p className="mt-1 text-sm text-neutral">
                         Tell us about your popup!
                       </p>
                     </div>
                   </div>
-                  <div className="mt-5 md:col-span-2 md:mt-0">
-                    <div className="overflow-visible shadow sm:rounded-md">
-                      <div className="bg-slate-50 px-4 py-5 sm:p-6">
+                  <div className="mt-5  md:col-span-2 md:mt-0">
+                    <div className="overflow-visible shadow-lg">
+                      <div className="bg-base-100 px-4 py-5 sm:rounded-md sm:p-6">
                         <div className="grid grid-cols-6 gap-6">
                           {/* Popup name */}
                           <div className="col-span-6 sm:col-span-3">
                             <label
                               htmlFor="popup-name"
-                              className="block text-lg font-medium leading-6 text-gray-900"
+                              className="block text-lg font-medium leading-6 text-neutral"
                             >
                               {}
                               Popup name
@@ -172,7 +172,7 @@ const EditPopup: NextPage = () => {
                                 name="name"
                                 id="popup-name"
                                 autoComplete="popup-name"
-                                className="mt-2 block w-full rounded-md border-0 py-1.5  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="mt-2 block w-full rounded-md border-0 py-1.5  text-neutral shadow-sm ring-1 ring-inset ring-neutral-focus placeholder:text-neutral placeholder:text-opacity-50 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
                                 defaultValue={popup?.name ? popup.name : ""}
                                 onKeyDown={(e) => {
                                   handleKeyDown(e);
@@ -184,7 +184,7 @@ const EditPopup: NextPage = () => {
                           <div className="col-span-6 sm:col-span-4">
                             <label
                               htmlFor="bio"
-                              className="block font-medium leading-6 text-gray-900"
+                              className="block font-medium leading-6 text-neutral"
                             >
                               Bio
                             </label>
@@ -194,23 +194,23 @@ const EditPopup: NextPage = () => {
                                   id="bio"
                                   name="description"
                                   rows={3}
-                                  className="mt-1 block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
+                                  className="mt-1 block w-full rounded-md border-0 text-neutral shadow-sm ring-1 ring-inset ring-neutral-focus placeholder:text-neutral placeholder:text-opacity-50 focus:ring-2 focus:ring-inset focus:ring-secondary sm:py-1.5 sm:text-sm sm:leading-6"
                                   placeholder="Serving up beans, greens, potatoes, tomatoes "
                                   defaultValue={popup.description}
                                 />
                               )}
                             </div>
-                            <p className="mt-2 text-sm text-gray-500">
+                            <p className="mt-2 text-sm text-neutral">
                               Brief description of your popup
                             </p>
                           </div>
                           {/* Photo */}
                           <div className="col-span-6 sm:col-span-4">
-                            <label className="block text-sm font-medium leading-6 text-gray-900">
+                            <label className="block text-sm font-medium leading-6 text-neutral">
                               Photo
                             </label>
                             <div className="mt-2 flex items-center">
-                              <span className="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100">
+                              <span className="inline-block h-12 w-12 overflow-hidden rounded-full bg-neutral-content">
                                 <Image
                                   src={popup?.imageUrl || "/hotdog.jpg"}
                                   alt={""}
@@ -220,7 +220,7 @@ const EditPopup: NextPage = () => {
                               </span>
                               <button
                                 type="button"
-                                className="ml-5 rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50"
+                                className="ml-5 rounded-md border border-neutral bg-base-100 px-2.5 py-1.5 text-sm font-semibold text-neutral shadow-sm hover:bg-base-300"
                               >
                                 Change
                               </button>
@@ -231,7 +231,7 @@ const EditPopup: NextPage = () => {
                           <div className="col-span-6 sm:col-span-3">
                             <label
                               htmlFor="city"
-                              className="block font-medium leading-6 text-gray-900"
+                              className="block font-medium leading-6 text-neutral"
                             >
                               Which city are you based in?
                             </label>
@@ -240,7 +240,7 @@ const EditPopup: NextPage = () => {
                                 id="city"
                                 name="basedIn"
                                 autoComplete="city-name"
-                                className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="mt-2 block w-full rounded-md border-0 bg-neutral-content py-1.5 text-neutral shadow-sm ring-1 ring-inset ring-neutral focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
                                 defaultValue={popup.basedIn}
                               >
                                 <option>Orlando, FL</option>
@@ -253,7 +253,7 @@ const EditPopup: NextPage = () => {
                           <div className="col-span-6  sm:col-span-3">
                             <label
                               htmlFor="orderType"
-                              className="block font-medium leading-6 text-gray-900"
+                              className="block font-medium leading-6 text-neutral"
                             >
                               Order style?
                             </label>
@@ -262,7 +262,7 @@ const EditPopup: NextPage = () => {
                                 id="order-type"
                                 name="orderType"
                                 autoComplete="order-type"
-                                className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="mt-2 block w-full rounded-md border-0 bg-neutral-content py-1.5 text-neutral shadow-sm ring-1 ring-inset ring-neutral focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
                                 defaultValue={popup.orderType}
                               >
                                 <option>First come, first serve</option>
@@ -291,7 +291,7 @@ const EditPopup: NextPage = () => {
               {/* Divider */}
               <div className="hidden sm:block" aria-hidden="true">
                 <div className="py-5">
-                  <div className="border-t border-gray-700" />
+                  <div className="border-t border-neutral" />
                 </div>
               </div>
               {/* Social Media */}
@@ -299,34 +299,34 @@ const EditPopup: NextPage = () => {
                 <div className="md:grid md:grid-cols-3 md:gap-6">
                   <div className="md:col-span-1">
                     <div className="px-4 sm:px-0">
-                      <h3 className="text-xl font-semibold leading-6 text-gray-100 sm:text-base">
+                      <h3 className="text-xl font-semibold leading-6 text-neutral-focus sm:text-base">
                         Social Media
                       </h3>
-                      <p className="mt-1 text-sm text-gray-300">
+                      <p className="mt-1 text-sm text-neutral">
                         Where can your customers find out more?
                       </p>
                     </div>
                   </div>
                   <div className="mt-5 md:col-span-2 md:mt-0">
-                    <div className="overflow-hidden shadow sm:rounded-md">
-                      <div className="bg-slate-50 px-4 py-5 sm:p-6">
+                    <div className="overflow-hidden shadow-lg sm:rounded-md">
+                      <div className="bg-base-100 px-4 py-5 sm:p-6">
                         <div className="grid grid-cols-6 grid-rows-2 gap-6">
                           {/* Instagram */}
                           <div className="col-span-6 row-start-1 sm:col-span-4">
                             <label
                               htmlFor="popup-instagram"
-                              className="block text-sm font-medium leading-6 text-gray-900"
+                              className="block text-sm font-medium leading-6 text-neutral-focus"
                             >
                               Instagram
                             </label>
                             <div className="mt-2 flex rounded-md shadow-sm">
-                              <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500  sm:text-sm">
+                              <span className="inline-flex items-center rounded-l-md border border-r-0 border-neutral px-3 text-neutral text-opacity-50  sm:text-sm">
                                 instagram.com/
                               </span>
                               <input
                                 name="Instagram"
                                 id="popup-instagram"
-                                className="block w-full flex-1  rounded-none rounded-r-md border-0 px-2 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full flex-1  rounded-none rounded-r-md border-0 px-2 py-1.5 text-neutral ring-1 ring-inset ring-neutral placeholder:text-neutral placeholder:text-opacity-50 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
                                 onKeyDown={(e) => {
                                   handleKeyDown(e);
                                 }}
@@ -348,18 +348,18 @@ const EditPopup: NextPage = () => {
                           <div className="col-span-6 row-start-2 sm:col-span-4">
                             <label
                               htmlFor="popup-tiktok"
-                              className="block text-sm font-medium leading-6 text-gray-900"
+                              className="block text-sm font-medium leading-6 text-neutral"
                             >
                               TikTok
                             </label>
                             <div className="mt-2 flex rounded-md shadow-sm">
-                              <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm">
+                              <span className="inline-flex items-center rounded-l-md border border-r-0 border-neutral px-3 text-neutral text-opacity-50  sm:text-sm">
                                 tiktok.com/@
                               </span>
                               <input
                                 name="TikTok"
                                 id="popup-tiktok"
-                                className="block w-full flex-1 rounded-none rounded-r-md border-0 px-2 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full flex-1  rounded-none rounded-r-md border-0 px-2 py-1.5 text-neutral ring-1 ring-inset ring-neutral placeholder:text-neutral placeholder:text-opacity-50 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
                                 onKeyDown={(e) => {
                                   handleKeyDown(e);
                                 }}
@@ -381,18 +381,18 @@ const EditPopup: NextPage = () => {
                           <div className="col-span-6 row-start-3 sm:col-span-4">
                             <label
                               htmlFor="popup-facebook"
-                              className="block text-sm font-medium leading-6 text-gray-900"
+                              className="block text-sm font-medium leading-6 text-neutral"
                             >
                               Facebook
                             </label>
                             <div className="mt-2 flex rounded-md shadow-sm">
-                              <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm">
+                              <span className="inline-flex items-center rounded-l-md border border-r-0 border-neutral px-3 text-neutral text-opacity-50  sm:text-sm">
                                 facebook.com/
                               </span>
                               <input
                                 name="Facebook"
                                 id="popup-facebook"
-                                className="block w-full flex-1 rounded-none rounded-r-md border-0 px-2 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full flex-1  rounded-none rounded-r-md border-0 px-2 py-1.5 text-neutral ring-1 ring-inset ring-neutral placeholder:text-neutral placeholder:text-opacity-50 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
                                 onKeyDown={(e) => {
                                   handleKeyDown(e);
                                 }}
@@ -414,18 +414,18 @@ const EditPopup: NextPage = () => {
                           <div className="col-span-6 row-start-4 sm:col-span-4">
                             <label
                               htmlFor="popup-website"
-                              className="block text-sm font-medium leading-6 text-gray-900"
+                              className="block text-sm font-medium leading-6 text-neutral"
                             >
                               Website
                             </label>
                             <div className="mt-2 flex rounded-md shadow-sm">
-                              <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm">
+                              <span className="inline-flex items-center rounded-l-md border border-r-0 border-neutral px-3 text-neutral text-opacity-50  sm:text-sm">
                                 https://
                               </span>
                               <input
                                 name="Website"
                                 id="popup-website"
-                                className="block w-full flex-1 rounded-none rounded-r-md border-0 px-2 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                className="block w-full flex-1  rounded-none rounded-r-md border-0 px-2 py-1.5 text-neutral ring-1 ring-inset ring-neutral placeholder:text-neutral placeholder:text-opacity-50 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
                                 onKeyDown={(e) => {
                                   handleKeyDown(e);
                                 }}
@@ -442,10 +442,10 @@ const EditPopup: NextPage = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                      <div className="px-4 py-3 text-right sm:px-6">
                         <button
                           type="submit"
-                          className="inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                          className="inline-flex justify-center rounded-md bg-secondary px-3 py-2 text-sm font-semibold text-secondary-content shadow-sm hover:bg-secondary-focus focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                         >
                           Save
                         </button>
@@ -515,7 +515,7 @@ function TagInput({
         <div className="flex flex-row justify-start">
           <label
             htmlFor="popup-name"
-            className="flex self-center text-base font-medium leading-6 text-gray-900"
+            className="flex self-center text-base font-medium leading-6 text-neutral"
           >
             {}
             Tags
@@ -534,18 +534,18 @@ function TagInput({
         value={value}
         onChange={handleChange}
         autoComplete="off"
-        className="w-full rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 "
+        className="w-full rounded-md border border-neutral px-4 py-2 shadow-sm focus:border-secondary focus:outline-none focus:ring-secondary-focus "
         onKeyDown={(e) => {
           handleKeyDown(e);
         }}
       />
       <div className="relative">
         {filteredTags.length > 0 && filteredTags.length < 3 && (
-          <ul className="absolute z-10 w-full rounded-md border border-gray-300 bg-white py-1 shadow-lg">
+          <ul className="absolute z-10 w-full rounded-md border border-neutral bg-neutral-content py-1 shadow-lg">
             {filteredTags.map((tag) => (
               <li
                 key={tag.id}
-                className="max-w-full cursor-pointer px-4 py-2 hover:bg-gray-100"
+                className="max-w-full cursor-pointer px-4 py-2 hover:bg-base-300"
                 onClick={() => handleTagClick(tag)}
               >
                 {tag.name}

@@ -27,9 +27,11 @@ const EventsPage = () => {
       <div className="relative sm:py-10 lg:pb-40">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="pb-20 pt-10">
-            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-              <span className="block">The latest and greatest</span>
-              <span className="block text-indigo-400">Events</span>
+            <h1 className="text-4xl font-extrabold tracking-tight text-primary-content sm:text-5xl lg:text-6xl">
+              <span className="block text-base-content">
+                The latest and greatest
+              </span>
+              <span className="block text-accent">Events</span>
             </h1>
           </div>
           <ul

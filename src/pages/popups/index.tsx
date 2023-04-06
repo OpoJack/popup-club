@@ -24,8 +24,10 @@ const AllPopups = () => {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="pb-20 pt-10">
             <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-              <span className="block">The latest and greatest</span>
-              <span className="block text-indigo-400">Popups</span>
+              <span className="block text-base-content">
+                The latest and greatest
+              </span>
+              <span className="block text-secondary">Popups</span>
             </h1>
           </div>
           <ul
