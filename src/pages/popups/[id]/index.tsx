@@ -5,6 +5,7 @@ import { api } from "~/utils/api";
 import Image from "next/image";
 import SocialMedia from "~/components/SocialMedia";
 import { Loading } from "~/components/Loading";
+import UpcomingEvents from "~/components/UpcomingEvents";
 
 const PopupPage = () => {
   const { data: session, status } = useSession();
@@ -34,34 +35,41 @@ const PopupPage = () => {
           />
         </div>
         <div className="mx-auto max-w-3xl">
-          <div className="overflow-hidden rounded-lg bg-gray-100 shadow">
+          <div className="overflow-hidden rounded-lg bg-neutral-content shadow">
             <div className="flex justify-end pr-2 pt-2">
               {popup?.links && <SocialMedia links={popup?.links} />}
             </div>
-            <div className="px-4 py-5  shadow-lg sm:px-6">
-              <h3 className="text-center text-3xl font-semibold leading-6 text-gray-900">
+            <div className=" px-4  py-5 shadow-lg sm:px-6">
+              <h3 className="text-center text-3xl font-semibold leading-6 text-base-content">
                 {popup?.name}
               </h3>
             </div>
             <div className="px-4 py-5 sm:p-6">
               <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                 <div className="sm:col-span-2">
-                  <dt className="text-sm font-medium text-gray-500">About</dt>
-                  <dd className="mt-1 text-sm text-gray-900">
+                  <dt className="text-xl font-medium text-base-content">
+                    About
+                  </dt>
+                  <dd className="mt-1 text-sm text-base-content">
                     {popup?.description}
                   </dd>
 
-                  <dt className="text-sm font-medium text-gray-500">
+                  <dt className="text-sm font-medium text-base-content">
                     Email address
                   </dt>
-                  <dd className="mt-1 text-sm text-gray-900">
+                  <dd className="mt-1 text-sm text-base-content">
                     {popup?.basedIn}
                   </dd>
 
-                  <dt className="text-sm font-medium text-gray-500">Role</dt>
-                  <dd className="mt-1 text-sm text-gray-900">
+                  <dt className="text-sm font-medium text-base-content">
+                    Role
+                  </dt>
+                  <dd className="mt-1 text-sm text-base-content">
                     {popup?.orderType}
                   </dd>
+                </div>
+                <div className="col-span-2 flex flex-col">
+                  {popup?.events && <UpcomingEvents popup={popup} />}
                 </div>
               </dl>
             </div>
