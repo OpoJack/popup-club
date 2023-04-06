@@ -111,39 +111,6 @@ const Login = ({ router }: { router: NextRouter }) => {
 };
 
 const UserProfile = ({ sessionData }: { sessionData: Session }) => {
-  const userNavigation = [
-    {
-      name: "Your Profile",
-      href: {
-        pathname: `/user/${sessionData.user.id}`,
-      },
-      display: true,
-      styles:
-        "block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus",
-    },
-    {
-      name: "Popup Settings",
-      href: {
-        pathname: `/popups/edit-popup/`,
-        query: {
-          popupId: sessionData.user.popupId,
-        },
-      },
-      display: sessionData.user.popupId ? true : false,
-      styles:
-        "block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus",
-    },
-    {
-      name: "Create popup",
-      href: {
-        pathname: `/user/${sessionData.user.id}/create-popup`,
-      },
-      display: sessionData.user.popupId ? false : true,
-      styles:
-        "block bg-accent px-4 py-2 text-sm font-semibold text-secondary-content hover:bg-accent-focus",
-    },
-  ];
-
   return (
     <Menu as="div" className="relative ml-3">
       <div>
@@ -165,24 +132,58 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="bg-secondary ring-secondary absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md py-1 shadow-lg ring-1 ring-opacity-5 focus:outline-none">
-          {userNavigation.map(
-            (item) =>
-              item.display && (
-                <Menu.Item key={item.name}>
-                  {({ active }) => (
-                    <Link
-                      href={item.href}
-                      className={classNames(
-                        active ? "bg-secondary" : "",
-                        item.styles
-                      )}
-                    >
-                      {item.name}
-                    </Link>
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Item>
+            {({ active }) => (
+              <Link
+                href={{
+                  pathname: `/user/${sessionData.user.id}`,
+                }}
+                className={classNames(
+                  active ? "bg-gray-100" : "",
+                  "block px-4 py-2 text-sm text-gray-700"
+                )}
+              >
+                Your Profile
+              </Link>
+            )}
+          </Menu.Item>
+          {sessionData && (
+            <Menu.Item>
+              {({ active }) => (
+                <Link
+                  href={{
+                    pathname: `/popups/edit-popup/`,
+                    query: {
+                      popupId: sessionData.user.popupId,
+                    },
+                  }}
+                  className={classNames(
+                    active ? "bg-gray-100" : "",
+                    "block px-4 py-2 text-sm text-gray-700"
                   )}
-                </Menu.Item>
-              )
+                >
+                  Popup Settings
+                </Link>
+              )}
+            </Menu.Item>
+          )}
+          {!sessionData.user.popupId && (
+            <Menu.Item>
+              {({ active }) => (
+                <Link
+                  href={{
+                    pathname: `/user/${sessionData.user.id}/create-popup`,
+                  }}
+                  className={classNames(
+                    active ? "bg-gray-300" : "",
+                    "block px-4 py-2 text-sm font-semibold text-gray-700"
+                  )}
+                >
+                  Create Popup
+                </Link>
+              )}
+            </Menu.Item>
           )}
           <Menu.Item>
             {({ active }) => (

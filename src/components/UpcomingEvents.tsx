@@ -17,11 +17,8 @@ export default function UpcomingEvents({ popup }: { popup: Popup }) {
   };
   return (
     <>
-      <div className="border-base-200 bg-base-200 overflow-hidden rounded-md border">
-        <div className="text-base-content text-center text-sm">
-          Recent + Upcoming Events
-        </div>
-        <ol ref={parent} role="list" className="divide-base-200 divide-y">
+      <div className="overflow-hidden rounded-md border border-gray-300 bg-white">
+        <ol ref={parent} role="list" className="divide-y divide-gray-300">
           {popup.events.length === 0 ? (
             <li className="mx-1 px-1 py-4">
               <span className="flex flex-row justify-center text-sm">
