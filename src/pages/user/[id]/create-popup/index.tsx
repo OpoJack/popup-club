@@ -55,14 +55,14 @@ const CreatePopup: NextPage = () => {
     );
   }
 
-  //Checks if the user already has a popup and redirects them to their edit popup page if they do.
-  // if (session?.user.popupId) {
-  //   router
-  //     .push(`/popups/edit-popup/?popupId=${session.user.popupId}`)
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // }
+  // Checks if the user already has a popup and redirects them to their edit popup page if they do.
+  if (session?.user.popupId) {
+    router
+      .push(`/popups/edit-popup/?popupId=${session.user.popupId}`)
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 
   if (session?.user.role === "USER") {
     return (

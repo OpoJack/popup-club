@@ -47,8 +47,6 @@ const EventsPage = () => {
       </div>
     </Container>
   );
-
-  //Profile page
 };
 
 export default EventsPage;
