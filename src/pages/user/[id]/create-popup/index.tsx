@@ -56,13 +56,13 @@ const CreatePopup: NextPage = () => {
   }
 
   //Checks if the user already has a popup and redirects them to their edit popup page if they do.
-  if (session?.user.popupId) {
-    router
-      .push(`/popups/edit-popup/?popupId=${session.user.popupId}`)
-      .catch((err) => {
-        console.error(err);
-      });
-  }
+  // if (session?.user.popupId) {
+  //   router
+  //     .push(`/popups/edit-popup/?popupId=${session.user.popupId}`)
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // }
 
   if (session?.user.role === "USER") {
     return (
@@ -77,44 +77,44 @@ const CreatePopup: NextPage = () => {
       <Container>
         {/* Main Content */}
         <main>
-          <div className="relative py-24 sm:py-32 lg:pb-40">
+          <div className="relative py-10 sm:py-14 lg:pb-40">
             <div className="mx-auto max-w-3xl px-6 lg:px-8">
               {/* Title */}
               <div className="mx-auto max-w-3xl pb-14 text-center">
-                <h1 className="text-4xl font-bold tracking-tight text-white sm:text-7xl">
+                <h1 className="text-4xl font-bold tracking-tight text-neutral-focus sm:text-7xl">
                   Welcome to Popup Club!
                 </h1>
-                <p className="mt-6 text-lg leading-8 text-gray-300">
+                <p className="mt-6 text-lg leading-8 text-base-content">
                   We&apos;re building a community of people who love food,
                   cooking and small-businesses. You bring the food, we get the
                   word out. Thank you for sharing your passion with us.
                 </p>
-                <p className="mt-6 text-xl font-semibold leading-8 text-gray-100">
+                <p className="mt-6 text-xl font-semibold leading-8 text-base-content">
                   When&apos;s the next popup?
                 </p>
               </div>
               {/* Popup info */}
               <form
-                className="space-y-8 divide-y divide-gray-200"
+                className="space-y-8 divide-y divide-neutral"
                 onSubmit={handleSubmitPopup}
               >
-                <div className="space-y-8 divide-y divide-gray-200">
+                <div className="divide-neut space-y-8 divide-y">
                   <div>
-                    <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6 ">
+                    <div className="mt-6 grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-6 ">
                       {/* Popup Name */}
                       <div className="sm:col-span-3 sm:col-start-1 ">
                         <label
                           htmlFor="popup"
-                          className="block pb-2 text-2xl font-medium leading-6 text-gray-100"
+                          className="block pb-2 text-2xl font-medium leading-6 text-base-content"
                         >
                           What&apos;s your Popup called?
                         </label>
-                        <div className="mt-2 shadow-lg shadow-indigo-500">
+                        <div className="mt-2 rounded-md shadow-lg shadow-secondary">
                           <input
                             type="text"
                             name="popup-name"
                             id="popup-name"
-                            className="block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6"
+                            className="block w-full rounded-md border-0 py-2 text-base-content shadow-sm ring-1 ring-inset ring-base-content focus:ring-2 focus:ring-inset focus:ring-secondary-focus sm:text-lg sm:leading-6"
                             onChange={(e) => setName(e.target.value)}
                           />
                         </div>
@@ -123,7 +123,7 @@ const CreatePopup: NextPage = () => {
                       <div className="sm:col-span-5">
                         <label
                           htmlFor="bio"
-                          className="text-md block font-medium leading-6 text-gray-100"
+                          className="text-md block font-medium leading-6 text-base-content"
                         >
                           Bio
                         </label>
@@ -132,12 +132,12 @@ const CreatePopup: NextPage = () => {
                             id="bio"
                             name="bio"
                             rows={2}
-                            className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:py-1.5 sm:text-sm sm:leading-6"
+                            className="block w-full rounded-md border-0 text-base-content shadow-sm ring-1 ring-inset ring-base-content placeholder:text-base-content focus:ring-2 focus:ring-inset focus:ring-secondary-focus sm:py-1.5 sm:text-sm sm:leading-6"
                             defaultValue={""}
                             onChange={(e) => setDescription(e.target.value)}
                           />
                         </div>
-                        <p className="mt-2 text-xs text-gray-400">
+                        <p className="mt-2 text-xs text-neutral">
                           Write a bit about your product + service.
                         </p>
                       </div>
@@ -145,14 +145,14 @@ const CreatePopup: NextPage = () => {
                       <div className="sm:col-span-6">
                         <label
                           htmlFor="photo"
-                          className="text-md block font-medium leading-6 text-gray-100"
+                          className="text-md block font-medium leading-6 text-base-content"
                         >
                           Photo
                         </label>
                         <div className="mt-2 flex items-center">
                           <span className="h-20 w-20 overflow-hidden rounded-full bg-gray-100">
                             <svg
-                              className="h-full w-full text-gray-300"
+                              className="h-full w-full text-base-100"
                               fill="currentColor"
                               viewBox="0 0 24 24"
                             >
@@ -161,7 +161,7 @@ const CreatePopup: NextPage = () => {
                           </span>
                           <button
                             type="button"
-                            className="ml-5 rounded-md bg-white py-1.5 px-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                            className="ml-5 rounded-md bg-base-100 px-2.5 py-1.5 text-sm font-semibold text-neutral shadow-sm ring-1 ring-inset ring-neutral-focus hover:bg-base-300"
                           >
                             Change
                           </button>
@@ -171,7 +171,7 @@ const CreatePopup: NextPage = () => {
                       <div className=" sm:col-span-3">
                         <label
                           htmlFor="city"
-                          className="text-md block font-medium leading-6 text-gray-100"
+                          className="text-md block font-medium leading-6 text-base-content"
                         >
                           Where are you based in?
                         </label>
@@ -179,7 +179,7 @@ const CreatePopup: NextPage = () => {
                           id="city"
                           name="city"
                           autoComplete="city-name"
-                          className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          className="mt-2 block w-full rounded-md border-0 bg-base-100 py-1.5 text-base-content shadow-sm ring-1 ring-inset ring-base-content focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
                           value={basedIn}
                           onChange={(e) => setBasedIn(e.currentTarget.value)}
                         >
@@ -192,7 +192,7 @@ const CreatePopup: NextPage = () => {
                       <div className="sm:col-span-3 sm:col-start-1">
                         <label
                           htmlFor="order-type"
-                          className="text-md block font-medium leading-6 text-gray-100"
+                          className="text-md block font-medium leading-6 text-base-content"
                         >
                           How do you take orders?
                         </label>
@@ -200,7 +200,7 @@ const CreatePopup: NextPage = () => {
                           id="order-type"
                           name="order-type"
                           autoComplete="on"
-                          className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          className="mt-2 block w-full rounded-md border-0 bg-base-100 py-1.5 text-base-content shadow-sm ring-1 ring-inset ring-base-content focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
                           value={orderType}
                           onChange={(e) => setOrderType(e.currentTarget.value)}
                         >
@@ -216,7 +216,7 @@ const CreatePopup: NextPage = () => {
                   <div className="flex justify-end">
                     <button
                       type="submit"
-                      className="ml-3 inline-flex justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      className="ml-3 inline-flex justify-center rounded-md bg-secondary px-3 py-2 text-sm font-semibold text-neutral-content shadow-sm hover:bg-secondary-focus focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-focus"
                     >
                       Save
                     </button>

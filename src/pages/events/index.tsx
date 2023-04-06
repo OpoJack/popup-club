@@ -22,6 +22,7 @@ const EventsPage = () => {
     );
   }
 
+  console.log(events);
   return (
     <Container>
       <div className="relative sm:py-10 lg:pb-40">
@@ -38,9 +39,11 @@ const EventsPage = () => {
             role="list"
             className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
-            {popups?.map((popup) => (
-              <Events popup={popup} key={popup.id} />
-            ))}
+            {events !== undefined && events.length > 0 ? (
+              popups?.map((popup) => <Events popup={popup} key={popup.id} />)
+            ) : (
+              <div className="text-center">hi</div>
+            )}
           </ul>
         </div>
       </div>

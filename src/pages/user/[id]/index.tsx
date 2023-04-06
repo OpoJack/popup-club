@@ -40,29 +40,33 @@ const User = () => {
           />
         </div>
         <div className="mx-auto max-w-3xl">
-          <div className="divide-y divide-gray-900 overflow-hidden rounded-lg bg-gradient-to-t from-gray-50 via-blurple-200 to-blurple-500 shadow">
+          <div className="divide-y divide-neutral overflow-hidden rounded-lg  shadow">
             <div className="px-4 py-5 sm:px-6">
-              <h3 className="text-center text-lg font-medium leading-6 text-gray-900">
+              <h3 className="text-center text-lg font-medium leading-6 text-base-content">
                 {session.user.name}
               </h3>
             </div>
             <div className="px-4 py-5 sm:p-6">
               <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                 <div className="sm:col-span-2">
-                  <dt className="text-sm font-medium text-gray-500">About</dt>
-                  <dd className="mt-1 text-sm text-gray-900">
+                  <dt className="text-sm font-medium text-base-content">
+                    About
+                  </dt>
+                  <dd className="mt-1 text-sm text-base-content">
                     {session.user.name}
                   </dd>
 
-                  <dt className="text-sm font-medium text-gray-500">
+                  <dt className="text-sm font-medium text-base-content">
                     Email address
                   </dt>
-                  <dd className="mt-1 text-sm text-gray-900">
+                  <dd className="mt-1 text-sm text-base-content">
                     {session.user.email}
                   </dd>
 
-                  <dt className="text-sm font-medium text-gray-500">Role</dt>
-                  <dd className="mt-1 text-sm text-gray-900">
+                  <dt className="text-sm font-medium text-base-content">
+                    Role
+                  </dt>
+                  <dd className="mt-1 text-sm text-base-content">
                     {session.user.role}
                   </dd>
                 </div>

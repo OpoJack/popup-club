@@ -41,7 +41,7 @@ export default function UpcomingEvents({ popup }: { popup: Popup }) {
                     .slice(
                       0,
                       3
-                    )} ${event.date.getDate()} ${event.date.getFullYear()}`}
+                    )} ${event.date.getDate()}, ${event.date.getFullYear()}`}
                 </div>
                 <Link href={event.location.mapsUrl}>
                   @{event.location.name}

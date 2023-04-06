@@ -39,7 +39,7 @@ const PopupPage = () => {
             <div className="flex justify-end pr-2 pt-2">
               {popup?.links && <SocialMedia links={popup?.links} />}
             </div>
-            <div className=" px-4  py-5 shadow-lg sm:px-6">
+            <div className=" px-4  py-5 shadow-md sm:px-6">
               <h3 className="text-center text-3xl font-semibold leading-6 text-base-content">
                 {popup?.name}
               </h3>
