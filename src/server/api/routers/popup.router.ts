@@ -14,6 +14,15 @@ export const popupRouter = createTRPCRouter({
           include: {
             location: true,
           },
+          orderBy: {
+            date: "asc",
+          },
+          where: {
+            date: {
+              gte: new Date(),
+              lte: new Date(new Date().setDate(new Date().getDate() + 60)),
+            },
+          },
         },
         tags: true,
       },
@@ -29,9 +38,22 @@ export const popupRouter = createTRPCRouter({
           id: input.id,
         },
         include: {
-          events: true,
-          tags: true,
           links: true,
+          events: {
+            include: {
+              location: true,
+            },
+            orderBy: {
+              date: "asc",
+            },
+            where: {
+              date: {
+                gte: new Date(new Date().setDate(new Date().getDate() - 60)),
+                lte: new Date(new Date().setDate(new Date().getDate() + 60)),
+              },
+            },
+          },
+          tags: true,
         },
       });
     }),

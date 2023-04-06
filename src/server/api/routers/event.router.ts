@@ -12,6 +12,14 @@ export const eventRouter = createTRPCRouter({
         popup: true,
         location: true,
       },
+      orderBy: {
+        date: "asc",
+      },
+      where: {
+        date: {
+          gte: new Date(),
+        },
+      },
     });
   }),
 

@@ -5,7 +5,10 @@ import type { TLink } from "~/types/types";
 export default function SocialMedia({ links }: { links: TLink }) {
   if (links) {
     return <InstagramLink link={links.Instagram} />;
-  } else return <></>;
+  } else {
+    // Must return something
+    return <></>;
+  }
 }
 
 function InstagramLink({ link }: { link: string | null }) {
@@ -20,7 +23,7 @@ function InstagramLink({ link }: { link: string | null }) {
         src={"/instagram.svg"}
         width={17}
         height={17}
-        className="hover:cursor-pointer"
+        className="shadow-sm hover:cursor-pointer hover:shadow-lg"
         alt="Instagram"
       />
     </Link>
