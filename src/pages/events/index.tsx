@@ -20,7 +20,6 @@ const EventsPage = () => {
     );
   }
 
-  console.log(events);
   return (
     <Container>
       <div className="relative sm:py-10 lg:pb-40">

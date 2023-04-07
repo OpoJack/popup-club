@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { Popup } from "~/types/types";
 import SocialMedia from "./SocialMedia";
 import Tag from "~/components/Tag";
+import { CalendarIcon } from "@heroicons/react/24/solid";
 
 export function convertTime(date: Date) {
   const hours = date.getHours();
@@ -53,7 +54,6 @@ export default function Event({ popup }: { popup: Popup }) {
                         <span className="text-xs font-medium">
                           by {popup.name}
                         </span>
-                        {" • "}
                       </>
                     ) : null}
                     <span className="block text-xs font-semibold">
@@ -65,10 +65,10 @@ export default function Event({ popup }: { popup: Popup }) {
                       href={event.location.mapsUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-block flex-shrink-0 rounded-lg px-1 text-xs tracking-tight hover:cursor-pointer hover:bg-base-300"
+                      className="inline-block flex-shrink-0 rounded-lg text-xs tracking-tight hover:cursor-pointer hover:bg-base-300"
                     >
-                      {event.location.address} {event.location.city},
-                      {event.location.state}, {event.location.zip}
+                      {event.location.address} {event.location.city},{" "}
+                      {event.location.state}
                     </a>
                   </div>
                 </div>
@@ -88,14 +88,14 @@ export default function Event({ popup }: { popup: Popup }) {
                 />
               ))}
             </div>
-            <p className="text-semibold text-sm text-base-content">
+            <p className="text-sm text-base-content">
               {typeof event.description === "string" ? (
-                <span className="font-medium">
+                <span className="font-semibold">
                   {" "}
                   On special: {event.description}
                 </span>
               ) : (
-                popup.description
+                <span>Bio: {popup.description}</span>
               )}
             </p>
           </div>
