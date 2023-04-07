@@ -4,34 +4,34 @@ import Link from "next/link";
 export default function SignIn() {
   return (
     <>
-      <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+      <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8 ">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md ">
           <img
             className="mx-auto h-12 w-auto"
             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
             alt="Your Company"
           />
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-100">
+          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-base-content">
             Sign in to your account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-100">
+          <p className="mt-2 text-center text-sm text-base-content">
             Or{" "}
             <a
               href="#"
-              className="font-semibold text-gray-100 underline hover:text-indigo-500"
+              className="font-semibold text-base-content underline hover:text-secondary"
             >
               Sign up
             </a>
           </p>
         </div>
 
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="mx-2 rounded-lg bg-white px-4 py-8 shadow   sm:px-10">
+        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md ">
+          <div className="mx-2 rounded-lg bg-base-100 px-4 py-8 shadow-md sm:px-10">
             <form className="space-y-6" action="#" method="POST">
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-base-content"
                 >
                   Email address
                 </label>
@@ -42,7 +42,7 @@ export default function SignIn() {
                     type="email"
                     autoComplete="email"
                     required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 text-base-content shadow-sm ring-1 ring-inset ring-base-content focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -50,7 +50,7 @@ export default function SignIn() {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-base-content"
                 >
                   Password
                 </label>
@@ -61,7 +61,7 @@ export default function SignIn() {
                     type="password"
                     autoComplete="current-password"
                     required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 py-1.5 text-base-content shadow-sm ring-1 ring-inset ring-base-content focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -72,11 +72,11 @@ export default function SignIn() {
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
-                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                    className="text-secondaryfocus:ring-indigo-600 h-4 w-4 rounded border-base-content"
                   />
                   <label
                     htmlFor="remember-me"
-                    className="ml-2 block text-sm text-gray-900"
+                    className="ml-2 block text-sm text-base-content"
                   >
                     Remember me
                   </label>
@@ -85,7 +85,7 @@ export default function SignIn() {
                 <div className="text-sm">
                   <a
                     href="#"
-                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                    className="font-medium text-secondary hover:text-secondary-focus"
                   >
                     Forgot your password?
                   </a>
@@ -95,7 +95,7 @@ export default function SignIn() {
               <div>
                 <button
                   type="submit"
-                  className="mx-auto flex w-5/6 justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  className="mx-auto flex w-5/6 justify-center rounded-md bg-secondary px-3 py-2 text-sm font-semibold text-secondary-content shadow-sm hover:bg-secondary-focus focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
                 >
                   Sign in
                 </button>
@@ -105,41 +105,20 @@ export default function SignIn() {
             <div className="mt-6">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300" />
+                  <div className="w-full border-t border-base-content" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="bg-white px-2 text-gray-500">
+                  <span className="bg-base-100 px-2 text-base-content">
                     Or sign in with
                   </span>
                 </div>
               </div>
 
               <div className="mt-6 grid grid-rows-3 gap-2">
-                {/* <div>
-                  <a
-                    href="#"
-                    className="inline-flex h-11 w-full justify-center rounded-md bg-white py-2 px-4 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0"
-                  >
-                    <span className="sr-only">Sign in with Facebook</span>
-                    <svg
-                      className="h-5 w-5"
-                      aria-hidden="true"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M20 10c0-5.523-4.477-10-10-10S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </a>
-                </div> */}
-
                 <div>
                   <a
                     href="#"
-                    className="inline-flex h-11 w-full items-center justify-center rounded-md bg-twitter py-2 px-4 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-twitter-400 focus:outline-offset-0"
+                    className="inline-flex h-11 w-full items-center justify-center rounded-md bg-twitter px-4 py-2 shadow-sm ring-1 ring-inset ring-neutral-content hover:bg-twitter-400 focus:outline-offset-0"
                   >
                     <span className="sr-only">Sign in with Twitter</span>
                     <svg
@@ -156,7 +135,7 @@ export default function SignIn() {
                 <div>
                   <a
                     href="#"
-                    className="inline-flex h-11 w-full justify-center rounded-md bg-gray-700 py-2 px-4 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-900 focus:outline-offset-0"
+                    className="inline-flex h-11 w-full justify-center rounded-md bg-neutral px-4 py-2 shadow-sm ring-1 ring-inset ring-neutral-content hover:bg-neutral-focus focus:outline-offset-0"
                   >
                     <span className="sr-only">Sign in with GitHub</span>
                     <Image
@@ -170,7 +149,7 @@ export default function SignIn() {
                 <div>
                   <Link
                     href="#"
-                    className="inline-flex h-11 w-full justify-center rounded-md bg-blurple py-2 px-4 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-blurple-600 focus:outline-offset-0"
+                    className="inline-flex h-11 w-full justify-center rounded-md bg-blurple px-4 py-2 shadow-sm ring-1 ring-inset ring-neutral-content hover:bg-blurple-600 focus:outline-offset-0"
                     onClick={() => {
                       void signIn("discord");
                     }}

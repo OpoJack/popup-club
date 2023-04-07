@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Popup, Event } from "~/types/types";
-import { convertTime } from "./Events";
+import { convertTime } from "./Event";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Link from "next/link";
 
@@ -18,9 +18,6 @@ export default function UpcomingEvents({ popup }: { popup: Popup }) {
   return (
     <>
       <div className="overflow-hidden rounded-md border border-base-200 bg-base-200">
-        <div className="text-center text-sm text-base-content">
-          Recent + Upcoming Events
-        </div>
         <ol ref={parent} role="list" className="divide-y divide-base-200">
           {popup.events.length === 0 ? (
             <li className="mx-1 px-1 py-4">
@@ -28,13 +25,17 @@ export default function UpcomingEvents({ popup }: { popup: Popup }) {
                 No events posted 😢
               </span>
             </li>
-          ) : null}
+          ) : (
+            <div className="text-center text-sm text-base-content">
+              Recent + Upcoming Events
+            </div>
+          )}
           {popup.events?.slice(0, upperLimit).map((event) => (
             <li
               key={event.id}
               className="-mx-3 flex flex-col bg-base-200 px-6 py-4 text-xs text-base-content hover:bg-base-300"
             >
-              <div className="flex justify-between">
+              <div className="flex justify-between ">
                 <div>
                   {`${event.date
                     .toLocaleString("default", { month: "long" })

@@ -2,10 +2,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Container } from "~/components/Container";
 import { api } from "~/utils/api";
-import Image from "next/image";
-import SocialMedia from "~/components/SocialMedia";
 import { Loading } from "~/components/Loading";
-import Events from "~/components/Events";
+import Event from "~/components/Event";
 
 const EventsPage = () => {
   const { data: session, status } = useSession();
@@ -40,7 +38,7 @@ const EventsPage = () => {
             className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
             {popups?.map((popup) => (
-              <Events popup={popup} key={popup.id} />
+              <Event popup={popup} key={popup.id} />
             ))}
           </ul>
         </div>

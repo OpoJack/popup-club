@@ -17,13 +17,13 @@ function InstagramLink({ link }: { link: string | null }) {
       target={"_blank"}
       rel={"noreferrer"}
       href={link ?? "#"}
-      className="hover:cursor-pointer"
+      className="h-5 w-5 hover:cursor-pointer"
     >
       <Image
         src={"/instagram.svg"}
         width={17}
         height={17}
-        className="shadow-sm hover:cursor-pointer hover:shadow-lg"
+        className="shadow-md hover:cursor-pointer hover:shadow-lg"
         alt="Instagram"
       />
     </Link>

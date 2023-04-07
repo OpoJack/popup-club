@@ -26,7 +26,7 @@ export default function Tag({
     <p className="mt-1 space-x-1 truncate py-2 text-sm">
       {showTag && (
         <span
-          className="relative inline-block rounded-full bg-secondary px-3 py-0.5 text-xs font-medium text-secondary-content hover:cursor-pointer hover:bg-secondary-focus"
+          className="relative inline-block rounded-full bg-secondary px-3.5 py-0.5 text-xs font-medium text-secondary-content shadow-sm hover:cursor-pointer hover:bg-secondary-focus hover:shadow-md"
           onMouseEnter={() => setIsShown(true)}
           onMouseLeave={() => setIsShown(false)}
         >
@@ -40,7 +40,7 @@ export default function Tag({
                 onClick={() => handleDeleteTag()}
               >
                 <XCircleIcon
-                  className="text-accent hover:text-accent-focus"
+                  className="rounded-full bg-neutral text-accent hover:text-accent-focus"
                   aria-hidden="true"
                 />
               </button>

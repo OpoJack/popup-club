@@ -12,15 +12,15 @@ export default function Popups({ popup }: { popup: Popup }) {
     <>
       <PopupModal open={open} setOpen={setOpen} popup={popup} />
       <li
-        className="mx-2 flex flex-col divide-y divide-base-200 rounded-lg border  bg-base-100 shadow-md transition-all  hover:bg-base-200 hover:shadow-xl"
+        className="mx-2 flex flex-col divide-y divide-base-200 rounded-lg  border bg-base-100 shadow-md  transition-all hover:bg-base-200 hover:shadow-xl"
         onClick={() => setOpen(true)}
       >
-        <div className="p-4">
-          <div className="flex flex-row space-x-2 object-cover sm:h-fit">
+        <div className="p-3">
+          <div className="flex flex-row space-x-2 object-cover sm:h-fit ">
             <div className="flex-none">
               <Image
                 key={popup.links?.id}
-                className="flex-shrink-1 h-20 w-20 rounded-full"
+                className="flex-shrink-1 h-20 w-20 rounded-full shadow-md hover:shadow-lg"
                 src={popup.imageUrl ?? "/hotdog.jpg"}
                 alt=""
                 width={80}
