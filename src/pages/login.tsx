@@ -1,8 +1,8 @@
-import { useSession } from "next-auth/react";
-import { Container } from "~/components/Container";
-import { useRouter } from "next/router";
-import type { NextPage } from "next";
-import SignIn from "~/components/SignIn";
+import { useSession } from 'next-auth/react';
+import { Container } from '~/components/Container';
+import { useRouter } from 'next/router';
+import type { NextPage } from 'next';
+import SignIn from '~/components/SignIn';
 
 const Login: NextPage = () => {
   const { data: session } = useSession();

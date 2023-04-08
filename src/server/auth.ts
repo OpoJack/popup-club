@@ -1,14 +1,14 @@
-import { type GetServerSidePropsContext } from "next";
+import { type GetServerSidePropsContext } from 'next';
 import {
   getServerSession,
   type NextAuthOptions,
   type DefaultSession,
-} from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { env } from "~/env.mjs";
-import { prisma } from "~/server/db";
-import type { Role } from "@prisma/client";
+} from 'next-auth';
+import DiscordProvider from 'next-auth/providers/discord';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { env } from '~/env.mjs';
+import { prisma } from '~/server/db';
+import type { Role } from '@prisma/client';
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -16,7 +16,7 @@ import type { Role } from "@prisma/client";
  *
  * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
  */
-declare module "next-auth" {
+declare module 'next-auth' {
   interface Session extends DefaultSession {
     user: {
       id: string;
@@ -24,11 +24,11 @@ declare module "next-auth" {
       // role: UserRole;
       role: Role;
       popupId: string;
-    } & DefaultSession["user"];
+    } & DefaultSession['user'];
   }
 
   interface User {
-    role: "ADMIN" | "USER" | "MERCHANT";
+    role: 'ADMIN' | 'USER' | 'MERCHANT';
     popupId: string;
   }
 }
@@ -68,9 +68,9 @@ export const authOptions: NextAuthOptions = {
      */
   ],
   pages: {
-    signIn: "/login",
-    signOut: "/",
-    newUser: "/login",
+    signIn: '/login',
+    signOut: '/',
+    newUser: '/login',
   },
 };
 
@@ -80,8 +80,8 @@ export const authOptions: NextAuthOptions = {
  * @see https://next-auth.js.org/configuration/nextjs
  */
 export const getServerAuthSession = (ctx: {
-  req: GetServerSidePropsContext["req"];
-  res: GetServerSidePropsContext["res"];
+  req: GetServerSidePropsContext['req'];
+  res: GetServerSidePropsContext['res'];
 }) => {
   return getServerSession(ctx.req, ctx.res, authOptions);
 };

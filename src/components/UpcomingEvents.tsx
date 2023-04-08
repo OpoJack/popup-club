@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { Popup, Event } from "~/types/types";
-import { convertTime } from "./Event";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
-import Link from "next/link";
+import { useState } from 'react';
+import { Popup, Event } from '~/types/types';
+import { convertTime } from './Event';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
+import Link from 'next/link';
 
 export default function UpcomingEvents({ popup }: { popup: Popup }) {
   const [remainingEvents, setRemainingEvents] = useState(
@@ -38,7 +38,7 @@ export default function UpcomingEvents({ popup }: { popup: Popup }) {
               <div className="flex justify-between ">
                 <div>
                   {`${event.date
-                    .toLocaleString("default", { month: "long" })
+                    .toLocaleString('default', { month: 'long' })
                     .slice(
                       0,
                       3
@@ -49,10 +49,10 @@ export default function UpcomingEvents({ popup }: { popup: Popup }) {
                 </Link>
               </div>
               <div className="flex justify-between">
-                {" "}
+                {' '}
                 <div>{convertTime(event.date)}</div>
                 <Link className="underline" href={event.location.mapsUrl}>
-                  {" "}
+                  {' '}
                   {event.location.address}
                 </Link>
               </div>

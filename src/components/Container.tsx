@@ -1,8 +1,8 @@
-import Head from "next/head";
-import type { ReactNode } from "react";
-import Footer from "./Footer";
-import Gradient from "./Gradient";
-import Nav from "./Nav";
+import Head from 'next/head';
+import type { ReactNode } from 'react';
+import Footer from './Footer';
+import Gradient from './Gradient';
+import Nav from './Nav';
 
 export const Container = ({ children }: { children: ReactNode }) => {
   return (

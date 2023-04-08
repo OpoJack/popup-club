@@ -1,19 +1,19 @@
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
-import { Session } from "next-auth";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { type NextRouter, useRouter } from "next/router";
+import { Fragment } from 'react';
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
+import { Session } from 'next-auth';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { type NextRouter, useRouter } from 'next/router';
 
 const navigation = [
-  { name: "Vendors", href: "/popups", current: false },
-  { name: "Events", href: "/events", current: false },
-  { name: "Calendar", href: "/", current: false },
+  { name: 'Vendors', href: '/popups', current: false },
+  { name: 'Events', href: '/events', current: false },
+  { name: 'Calendar', href: '/', current: false },
 ];
 
 function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ');
 }
 
 export default function Nav() {
@@ -40,7 +40,7 @@ export default function Nav() {
               <div className="absolute inset-y-0 left-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <Link
                   href={{
-                    pathname: "/",
+                    pathname: '/',
                   }}
                 >
                   <img
@@ -53,7 +53,7 @@ export default function Nav() {
               <div className="flex flex-1 items-center justify-center sm:items-stretch">
                 <Link
                   href={{
-                    pathname: "/",
+                    pathname: '/',
                   }}
                   className="flex flex-shrink-0"
                 >
@@ -72,8 +72,8 @@ export default function Nav() {
                       }}
                       className={`inline-flex items-center border-b-2  px-1 pt-1 text-sm font-medium text-base-content hover:border-secondary ${
                         router.asPath === item.href
-                          ? "border-secondary-focus"
-                          : "border-base-content"
+                          ? 'border-secondary-focus'
+                          : 'border-base-content'
                       }`}
                     >
                       {item.name}
@@ -115,7 +115,7 @@ const Login = ({ router }: { router: NextRouter }) => {
   return (
     <Link
       href={{
-        pathname: "/login",
+        pathname: '/login',
       }}
       className="text-sm font-semibold leading-6 text-base-content"
     >
@@ -128,16 +128,16 @@ const Login = ({ router }: { router: NextRouter }) => {
 const UserProfile = ({ sessionData }: { sessionData: Session }) => {
   const userNavigation = [
     {
-      name: "Your Profile",
+      name: 'Your Profile',
       href: {
         pathname: `/user/${sessionData.user.id}`,
       },
       display: true,
       styles:
-        "block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus",
+        'block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus',
     },
     {
-      name: "Popup Settings",
+      name: 'Popup Settings',
       href: {
         pathname: `/popups/edit-popup/`,
         query: {
@@ -146,16 +146,16 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
       },
       display: sessionData.user.popupId ? true : false,
       styles:
-        "block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus",
+        'block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus',
     },
     {
-      name: "Create popup",
+      name: 'Create popup',
       href: {
         pathname: `/user/${sessionData.user.id}/create-popup`,
       },
       display: sessionData.user.popupId ? false : true,
       styles:
-        "block bg-accent px-4 py-2 text-sm font-semibold text-secondary-content hover:bg-accent-focus",
+        'block bg-accent px-4 py-2 text-sm font-semibold text-secondary-content hover:bg-accent-focus',
     },
   ];
   return (
@@ -165,7 +165,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
           <span className="sr-only">Open user menu</span>
           <img
             className="h-8 w-8 rounded-full"
-            src={sessionData.user.image ?? ""}
+            src={sessionData.user.image ?? ''}
             alt=""
           />
         </Menu.Button>
@@ -188,7 +188,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
                     <Link
                       href={item.href}
                       className={classNames(
-                        active ? "bg-secondary" : "",
+                        active ? 'bg-secondary' : '',
                         item.styles
                       )}
                     >
@@ -203,14 +203,14 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
               <Link
                 href="#"
                 className={classNames(
-                  active ? "bg-secondary" : "",
-                  "block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus"
+                  active ? 'bg-secondary' : '',
+                  'block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus'
                 )}
                 onClick={
                   sessionData ? () => void signOut() : () => void signIn()
                 }
               >
-                {sessionData ? "Sign out" : "Sign in with Discord"}
+                {sessionData ? 'Sign out' : 'Sign in with Discord'}
                 <span aria-hidden="true"> &rarr;</span>
               </Link>
             )}

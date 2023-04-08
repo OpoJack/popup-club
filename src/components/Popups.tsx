@@ -1,10 +1,10 @@
-import Image from "next/image";
-import { useState } from "react";
-import type { Popup } from "~/types/types";
-import SocialMedia from "./SocialMedia";
-import Tag from "~/components/Tag";
-import { HeartIcon, ShareIcon } from "@heroicons/react/24/solid";
-import PopupModal from "./PopupModal";
+import Image from 'next/image';
+import { useState } from 'react';
+import type { Popup } from '~/types/types';
+import SocialMedia from './SocialMedia';
+import Tag from '~/components/Tag';
+import { HeartIcon, ShareIcon } from '@heroicons/react/24/solid';
+import PopupModal from './PopupModal';
 
 export default function Popups({ popup }: { popup: Popup }) {
   const [open, setOpen] = useState(false);
@@ -21,7 +21,7 @@ export default function Popups({ popup }: { popup: Popup }) {
               <Image
                 key={popup.links?.id}
                 className="flex-shrink-1 h-20 w-20 rounded-full shadow-md hover:shadow-lg"
-                src={popup.imageUrl ?? "/hotdog.jpg"}
+                src={popup.imageUrl ?? '/hotdog.jpg'}
                 alt=""
                 width={80}
                 height={80}
@@ -30,7 +30,7 @@ export default function Popups({ popup }: { popup: Popup }) {
             <div className="flex w-fit shrink flex-col">
               <div className="flex h-5 flex-row space-x-2">
                 <SocialMedia links={popup.links} />
-                <ShareIcon fill="black" width={17} height={17} />{" "}
+                <ShareIcon fill="black" width={17} height={17} />{' '}
                 <HeartIcon fill="red" width={17} height={17} />
               </div>
               <div className="-mt-1 text-xl font-bold tracking-tight text-base-content antialiased">

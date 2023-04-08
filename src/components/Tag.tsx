@@ -1,7 +1,7 @@
-import { XCircleIcon } from "@heroicons/react/24/solid";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { api } from "~/utils/api";
+import { XCircleIcon } from '@heroicons/react/24/solid';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { api } from '~/utils/api';
 
 export default function Tag({
   name,
@@ -34,7 +34,7 @@ export default function Tag({
 
           {
             //Renders the button if the tag is hovered over and if it's the edit page
-            isShown && router.pathname === "/popups/edit-popup" && (
+            isShown && router.pathname === '/popups/edit-popup' && (
               <button
                 className="absolute right-0 top-0 -mt-2 flex h-full w-4 items-center justify-center rounded-full align-top"
                 onClick={() => handleDeleteTag()}

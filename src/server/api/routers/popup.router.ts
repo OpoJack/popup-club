@@ -1,9 +1,9 @@
-import { z } from "zod";
+import { z } from 'zod';
 import {
   createTRPCRouter,
   publicProcedure,
   protectedProcedure,
-} from "~/server/api/trpc";
+} from '~/server/api/trpc';
 
 export const popupRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
@@ -15,7 +15,7 @@ export const popupRouter = createTRPCRouter({
             location: true,
           },
           orderBy: {
-            date: "asc",
+            date: 'asc',
           },
           where: {
             date: {
@@ -44,7 +44,7 @@ export const popupRouter = createTRPCRouter({
               location: true,
             },
             orderBy: {
-              date: "asc",
+              date: 'asc',
             },
             where: {
               date: {

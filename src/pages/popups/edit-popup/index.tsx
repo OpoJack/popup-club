@@ -1,13 +1,13 @@
-import type { NextPage } from "next";
-import { useSession } from "next-auth/react";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import type { LinkData } from "~/types/types";
+import type { NextPage } from 'next';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import type { LinkData } from '~/types/types';
 
-import { Container } from "~/components/Container";
-import { api } from "~/utils/api";
-import { Loading } from "~/components/Loading";
-import Tag from "~/components/Tag";
+import { Container } from '~/components/Container';
+import { api } from '~/utils/api';
+import { Loading } from '~/components/Loading';
+import Tag from '~/components/Tag';
 
 const EditPopup: NextPage = () => {
   //TODO BUG: When you remove a tag from the selected tags, it removes it from the database and the page, but it doesn't remove it from the selected tags list. This means that if you select a tag, delete it, then select it again, it isn't added to the list or the database.
@@ -31,28 +31,28 @@ const EditPopup: NextPage = () => {
     if (popup) {
       const popupData = {
         popupId: popup.id,
-        name: formData.get("name") as string,
-        description: formData.get("description") as string,
-        imageUrl: "/gnarlycuban.jpg",
-        basedIn: formData.get("basedIn") as string,
-        orderType: formData.get("orderType") as string,
+        name: formData.get('name') as string,
+        description: formData.get('description') as string,
+        imageUrl: '/gnarlycuban.jpg',
+        basedIn: formData.get('basedIn') as string,
+        orderType: formData.get('orderType') as string,
       };
       mutatePopup.mutate(popupData);
 
       const linkData: LinkData = {
         popupId: popup.id,
-        Instagram: formData.get("Instagram")
-          ? restoreUrl(formData.get("Instagram") as string, "Instagram")
-          : "",
-        Facebook: formData.get("Facebook")
-          ? restoreUrl(formData.get("Facebook") as string, "Facebook")
-          : "",
-        TikTok: formData.get("TikTok")
-          ? restoreUrl(formData.get("TikTok") as string, "TikTok")
-          : "",
-        Website: formData.get("Website")
-          ? restoreUrl(formData.get("Website") as string, "Website")
-          : "",
+        Instagram: formData.get('Instagram')
+          ? restoreUrl(formData.get('Instagram') as string, 'Instagram')
+          : '',
+        Facebook: formData.get('Facebook')
+          ? restoreUrl(formData.get('Facebook') as string, 'Facebook')
+          : '',
+        TikTok: formData.get('TikTok')
+          ? restoreUrl(formData.get('TikTok') as string, 'TikTok')
+          : '',
+        Website: formData.get('Website')
+          ? restoreUrl(formData.get('Website') as string, 'Website')
+          : '',
       };
       mutateLink.mutate(linkData);
     }
@@ -60,14 +60,14 @@ const EditPopup: NextPage = () => {
 
   //This will take a string containing the social media name and a string defining the type of url (Instagram, Facebook, etc). Depending on the type, it will return a string with the full url.
   const restoreUrl = (url: string, type: string) => {
-    if (type === "Instagram") {
-      return "https://www.instagram.com/" + url;
-    } else if (type === "Facebook") {
-      return "https://www.facebook.com/" + url;
-    } else if (type === "TikTok") {
-      return "https://www.tiktok.com/@" + url;
-    } else if (type === "Website") {
-      return "https://" + url;
+    if (type === 'Instagram') {
+      return 'https://www.instagram.com/' + url;
+    } else if (type === 'Facebook') {
+      return 'https://www.facebook.com/' + url;
+    } else if (type === 'TikTok') {
+      return 'https://www.tiktok.com/@' + url;
+    } else if (type === 'Website') {
+      return 'https://' + url;
     }
     return url;
   };
@@ -77,34 +77,34 @@ const EditPopup: NextPage = () => {
     const input = target.value;
 
     const newInput = input
-      .replace("http://", "")
-      .replace("https://", "")
-      .replace("www.", "")
-      .replace("instagram.com/", "")
-      .replace("facebook.com/", "")
-      .replace("tiktok.com/@", "");
+      .replace('http://', '')
+      .replace('https://', '')
+      .replace('www.', '')
+      .replace('instagram.com/', '')
+      .replace('facebook.com/', '')
+      .replace('tiktok.com/@', '');
 
     target.value = newInput;
 
     //Checks to see which social media the input is for and returns the username only
-    if (input.includes("instagram")) {
+    if (input.includes('instagram')) {
       return newInput;
-    } else if (input.includes("facebook")) {
+    } else if (input.includes('facebook')) {
       return newInput;
-    } else if (input.includes("tiktok")) {
+    } else if (input.includes('tiktok')) {
       return newInput;
-    } else if (input.includes("www")) {
+    } else if (input.includes('www')) {
       return newInput;
     } else {
       return input;
     }
   };
 
-  if (status === "authenticated" && session.user.popupId !== popupId) {
-    router.push("/").catch((err) => console.log(err));
+  if (status === 'authenticated' && session.user.popupId !== popupId) {
+    router.push('/').catch((err) => console.log(err));
   }
 
-  if (session?.user.role === "USER") {
+  if (session?.user.role === 'USER') {
     return (
       <Container>
         <h1>Please contact us to get started as a popup vendor.</h1>
@@ -162,7 +162,7 @@ const EditPopup: NextPage = () => {
                               Popup name
                             </label>
 
-                            {status === "loading" ? (
+                            {status === 'loading' ? (
                               <div className="flex justify-center">
                                 <Loading />
                               </div>
@@ -173,7 +173,7 @@ const EditPopup: NextPage = () => {
                                 id="popup-name"
                                 autoComplete="popup-name"
                                 className="mt-2 block w-full rounded-md border-0 py-1.5  text-neutral shadow-sm ring-1 ring-inset ring-neutral-focus placeholder:text-neutral placeholder:text-opacity-50 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
-                                defaultValue={popup?.name ? popup.name : ""}
+                                defaultValue={popup?.name ? popup.name : ''}
                                 onKeyDown={(e) => {
                                   handleKeyDown(e);
                                 }}
@@ -212,8 +212,8 @@ const EditPopup: NextPage = () => {
                             <div className="mt-2 flex items-center">
                               <span className="inline-block h-12 w-12 overflow-hidden rounded-full bg-neutral-content">
                                 <Image
-                                  src={popup?.imageUrl || "/hotdog.jpg"}
-                                  alt={""}
+                                  src={popup?.imageUrl || '/hotdog.jpg'}
+                                  alt={''}
                                   width={50}
                                   height={50}
                                 />
@@ -333,10 +333,10 @@ const EditPopup: NextPage = () => {
                                 defaultValue={
                                   links?.Instagram
                                     ? links.Instagram.replace(
-                                        "https://www.instagram.com/",
-                                        ""
+                                        'https://www.instagram.com/',
+                                        ''
                                       )
-                                    : ""
+                                    : ''
                                 }
                                 onChange={(e) => {
                                   trimUrl(e.target);
@@ -366,10 +366,10 @@ const EditPopup: NextPage = () => {
                                 defaultValue={
                                   links?.TikTok
                                     ? links.TikTok.replace(
-                                        "https://www.tiktok.com/@",
-                                        ""
+                                        'https://www.tiktok.com/@',
+                                        ''
                                       )
-                                    : ""
+                                    : ''
                                 }
                                 onChange={(e) => {
                                   trimUrl(e.target);
@@ -399,10 +399,10 @@ const EditPopup: NextPage = () => {
                                 defaultValue={
                                   links?.Facebook
                                     ? links.Facebook.replace(
-                                        "https://www.facebook.com/",
-                                        ""
+                                        'https://www.facebook.com/',
+                                        ''
                                       )
-                                    : ""
+                                    : ''
                                 }
                                 onChange={(e) => {
                                   trimUrl(e.target);
@@ -431,8 +431,8 @@ const EditPopup: NextPage = () => {
                                 }}
                                 defaultValue={
                                   links?.Website
-                                    ? links.Website.replace("https://", "")
-                                    : ""
+                                    ? links.Website.replace('https://', '')
+                                    : ''
                                 }
                                 onChange={(e) => {
                                   trimUrl(e.target);
@@ -464,8 +464,8 @@ const EditPopup: NextPage = () => {
 
 export default EditPopup;
 
-import { useState } from "react";
-import { TagType } from "~/types/types";
+import { useState } from 'react';
+import { TagType } from '~/types/types';
 
 function TagInput({
   suggestions,
@@ -476,7 +476,7 @@ function TagInput({
   existingTags: TagType[];
   popupId: string;
 }) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
   const [filteredTags, setFilteredTags] = useState<TagType[]>([]);
   const [inputFocused, setInputFocused] = useState(false);
   const [selectedTags, setSelectedTags] = useState<TagType[]>(existingTags);
@@ -503,7 +503,7 @@ function TagInput({
       });
 
       setSelectedTags([...selectedTags, selectedTag]);
-      setValue("");
+      setValue('');
       setFilteredTags([]);
       setInputFocused(false);
     }
@@ -559,7 +559,7 @@ function TagInput({
 }
 
 function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-  if (e.key === "Enter") {
+  if (e.key === 'Enter') {
     e.preventDefault();
   }
 }

@@ -1,8 +1,8 @@
-import type { NextPage } from "next";
-import { api } from "~/utils/api";
+import type { NextPage } from 'next';
+import { api } from '~/utils/api';
 
-import Popups from "~/components/Popups";
-import { Container } from "~/components/Container";
+import Popups from '~/components/Popups';
+import { Container } from '~/components/Container';
 
 const Home: NextPage = () => {
   return (

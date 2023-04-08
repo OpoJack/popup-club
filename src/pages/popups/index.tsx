@@ -1,16 +1,16 @@
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { Container } from "~/components/Container";
-import { api } from "~/utils/api";
-import { Loading } from "~/components/Loading";
-import Popups from "~/components/Popups";
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { Container } from '~/components/Container';
+import { api } from '~/utils/api';
+import { Loading } from '~/components/Loading';
+import Popups from '~/components/Popups';
 
 const AllPopups = () => {
   const { data: session, status } = useSession();
   const { data: popups } = api.popup.getAll.useQuery();
   const router = useRouter();
 
-  if (status === "loading") {
+  if (status === 'loading') {
     return (
       <Container>
         <Loading />

@@ -1,12 +1,12 @@
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { Container } from "~/components/Container";
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { Container } from '~/components/Container';
 
 const User = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  if (status === "loading") {
+  if (status === 'loading') {
     return (
       <Container>
         <h1>Loading...</h1>
@@ -14,8 +14,8 @@ const User = () => {
     );
   }
 
-  if (status === "unauthenticated") {
-    router.push("/login").catch((err) => {
+  if (status === 'unauthenticated') {
+    router.push('/login').catch((err) => {
       console.error(err);
     });
   }
@@ -35,7 +35,7 @@ const User = () => {
         <div className="-mb-5">
           <img
             className="mx-auto h-32 w-32 rounded-full shadow-2xl"
-            src={session.user.image ?? "/hotdog.jpg"}
+            src={session.user.image ?? '/hotdog.jpg'}
             alt=""
           />
         </div>

@@ -1,9 +1,9 @@
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { Container } from "~/components/Container";
-import { api } from "~/utils/api";
-import { Loading } from "~/components/Loading";
-import Event from "~/components/Event";
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { Container } from '~/components/Container';
+import { api } from '~/utils/api';
+import { Loading } from '~/components/Loading';
+import Event from '~/components/Event';
 
 const EventsPage = () => {
   const { data: session, status } = useSession();
@@ -12,7 +12,7 @@ const EventsPage = () => {
   const { data: events } = api.event.getAll.useQuery();
   const { data: popups } = api.popup.getAll.useQuery();
 
-  if (status === "loading") {
+  if (status === 'loading') {
     return (
       <Container>
         <Loading />

@@ -1,12 +1,12 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { Popup } from "~/types/types";
-import Image from "next/image";
+import { Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { Popup } from '~/types/types';
+import Image from 'next/image';
 // import UpcomingEvents from
-import SocialMedia from "./SocialMedia";
-import Link from "next/link";
-import UpcomingEvents from "./UpcomingEvents";
+import SocialMedia from './SocialMedia';
+import Link from 'next/link';
+import UpcomingEvents from './UpcomingEvents';
 
 export default function PopupModal({
   open,
@@ -51,7 +51,7 @@ export default function PopupModal({
                   <div className="mx-auto flex items-center justify-center rounded-full">
                     <Image
                       key={popup.id}
-                      src={popup.imageUrl || "/hotdog.jpg"}
+                      src={popup.imageUrl || '/hotdog.jpg'}
                       alt="Popup logo"
                       height={75}
                       width={75}

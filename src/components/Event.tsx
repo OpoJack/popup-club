@@ -1,13 +1,13 @@
-import Image from "next/image";
-import type { Popup } from "~/types/types";
-import SocialMedia from "./SocialMedia";
-import Tag from "~/components/Tag";
-import { CalendarIcon } from "@heroicons/react/24/solid";
+import Image from 'next/image';
+import type { Popup } from '~/types/types';
+import SocialMedia from './SocialMedia';
+import Tag from '~/components/Tag';
+import { CalendarIcon } from '@heroicons/react/24/solid';
 
 export function convertTime(date: Date) {
   const hours = date.getHours();
   const minutes = date.getMinutes();
-  const ampm = hours >= 12 ? "pm" : "am";
+  const ampm = hours >= 12 ? 'pm' : 'am';
   const hours12 = hours % 12 || 12;
   const minutesStr = minutes < 10 ? `0${minutes}` : minutes;
   return `${hours12}:${minutesStr}${ampm}`;
@@ -27,7 +27,7 @@ export default function Event({ popup }: { popup: Popup }) {
                 <Image
                   key={popup.links?.id}
                   className="flex-shrink-1 h-20 w-20 rounded-full shadow-md hover:shadow-lg"
-                  src={popup.imageUrl ?? "/hotdog.jpg"}
+                  src={popup.imageUrl ?? '/hotdog.jpg'}
                   alt=""
                   width={80}
                   height={80}
@@ -39,17 +39,17 @@ export default function Event({ popup }: { popup: Popup }) {
                       {`${
                         event.date.getMonth() + 1
                       }/${event.date.getDate()}/${event.date.getFullYear()}`}
-                      {" • "}
+                      {' • '}
                     </span>
                     <span className="font-bold">
                       @{convertTime(event.date)}
                     </span>
                   </div>
                   <div className="text-xl font-bold tracking-tight text-base-content antialiased">
-                    {typeof event.name === "string" ? event.name : popup.name}
+                    {typeof event.name === 'string' ? event.name : popup.name}
                   </div>
                   <div className="-mt-1 inline-block flex-shrink-0 text-sm font-normal text-base-content">
-                    {typeof event.name === "string" ? (
+                    {typeof event.name === 'string' ? (
                       <>
                         <span className="text-xs font-medium">
                           by {popup.name}
@@ -67,7 +67,7 @@ export default function Event({ popup }: { popup: Popup }) {
                       rel="noreferrer"
                       className="inline-block flex-shrink-0 rounded-lg text-xs tracking-tight hover:cursor-pointer hover:bg-base-300"
                     >
-                      {event.location.address} {event.location.city},{" "}
+                      {event.location.address} {event.location.city},{' '}
                       {event.location.state}
                     </a>
                   </div>
@@ -89,9 +89,9 @@ export default function Event({ popup }: { popup: Popup }) {
               ))}
             </div>
             <p className="text-sm text-base-content">
-              {typeof event.description === "string" ? (
+              {typeof event.description === 'string' ? (
                 <span className="font-semibold">
-                  {" "}
+                  {' '}
                   On special: {event.description}
                 </span>
               ) : (

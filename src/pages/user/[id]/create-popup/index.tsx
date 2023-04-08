@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { NextPage } from "next";
-import { api } from "~/utils/api";
-import { Container } from "~/components/Container";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useState } from 'react';
+import { NextPage } from 'next';
+import { api } from '~/utils/api';
+import { Container } from '~/components/Container';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 const CreatePopup: NextPage = () => {
   const router = useRouter();
@@ -11,11 +11,11 @@ const CreatePopup: NextPage = () => {
   const { data: session, status } = useSession();
 
   //Popup data
-  const [name, setName] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [imageUrl, setImageUrl] = useState<string>("/hotdog.jpg");
-  const [basedIn, setBasedIn] = useState<string>("Orlando, FL");
-  const [orderType, setOrderType] = useState<string>("First come, first serve");
+  const [name, setName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [imageUrl, setImageUrl] = useState<string>('/hotdog.jpg');
+  const [basedIn, setBasedIn] = useState<string>('Orlando, FL');
+  const [orderType, setOrderType] = useState<string>('First come, first serve');
 
   const handleSubmitPopup = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -39,7 +39,7 @@ const CreatePopup: NextPage = () => {
     });
   };
 
-  if (status === "loading") {
+  if (status === 'loading') {
     return (
       <Container>
         <h1>Loading...</h1>
@@ -47,7 +47,7 @@ const CreatePopup: NextPage = () => {
     );
   }
 
-  if (status === "unauthenticated") {
+  if (status === 'unauthenticated') {
     return (
       <Container>
         <h1>Please sign in</h1>
@@ -64,7 +64,7 @@ const CreatePopup: NextPage = () => {
       });
   }
 
-  if (session?.user.role === "USER") {
+  if (session?.user.role === 'USER') {
     return (
       <Container>
         <h1>Please contact us to get started as a popup vendor.</h1>
@@ -133,7 +133,7 @@ const CreatePopup: NextPage = () => {
                             name="bio"
                             rows={2}
                             className="block w-full rounded-md border-0 text-base-content shadow-sm ring-1 ring-inset ring-base-content placeholder:text-base-content focus:ring-2 focus:ring-inset focus:ring-secondary-focus sm:py-1.5 sm:text-sm sm:leading-6"
-                            defaultValue={""}
+                            defaultValue={''}
                             onChange={(e) => setDescription(e.target.value)}
                           />
                         </div>

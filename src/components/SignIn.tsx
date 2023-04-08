@@ -1,6 +1,6 @@
-import Image from "next/image";
-import { signIn } from "next-auth/react";
-import Link from "next/link";
+import Image from 'next/image';
+import { signIn } from 'next-auth/react';
+import Link from 'next/link';
 export default function SignIn() {
   return (
     <>
@@ -15,7 +15,7 @@ export default function SignIn() {
             Sign in to your account
           </h2>
           <p className="mt-2 text-center text-sm text-base-content">
-            Or{" "}
+            Or{' '}
             <a
               href="#"
               className="font-semibold text-base-content underline hover:text-secondary"
@@ -139,7 +139,7 @@ export default function SignIn() {
                   >
                     <span className="sr-only">Sign in with GitHub</span>
                     <Image
-                      src={"/Github_Logo_White.png"}
+                      src={'/Github_Logo_White.png'}
                       alt="GitHub Logo"
                       width={75}
                       height={31}
@@ -151,12 +151,12 @@ export default function SignIn() {
                     href="#"
                     className="inline-flex h-11 w-full justify-center rounded-md bg-blurple px-4 py-2 shadow-sm ring-1 ring-inset ring-neutral-content hover:bg-blurple-600 focus:outline-offset-0"
                     onClick={() => {
-                      void signIn("discord");
+                      void signIn('discord');
                     }}
                   >
                     <span className="sr-only">Sign in with Discord</span>
                     <Image
-                      src={"/discord-logo-white.svg"}
+                      src={'/discord-logo-white.svg'}
                       alt="Discord Logo"
                       width={100}
                       height={100}

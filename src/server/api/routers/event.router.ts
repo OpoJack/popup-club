@@ -1,9 +1,9 @@
-import { z } from "zod";
+import { z } from 'zod';
 import {
   createTRPCRouter,
   publicProcedure,
   protectedProcedure,
-} from "~/server/api/trpc";
+} from '~/server/api/trpc';
 
 export const eventRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
@@ -13,7 +13,7 @@ export const eventRouter = createTRPCRouter({
         location: true,
       },
       orderBy: {
-        date: "asc",
+        date: 'asc',
       },
       where: {
         date: {

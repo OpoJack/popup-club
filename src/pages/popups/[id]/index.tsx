@@ -1,11 +1,11 @@
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { Container } from "~/components/Container";
-import { api } from "~/utils/api";
-import Image from "next/image";
-import SocialMedia from "~/components/SocialMedia";
-import { Loading } from "~/components/Loading";
-import UpcomingEvents from "~/components/UpcomingEvents";
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { Container } from '~/components/Container';
+import { api } from '~/utils/api';
+import Image from 'next/image';
+import SocialMedia from '~/components/SocialMedia';
+import { Loading } from '~/components/Loading';
+import UpcomingEvents from '~/components/UpcomingEvents';
 
 const PopupPage = () => {
   const { data: session, status } = useSession();
@@ -13,7 +13,7 @@ const PopupPage = () => {
   const { id } = router.query;
   const { data: popup } = api.popup.getOne.useQuery({ id: id as string });
 
-  if (status === "loading") {
+  if (status === 'loading') {
     return (
       <Container>
         <Loading />
@@ -28,7 +28,7 @@ const PopupPage = () => {
         <div className="-mb-5">
           <Image
             className="mx-auto rounded-full shadow-2xl"
-            src={popup?.imageUrl ?? "/"}
+            src={popup?.imageUrl ?? '/'}
             alt=""
             width={200}
             height={200}
