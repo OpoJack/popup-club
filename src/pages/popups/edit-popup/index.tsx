@@ -2,12 +2,28 @@ import type { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import type { LinkData } from '~/types/types';
+import { useState } from 'react';
 
+import { Input } from '~/components/ui/Input';
+import { Label } from '~/components/ui/Label';
 import { Container } from '~/components/Container';
-import { api } from '~/utils/api';
 import { Loading } from '~/components/Loading';
 import Tag from '~/components/Tag';
+
+import type { LinkData } from '~/types/types';
+import type { TagType } from '~/types/types';
+
+import { api } from '~/utils/api';
+import { Textarea } from '~/components/ui/TextArea';
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/Avatar';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '~/components/ui/Select';
+import { Separator } from '~/components/ui/Separator';
 
 const EditPopup: NextPage = () => {
   //TODO BUG: When you remove a tag from the selected tags, it removes it from the database and the page, but it doesn't remove it from the selected tags list. This means that if you select a tag, delete it, then select it again, it isn't added to the list or the database.
@@ -140,12 +156,12 @@ const EditPopup: NextPage = () => {
                 <div className="md:grid md:grid-cols-3 md:gap-6">
                   <div className="md:col-span-1">
                     <div className="px-4 sm:px-0">
-                      <h3 className="text-xl font-semibold leading-6 text-neutral-focus sm:text-base">
+                      <Label className="text-xl font-semibold leading-6 sm:text-base">
                         Popup deets
-                      </h3>
-                      <p className="mt-1 text-sm text-neutral">
+                      </Label>
+                      <Label className="mt-1 block text-sm font-normal text-neutral">
                         Tell us about your popup!
-                      </p>
+                      </Label>
                     </div>
                   </div>
                   <div className="mt-5  md:col-span-2 md:mt-0">
@@ -154,25 +170,17 @@ const EditPopup: NextPage = () => {
                         <div className="grid grid-cols-6 gap-6">
                           {/* Popup name */}
                           <div className="col-span-6 sm:col-span-3">
-                            <label
-                              htmlFor="popup-name"
-                              className="block text-lg font-medium leading-6 text-neutral"
-                            >
-                              {}
+                            <Label htmlFor="popup-name" className="block text-lg font-medium">
                               Popup name
-                            </label>
-
+                            </Label>
                             {status === 'loading' ? (
-                              <div className="flex justify-center">
-                                <Loading />
-                              </div>
+                              <Input placeholder="Loading..." />
                             ) : (
-                              <input
+                              <Input
                                 type="text"
                                 name="name"
                                 id="popup-name"
                                 autoComplete="popup-name"
-                                className="mt-2 block w-full rounded-md border-0 py-1.5  text-neutral shadow-sm ring-1 ring-inset ring-neutral-focus placeholder:text-neutral placeholder:text-opacity-50 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
                                 defaultValue={popup?.name ? popup.name : ''}
                                 onKeyDown={(e) => {
                                   handleKeyDown(e);
@@ -182,42 +190,33 @@ const EditPopup: NextPage = () => {
                           </div>
                           {/* Bio */}
                           <div className="col-span-6 sm:col-span-4">
-                            <label
-                              htmlFor="bio"
-                              className="block font-medium leading-6 text-neutral"
-                            >
+                            <Label htmlFor="bio" className="block pb-2 font-medium">
                               Bio
-                            </label>
-                            <div className="mt-2">
-                              {popup && (
-                                <textarea
-                                  id="bio"
-                                  name="description"
-                                  rows={3}
-                                  className="mt-1 block w-full rounded-md border-0 text-neutral shadow-sm ring-1 ring-inset ring-neutral-focus placeholder:text-neutral placeholder:text-opacity-50 focus:ring-2 focus:ring-inset focus:ring-secondary sm:py-1.5 sm:text-sm sm:leading-6"
-                                  placeholder="Serving up beans, greens, potatoes, tomatoes "
-                                  defaultValue={popup.description}
-                                />
-                              )}
-                            </div>
-                            <p className="mt-2 text-sm text-neutral">
+                            </Label>
+                            {status === 'loading' && popup ? (
+                              <Textarea placeholder="Loading..." />
+                            ) : (
+                              <Textarea
+                                id="bio"
+                                name="description"
+                                placeholder="Serving up beans, greens, potatoes, tomatoes "
+                                defaultValue={popup?.description ? popup.description : ''}
+                              />
+                            )}
+                            <p className="mt-1 text-sm text-neutral text-opacity-80">
                               Brief description of your popup
                             </p>
                           </div>
                           {/* Photo */}
                           <div className="col-span-6 sm:col-span-4">
-                            <label className="block text-sm font-medium leading-6 text-neutral">
+                            <Label htmlFor="photo" className="block pb-2 font-medium">
                               Photo
-                            </label>
+                            </Label>
                             <div className="mt-2 flex items-center">
-                              <span className="inline-block h-12 w-12 overflow-hidden rounded-full bg-neutral-content">
-                                <Image
-                                  src={popup?.imageUrl || '/hotdog.jpg'}
-                                  alt={''}
-                                  width={50}
-                                  height={50}
-                                />
-                              </span>
+                              <Avatar className="h-12 w-12">
+                                <AvatarImage src={popup?.imageUrl || '/hotdog.jpg'} alt={''} />
+                                <AvatarFallback>ZZ</AvatarFallback>
+                              </Avatar>
                               <button
                                 type="button"
                                 className="ml-5 rounded-md border border-neutral bg-base-100 px-2.5 py-1.5 text-sm font-semibold text-neutral shadow-sm hover:bg-base-300"
@@ -226,48 +225,53 @@ const EditPopup: NextPage = () => {
                               </button>
                             </div>
                           </div>
-
                           {/* Based in */}
                           <div className="col-span-6 sm:col-span-3">
-                            <label
-                              htmlFor="city"
-                              className="block font-medium leading-6 text-neutral"
-                            >
+                            <Label htmlFor="city" className="block pb-2">
                               Which city are you based in?
-                            </label>
-                            {popup && (
-                              <select
-                                id="city"
-                                name="basedIn"
-                                autoComplete="city-name"
-                                className="mt-2 block w-full rounded-md border-0 bg-neutral-content py-1.5 text-neutral shadow-sm ring-1 ring-inset ring-neutral focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
-                                defaultValue={popup.basedIn}
-                              >
-                                <option>Orlando, FL</option>
-                                <option>Tampa, FL</option>
-                                <option>Miami, FL</option>
-                              </select>
+                            </Label>
+                            {status === 'loading' ? (
+                              <Select>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Loading..." />
+                                </SelectTrigger>
+                              </Select>
+                            ) : (
+                              <Select>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Orlando, FL" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="Orlando, FL">Orlando, FL</SelectItem>
+                                  <SelectItem value="Tampa, FL">Tampa, FL</SelectItem>
+                                  <SelectItem value="Miami, FL">Miami, FL</SelectItem>
+                                </SelectContent>
+                              </Select>
                             )}
                           </div>
                           {/* Order style */}
                           <div className="col-span-6  sm:col-span-3">
-                            <label
-                              htmlFor="orderType"
-                              className="block font-medium leading-6 text-neutral"
-                            >
+                            <Label htmlFor="orderType" className="block pb-2">
                               Order style?
-                            </label>
-                            {popup && (
-                              <select
-                                id="order-type"
-                                name="orderType"
-                                autoComplete="order-type"
-                                className="mt-2 block w-full rounded-md border-0 bg-neutral-content py-1.5 text-neutral shadow-sm ring-1 ring-inset ring-neutral focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
-                                defaultValue={popup.orderType}
-                              >
-                                <option>First come, first serve</option>
-                                <option>Preorder only</option>
-                              </select>
+                            </Label>
+                            {status === 'loading' ? (
+                              <Select>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Loading..." />
+                                </SelectTrigger>
+                              </Select>
+                            ) : (
+                              <Select>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="First come, first serve" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="First come, first serve">
+                                    First come, first serve
+                                  </SelectItem>
+                                  <SelectItem value="Preorder only">Preorder only</SelectItem>
+                                </SelectContent>
+                              </Select>
                             )}
                           </div>
                           {/* Tags*/}
@@ -289,53 +293,41 @@ const EditPopup: NextPage = () => {
                 </div>
               </div>
               {/* Divider */}
-              <div className="hidden sm:block" aria-hidden="true">
-                <div className="py-5">
-                  <div className="border-t border-neutral" />
-                </div>
-              </div>
+              <Separator className="my-5" />
               {/* Social Media */}
-              <div className="mt-10 sm:mt-0">
+              <div className="mt-10 sm:mt-0 sm:text-sm">
                 <div className="md:grid md:grid-cols-3 md:gap-6">
                   <div className="md:col-span-1">
                     <div className="px-4 sm:px-0">
-                      <h3 className="text-xl font-semibold leading-6 text-neutral-focus sm:text-base">
+                      <Label className="text-xl font-semibold leading-6 sm:text-base">
                         Social Media
-                      </h3>
-                      <p className="mt-1 text-sm text-neutral">
+                      </Label>
+                      <Label className="mt-1 block text-sm font-normal text-neutral">
                         Where can your customers find out more?
-                      </p>
+                      </Label>
                     </div>
                   </div>
                   <div className="mt-5 md:col-span-2 md:mt-0">
                     <div className="overflow-hidden shadow-lg sm:rounded-md">
                       <div className="bg-base-100 px-4 py-5 sm:p-6">
-                        <div className="grid grid-cols-6 grid-rows-2 gap-6">
+                        <div className="grid grid-cols-6 grid-rows-2 gap-4">
                           {/* Instagram */}
                           <div className="col-span-6 row-start-1 sm:col-span-4">
-                            <label
-                              htmlFor="popup-instagram"
-                              className="block text-sm font-medium leading-6 text-neutral-focus"
-                            >
-                              Instagram
-                            </label>
+                            <Label className="text-base-content">Instagram</Label>
                             <div className="mt-2 flex rounded-md shadow-sm">
-                              <span className="inline-flex items-center rounded-l-md border border-r-0 border-neutral px-3 text-neutral text-opacity-50  sm:text-sm">
+                              <Label className="inline-flex items-center rounded-l-md border border-r-0 border-neutral px-3 font-normal text-neutral text-opacity-50">
                                 instagram.com/
-                              </span>
-                              <input
+                              </Label>
+                              <Input
                                 name="Instagram"
                                 id="popup-instagram"
-                                className="block w-full flex-1  rounded-none rounded-r-md border-0 px-2 py-1.5 text-neutral ring-1 ring-inset ring-neutral placeholder:text-neutral placeholder:text-opacity-50 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
+                                className="rounded-l-none"
                                 onKeyDown={(e) => {
                                   handleKeyDown(e);
                                 }}
                                 defaultValue={
                                   links?.Instagram
-                                    ? links.Instagram.replace(
-                                        'https://www.instagram.com/',
-                                        ''
-                                      )
+                                    ? links.Instagram.replace('https://www.instagram.com/', '')
                                     : ''
                                 }
                                 onChange={(e) => {
@@ -346,29 +338,21 @@ const EditPopup: NextPage = () => {
                           </div>
                           {/* TikTok */}
                           <div className="col-span-6 row-start-2 sm:col-span-4">
-                            <label
-                              htmlFor="popup-tiktok"
-                              className="block text-sm font-medium leading-6 text-neutral"
-                            >
-                              TikTok
-                            </label>
+                            <Label className="text-base-content">TikTok</Label>
                             <div className="mt-2 flex rounded-md shadow-sm">
-                              <span className="inline-flex items-center rounded-l-md border border-r-0 border-neutral px-3 text-neutral text-opacity-50  sm:text-sm">
+                              <Label className="inline-flex items-center rounded-l-md border border-r-0 border-neutral px-3 font-normal text-neutral text-opacity-50">
                                 tiktok.com/@
-                              </span>
-                              <input
+                              </Label>
+                              <Input
                                 name="TikTok"
                                 id="popup-tiktok"
-                                className="block w-full flex-1  rounded-none rounded-r-md border-0 px-2 py-1.5 text-neutral ring-1 ring-inset ring-neutral placeholder:text-neutral placeholder:text-opacity-50 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
+                                className="rounded-l-none"
                                 onKeyDown={(e) => {
                                   handleKeyDown(e);
                                 }}
                                 defaultValue={
                                   links?.TikTok
-                                    ? links.TikTok.replace(
-                                        'https://www.tiktok.com/@',
-                                        ''
-                                      )
+                                    ? links.TikTok.replace('https://www.tiktok.com/@', '')
                                     : ''
                                 }
                                 onChange={(e) => {
@@ -379,29 +363,21 @@ const EditPopup: NextPage = () => {
                           </div>
                           {/* Facebook */}
                           <div className="col-span-6 row-start-3 sm:col-span-4">
-                            <label
-                              htmlFor="popup-facebook"
-                              className="block text-sm font-medium leading-6 text-neutral"
-                            >
-                              Facebook
-                            </label>
+                            <Label className="text-base-content">Facebook</Label>
                             <div className="mt-2 flex rounded-md shadow-sm">
-                              <span className="inline-flex items-center rounded-l-md border border-r-0 border-neutral px-3 text-neutral text-opacity-50  sm:text-sm">
+                              <Label className="inline-flex items-center rounded-l-md border border-r-0 border-neutral px-3 font-normal text-neutral text-opacity-50">
                                 facebook.com/
-                              </span>
-                              <input
+                              </Label>
+                              <Input
                                 name="Facebook"
                                 id="popup-facebook"
-                                className="block w-full flex-1  rounded-none rounded-r-md border-0 px-2 py-1.5 text-neutral ring-1 ring-inset ring-neutral placeholder:text-neutral placeholder:text-opacity-50 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
+                                className="rounded-l-none"
                                 onKeyDown={(e) => {
                                   handleKeyDown(e);
                                 }}
                                 defaultValue={
                                   links?.Facebook
-                                    ? links.Facebook.replace(
-                                        'https://www.facebook.com/',
-                                        ''
-                                      )
+                                    ? links.Facebook.replace('https://www.facebook.com/', '')
                                     : ''
                                 }
                                 onChange={(e) => {
@@ -412,27 +388,21 @@ const EditPopup: NextPage = () => {
                           </div>
                           {/* Website */}
                           <div className="col-span-6 row-start-4 sm:col-span-4">
-                            <label
-                              htmlFor="popup-website"
-                              className="block text-sm font-medium leading-6 text-neutral"
-                            >
-                              Website
-                            </label>
+                            <Label className="text-base-content">Website</Label>
                             <div className="mt-2 flex rounded-md shadow-sm">
-                              <span className="inline-flex items-center rounded-l-md border border-r-0 border-neutral px-3 text-neutral text-opacity-50  sm:text-sm">
+                              <Label />
+                              <Label className="inline-flex items-center rounded-l-md border border-r-0 border-neutral px-3 font-normal text-neutral text-opacity-50">
                                 https://
-                              </span>
-                              <input
+                              </Label>
+                              <Input
                                 name="Website"
                                 id="popup-website"
-                                className="block w-full flex-1  rounded-none rounded-r-md border-0 px-2 py-1.5 text-neutral ring-1 ring-inset ring-neutral placeholder:text-neutral placeholder:text-opacity-50 focus:ring-2 focus:ring-inset focus:ring-secondary sm:text-sm sm:leading-6"
+                                className="rounded-l-none"
                                 onKeyDown={(e) => {
                                   handleKeyDown(e);
                                 }}
                                 defaultValue={
-                                  links?.Website
-                                    ? links.Website.replace('https://', '')
-                                    : ''
+                                  links?.Website ? links.Website.replace('https://', '') : ''
                                 }
                                 onChange={(e) => {
                                   trimUrl(e.target);
@@ -463,9 +433,6 @@ const EditPopup: NextPage = () => {
 };
 
 export default EditPopup;
-
-import { useState } from 'react';
-import { TagType } from '~/types/types';
 
 function TagInput({
   suggestions,
