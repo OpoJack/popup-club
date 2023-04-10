@@ -1,14 +1,12 @@
 import { z } from 'zod';
-import {
-  createTRPCRouter,
-  publicProcedure,
-  protectedProcedure,
-} from '~/server/api/trpc';
+import { createTRPCRouter, publicProcedure, protectedProcedure } from '~/server/api/trpc';
 
 export const tagRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.tag.findMany({
-      take: 20,
+      orderBy: {
+        name: 'asc',
+      },
     });
   }),
 

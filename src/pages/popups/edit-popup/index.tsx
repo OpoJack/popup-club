@@ -26,8 +26,6 @@ import {
 import { Separator } from '~/components/ui/Separator';
 
 const EditPopup: NextPage = () => {
-  //TODO BUG: When you remove a tag from the selected tags, it removes it from the database and the page, but it doesn't remove it from the selected tags list. This means that if you select a tag, delete it, then select it again, it isn't added to the list or the database.
-
   const router = useRouter();
   const { data: session, status } = useSession();
   const { popupId } = router.query;
@@ -116,6 +114,12 @@ const EditPopup: NextPage = () => {
     }
   };
 
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
+  }
+
   if (status === 'authenticated' && session.user.popupId !== popupId) {
     router.push('/').catch((err) => console.log(err));
   }
@@ -173,20 +177,16 @@ const EditPopup: NextPage = () => {
                             <Label htmlFor="popup-name" className="block text-lg font-medium">
                               Popup name
                             </Label>
-                            {status === 'loading' ? (
-                              <Input placeholder="Loading..." />
-                            ) : (
-                              <Input
-                                type="text"
-                                name="name"
-                                id="popup-name"
-                                autoComplete="popup-name"
-                                defaultValue={popup?.name ? popup.name : ''}
-                                onKeyDown={(e) => {
-                                  handleKeyDown(e);
-                                }}
-                              />
-                            )}
+                            <Input
+                              type="text"
+                              name="name"
+                              id="popup-name"
+                              autoComplete="popup-name"
+                              defaultValue={popup?.name ? popup.name : 'Loading...'}
+                              onKeyDown={(e) => {
+                                handleKeyDown(e);
+                              }}
+                            />
                           </div>
                           {/* Bio */}
                           <div className="col-span-6 sm:col-span-4">
@@ -275,6 +275,7 @@ const EditPopup: NextPage = () => {
                             )}
                           </div>
                           {/* Tags*/}
+                          {/* Add tags */}
                           {popup?.tags && tagSuggestions && popupId ? (
                             <TagInput
                               existingTags={popup.tags}
@@ -443,23 +444,9 @@ function TagInput({
   existingTags: TagType[];
   popupId: string;
 }) {
-  const [value, setValue] = useState('');
-  const [filteredTags, setFilteredTags] = useState<TagType[]>([]);
-  const [inputFocused, setInputFocused] = useState(false);
   const [selectedTags, setSelectedTags] = useState<TagType[]>(existingTags);
 
   const tagUpdate = api.tag.updateTags.useMutation();
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
-    setValue(newValue);
-
-    // Filter the tags based on the current input value
-    const filtered = suggestions.filter((tag) =>
-      tag.name.toLowerCase().startsWith(newValue.toLowerCase())
-    );
-    setFilteredTags(filtered.slice(0, 3));
-  };
 
   const handleTagClick = (selectedTag: TagType) => {
     //This will set all the values if the selectedTags.length is less than 3 and if the selectedTags array does not include the selectedTag
@@ -470,9 +457,13 @@ function TagInput({
       });
 
       setSelectedTags([...selectedTags, selectedTag]);
-      setValue('');
-      setFilteredTags([]);
-      setInputFocused(false);
+    }
+  };
+
+  const handleSelect = (e: string) => {
+    const selectedTag = suggestions.find((tag) => tag.name === e);
+    if (selectedTag) {
+      handleTagClick(selectedTag);
     }
   };
 
@@ -480,53 +471,33 @@ function TagInput({
     <div className="col-span-6 sm:col-span-3">
       <div className="flex flex-row justify-between align-middle">
         <div className="flex flex-row justify-start">
-          <label
-            htmlFor="popup-name"
-            className="flex self-center text-base font-medium leading-6 text-neutral"
-          >
-            {}
+          <Label htmlFor="popup-name" className="flex self-center">
             Tags
-          </label>
+          </Label>
         </div>
-        <div className="flex">
+        <div className="flex flex-row-reverse">
           {selectedTags.map((tag) => (
             <Tag name={tag.name} id={tag.id} popupId={popupId} key={tag.id} />
           ))}
         </div>
       </div>
-      <input
-        type="text"
-        id="tag"
-        name="tag"
-        value={value}
-        onChange={handleChange}
-        autoComplete="off"
-        className="w-full rounded-md border border-neutral px-4 py-2 shadow-sm focus:border-secondary focus:outline-none focus:ring-secondary-focus "
-        onKeyDown={(e) => {
-          handleKeyDown(e);
-        }}
-      />
-      <div className="relative">
-        {filteredTags.length > 0 && filteredTags.length < 3 && (
-          <ul className="absolute z-10 w-full rounded-md border border-neutral bg-neutral-content py-1 shadow-lg">
-            {filteredTags.map((tag) => (
-              <li
-                key={tag.id}
-                className="max-w-full cursor-pointer px-4 py-2 hover:bg-base-300"
-                onClick={() => handleTagClick(tag)}
-              >
-                {tag.name}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <Select onValueChange={(e) => handleSelect(e)}>
+        <SelectTrigger>
+          <SelectValue placeholder="Select one" />
+        </SelectTrigger>
+        <SelectContent>
+          {suggestions.map((tag) => (
+            // If the tag is already selected, show a different background color
+            <SelectItem
+              key={tag.id}
+              value={tag.name}
+              className={`${selectedTags.includes(tag) ? 'text-secondary' : ''}`}
+            >
+              {tag.name}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   );
-}
-
-function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-  }
 }
