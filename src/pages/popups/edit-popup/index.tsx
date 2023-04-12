@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
@@ -24,6 +23,9 @@ import {
   SelectValue,
 } from '~/components/ui/Select';
 import { Separator } from '~/components/ui/Separator';
+import { Button } from '~/components/ui/Button';
+import { Loader2 } from 'lucide-react';
+import { toast } from '~/hooks/use-toast';
 
 const EditPopup: NextPage = () => {
   const router = useRouter();
@@ -138,7 +140,7 @@ const EditPopup: NextPage = () => {
         <Container>
           <div
             className="
-      mx-auto max-w-7xl pb-32 sm:px-6 lg:px-8"
+      mx-auto max-w-7xl sm:px-6 sm:pb-32 lg:px-8"
           >
             <div className="hidden sm:block" aria-hidden="true">
               <div className="py-5">
@@ -230,54 +232,53 @@ const EditPopup: NextPage = () => {
                             <Label htmlFor="city" className="block pb-2">
                               Which city are you based in?
                             </Label>
-                            {status === 'loading' ? (
-                              <Select>
+                            <Select name="basedIn">
+                              {status === 'loading' ? (
                                 <SelectTrigger>
                                   <SelectValue placeholder="Loading..." />
                                 </SelectTrigger>
-                              </Select>
-                            ) : (
-                              <Select>
+                              ) : (
                                 <SelectTrigger>
-                                  <SelectValue placeholder="Orlando, FL" />
+                                  <SelectValue
+                                    placeholder={popup?.basedIn}
+                                    defaultValue={'Orlando, FL'}
+                                  />
                                 </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="Orlando, FL">Orlando, FL</SelectItem>
-                                  <SelectItem value="Tampa, FL">Tampa, FL</SelectItem>
-                                  <SelectItem value="Miami, FL">Miami, FL</SelectItem>
-                                </SelectContent>
-                              </Select>
-                            )}
+                              )}
+                              <SelectContent>
+                                <SelectItem value="Orlando, FL">Orlando, FL</SelectItem>
+                                <SelectItem value="Tampa, FL">Tampa, FL</SelectItem>
+                                <SelectItem value="Miami, FL">Miami, FL</SelectItem>
+                              </SelectContent>
+                            </Select>
                           </div>
                           {/* Order style */}
                           <div className="col-span-6  sm:col-span-3">
                             <Label htmlFor="orderType" className="block pb-2">
                               Order style?
                             </Label>
-                            {status === 'loading' ? (
-                              <Select>
+                            <Select name="orderType">
+                              {status === 'loading' ? (
                                 <SelectTrigger>
                                   <SelectValue placeholder="Loading..." />
                                 </SelectTrigger>
-                              </Select>
-                            ) : (
-                              <Select>
+                              ) : (
                                 <SelectTrigger>
-                                  <SelectValue placeholder="First come, first serve" />
+                                  <SelectValue placeholder={popup?.orderType} />
                                 </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="First come, first serve">
-                                    First come, first serve
-                                  </SelectItem>
-                                  <SelectItem value="Preorder only">Preorder only</SelectItem>
-                                </SelectContent>
-                              </Select>
-                            )}
+                              )}
+
+                              <SelectContent>
+                                <SelectItem value="First come, first serve">
+                                  First come, first serve
+                                </SelectItem>
+                                <SelectItem value="Preorder only">Preorder only</SelectItem>
+                              </SelectContent>
+                            </Select>
                           </div>
                           {/* Tags*/}
-                          {/* Add tags */}
                           {popup?.tags && tagSuggestions && popupId ? (
-                            <TagInput
+                            <ComboBox
                               existingTags={popup.tags}
                               suggestions={tagSuggestions}
                               popupId={popupId as string}
@@ -287,6 +288,18 @@ const EditPopup: NextPage = () => {
                               <Loading />
                             </div>
                           )}
+
+                          {/* {popup?.tags && tagSuggestions && popupId ? (
+                            <TagInput
+                              existingTags={popup.tags}
+                              suggestions={tagSuggestions}
+                              popupId={popupId as string}
+                            />
+                          ) : (
+                            <div className="flex justify-center">
+                              <Loading />
+                            </div>
+                          )} */}
                         </div>
                       </div>
                     </div>
@@ -414,12 +427,25 @@ const EditPopup: NextPage = () => {
                         </div>
                       </div>
                       <div className="px-4 py-3 text-right sm:px-6">
-                        <button
-                          type="submit"
-                          className="inline-flex justify-center rounded-md bg-secondary px-3 py-2 text-sm font-semibold text-secondary-content shadow-sm hover:bg-secondary-focus focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                        >
-                          Save
-                        </button>
+                        {status === 'loading' ? (
+                          <Button disabled>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          </Button>
+                        ) : (
+                          <Button
+                            type="submit"
+                            variant={'default'}
+                            onClick={() => {
+                              toast({
+                                variant: 'default',
+                                title: 'Saved!',
+                                description: 'Your changes have been saved.',
+                              });
+                            }}
+                          >
+                            Save
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -462,6 +488,7 @@ function TagInput({
 
   const handleSelect = (e: string) => {
     const selectedTag = suggestions.find((tag) => tag.name === e);
+    console.log(e);
     if (selectedTag) {
       handleTagClick(selectedTag);
     }
@@ -471,7 +498,7 @@ function TagInput({
     <div className="col-span-6 sm:col-span-3">
       <div className="flex flex-row justify-between align-middle">
         <div className="flex flex-row justify-start">
-          <Label htmlFor="popup-name" className="flex self-center">
+          <Label htmlFor="tag-name" className="flex self-center">
             Tags
           </Label>
         </div>
@@ -498,6 +525,117 @@ function TagInput({
           ))}
         </SelectContent>
       </Select>
+    </div>
+  );
+}
+
+import * as React from 'react';
+import { Check, ChevronsUpDown } from 'lucide-react';
+
+import { cn } from '~/utils/cn-helper';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from '~/components/ui/Command';
+import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/Popover';
+
+export function ComboBox({
+  suggestions,
+  existingTags,
+  popupId,
+}: {
+  suggestions: TagType[];
+  existingTags: TagType[];
+  popupId: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const [selection, setSelection] = useState('');
+  const [showTag, setShowTag] = useState(true);
+  const [selectedTags, setSelectedTags] = useState<TagType[]>(existingTags);
+
+  const removeTag = api.tag.removeTag.useMutation();
+  const tagUpdate = api.tag.updateTags.useMutation();
+
+  const handleTagClick = (selectedTag: TagType) => {
+    //This will set all the values if the selectedTags.length is less than 3 and if the selectedTags array does not include the selectedTag
+    if (selectedTags.length < 3 && !selectedTags.includes(selectedTag)) {
+      tagUpdate.mutate({
+        popupId: popupId,
+        tags: selectedTags.map((tag) => tag.name).concat(selectedTag.name),
+      });
+
+      setSelectedTags([...selectedTags, selectedTag]);
+    }
+  };
+
+  const handleSelect = (e: string) => {
+    const selectedTag = suggestions.find((tag) => tag.name.toLowerCase() === e);
+    if (selectedTag) {
+      handleTagClick(selectedTag);
+    }
+  };
+
+  // const handleClick = () => {
+  //   removeTag.mutate({ popupId: popupId, tagId: id });
+  //   setShowTag(false);
+  // };
+
+  return (
+    <div className="col-span-6 sm:col-span-3">
+      <div className="flex flex-row justify-normal gap-3 align-middle">
+        <div className="flex flex-row justify-start">
+          <Label htmlFor="tag-name" className="flex self-center">
+            Tags
+          </Label>
+        </div>
+        <div className="flex flex-row-reverse">
+          {selectedTags.map((tag) => (
+            <Tag name={tag.name} id={tag.id} popupId={popupId} key={tag.id} />
+          ))}
+        </div>
+      </div>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-[200px] justify-between"
+          >
+            Add a tag (max 3)
+            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[200px] p-0">
+          <Command>
+            <CommandInput placeholder="Search tags..." />
+            <CommandEmpty>No tag found.</CommandEmpty>
+            <CommandGroup>
+              {suggestions.map((tag) => (
+                <CommandItem
+                  key={tag.id}
+                  onSelect={(currentValue) => {
+                    setSelection(currentValue === selection ? '' : currentValue);
+                    setOpen(false);
+                    handleSelect(currentValue);
+                  }}
+                >
+                  <Check
+                    className={cn(
+                      'mr-2 h-4 w-4',
+                      selection === tag.name ? 'opacity-100' : 'opacity-0'
+                    )}
+                  />
+                  {tag.name}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </Command>
+        </PopoverContent>
+      </Popover>
     </div>
   );
 }
