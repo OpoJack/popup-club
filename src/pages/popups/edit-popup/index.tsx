@@ -179,30 +179,38 @@ const EditPopup: NextPage = () => {
                             <Label htmlFor="popup-name" className="block text-lg font-medium">
                               Popup name
                             </Label>
-                            <Input
-                              type="text"
-                              name="name"
-                              id="popup-name"
-                              autoComplete="popup-name"
-                              defaultValue={popup?.name ? popup.name : 'Loading...'}
-                              onKeyDown={(e) => {
-                                handleKeyDown(e);
-                              }}
-                            />
+                            {!popup ? (
+                              <Skeleton className="col-span-6 flex h-9 items-center border border-neutral bg-base-300 text-sm text-base-content sm:col-span-3">
+                                <div className="pl-3">Loading...</div>
+                              </Skeleton>
+                            ) : (
+                              <Input
+                                type="text"
+                                name="name"
+                                id="popup-name"
+                                autoComplete="popup-name"
+                                defaultValue={popup.name}
+                                onKeyDown={(e) => {
+                                  handleKeyDown(e);
+                                }}
+                              />
+                            )}
                           </div>
                           {/* Bio */}
                           <div className="col-span-6 sm:col-span-4">
                             <Label htmlFor="bio" className="block pb-2 font-medium">
                               Bio
                             </Label>
-                            {status === 'loading' && popup ? (
-                              <Textarea placeholder="Loading..." />
+                            {!popup ? (
+                              <Skeleton className="col-span-6 flex h-20 items-start border border-neutral bg-base-300 text-sm text-base-content sm:col-span-3">
+                                <div className="pl-3 pt-2">Loading...</div>
+                              </Skeleton>
                             ) : (
                               <Textarea
                                 id="bio"
                                 name="description"
                                 placeholder="Serving up beans, greens, potatoes, tomatoes "
-                                defaultValue={popup?.description ? popup.description : ''}
+                                defaultValue={popup.description}
                               />
                             )}
                             <p className="mt-1 text-sm text-neutral text-opacity-80">
@@ -233,14 +241,14 @@ const EditPopup: NextPage = () => {
                               Which city are you based in?
                             </Label>
                             <Select name="basedIn">
-                              {status === 'loading' ? (
+                              {!popup ? (
                                 <SelectTrigger>
                                   <SelectValue placeholder="Loading..." />
                                 </SelectTrigger>
                               ) : (
                                 <SelectTrigger>
                                   <SelectValue
-                                    placeholder={popup?.basedIn}
+                                    placeholder={popup.basedIn}
                                     defaultValue={'Orlando, FL'}
                                   />
                                 </SelectTrigger>
@@ -277,7 +285,24 @@ const EditPopup: NextPage = () => {
                             </Select>
                           </div>
                           {/* Tags*/}
-                          {popup?.tags && tagSuggestions && popupId ? (
+                          {!popup || !tagSuggestions || !popupId ? (
+                            <div className="col-span-6 space-y-1 sm:col-span-3">
+                              <Skeleton className="col-span-6 flex h-9 items-center bg-base-300 text-base text-base-content sm:col-span-3">
+                                <Label className="pl-1">Tags</Label>
+                              </Skeleton>
+                              <Skeleton className="col-span-6 flex h-9 items-center bg-base-300 text-sm text-base-content sm:col-span-3">
+                                <Label className="pl-4">Add a tag (max 3)</Label>
+                              </Skeleton>
+                            </div>
+                          ) : (
+                            <ComboBox
+                              existingTags={popup.tags}
+                              suggestions={tagSuggestions}
+                              popupId={popupId as string}
+                            />
+                          )}
+
+                          {/* {popup?.tags && tagSuggestions && popupId ? (
                             <ComboBox
                               existingTags={popup.tags}
                               suggestions={tagSuggestions}
@@ -287,7 +312,7 @@ const EditPopup: NextPage = () => {
                             <div className="flex justify-center">
                               <Loading />
                             </div>
-                          )}
+                          )} */}
 
                           {/* {popup?.tags && tagSuggestions && popupId ? (
                             <TagInput
@@ -541,6 +566,7 @@ import {
   CommandItem,
 } from '~/components/ui/Command';
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/Popover';
+import { Skeleton } from '~/components/ui/Skeleton';
 
 export function ComboBox({
   suggestions,
@@ -577,6 +603,11 @@ export function ComboBox({
       handleTagClick(selectedTag);
     }
   };
+
+  // const handleClick = () => {
+  //   removeTag.mutate({ popupId: popupId, tagId: id });
+  //   setShowTag(false);
+  // };
 
   return (
     <div className="col-span-6 sm:col-span-3">
