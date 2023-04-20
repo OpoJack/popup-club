@@ -578,11 +578,6 @@ export function ComboBox({
     }
   };
 
-  // const handleClick = () => {
-  //   removeTag.mutate({ popupId: popupId, tagId: id });
-  //   setShowTag(false);
-  // };
-
   return (
     <div className="col-span-6 sm:col-span-3">
       <div className="flex flex-row justify-normal gap-3 align-middle">
