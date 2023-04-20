@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { api } from '~/utils/api';
 
-import Popups from '~/components/Popups';
+import Popups, { PopupSkeleton } from '~/components/Popups';
 import { Container } from '~/components/Container';
 import { Skeleton } from '~/components/ui/Skeleton';
 import { badgeVariants } from '~/components/ui/Badge';
@@ -70,28 +70,3 @@ const PopupContent: React.FC = () => {
     </>
   );
 };
-
-function PopupSkeleton(): JSX.Element {
-  return (
-    <Skeleton className="mx-2 flex flex-col divide-base-200 rounded-lg border bg-base-100 shadow-md">
-      <div className="p-3">
-        <div className="flex flex-row space-x-2 object-cover sm:h-fit ">
-          <div className="flex-none">
-            <Skeleton className="flex-shrink-1 h-20 w-20 rounded-full shadow-md hover:shadow-lg" />
-          </div>
-          <div className="flex w-full flex-col gap-2">
-            <Skeleton className="flex h-5 flex-row" />
-            <Skeleton className="-mt-1 h-20 text-xl font-bold tracking-tight antialiased" />
-          </div>
-        </div>
-        <div className="flex flex-row space-x-1">
-          <div className="mt-1 flex flex-row gap-2 truncate px-0.5 py-2 text-sm">
-            <Skeleton className="h-6 w-20 rounded-full" />
-            <Skeleton className="h-6 w-20 rounded-full" />
-            <Skeleton className="h-6 w-20 rounded-full" />
-          </div>
-        </div>
-      </div>
-    </Skeleton>
-  );
-}
