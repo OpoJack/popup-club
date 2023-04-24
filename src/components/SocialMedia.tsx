@@ -2,14 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { TLink } from '~/types/types';
 
-export const SocialMedia = ({ links }: { links: TLink }) => {
+export default function SocialMedia({ links }: { links: TLink }) {
   if (links) {
     return <InstagramLink link={links.Instagram} />;
   } else {
     // Must return something
     return <></>;
   }
-};
+}
 
 function InstagramLink({ link }: { link: string | null }) {
   return (

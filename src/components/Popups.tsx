@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import type { Popup } from '~/types/types';
-import { SocialMedia } from './SocialMedia';
-import { PopupModal } from './PopupModal';
+import SocialMedia from './SocialMedia';
+import PopupModal from './PopupModal';
 import { Skeleton } from './ui/Skeleton';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/Card';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/Avatar';
 import { Badge } from './ui/Badge';
 
-export const PopupCard = ({ popup }: { popup: Popup }) => {
+export default function PopupCard({ popup }: { popup: Popup }): JSX.Element {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -42,7 +42,7 @@ export const PopupCard = ({ popup }: { popup: Popup }) => {
       </Card>
     </>
   );
-};
+}
 
 export function PopupSkeleton(): JSX.Element {
   return (

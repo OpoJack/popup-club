@@ -301,6 +301,30 @@ const EditPopup: NextPage = () => {
                               popupId={popupId as string}
                             />
                           )}
+
+                          {/* {popup?.tags && tagSuggestions && popupId ? (
+                            <ComboBox
+                              existingTags={popup.tags}
+                              suggestions={tagSuggestions}
+                              popupId={popupId as string}
+                            />
+                          ) : (
+                            <div className="flex justify-center">
+                              <Loading />
+                            </div>
+                          )} */}
+
+                          {/* {popup?.tags && tagSuggestions && popupId ? (
+                            <TagInput
+                              existingTags={popup.tags}
+                              suggestions={tagSuggestions}
+                              popupId={popupId as string}
+                            />
+                          ) : (
+                            <div className="flex justify-center">
+                              <Loading />
+                            </div>
+                          )} */}
                         </div>
                       </div>
                     </div>

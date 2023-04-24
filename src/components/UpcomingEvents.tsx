@@ -4,8 +4,10 @@ import { convertTime } from './Event';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Link from 'next/link';
 
-export const UpcomingEvents = ({ popup }: { popup: Popup }) => {
-  const [remainingEvents, setRemainingEvents] = useState(popup.events.length - 3);
+export default function UpcomingEvents({ popup }: { popup: Popup }) {
+  const [remainingEvents, setRemainingEvents] = useState(
+    popup.events.length - 3
+  );
   const [upperLimit, setUpperLimit] = useState(3);
   const [parent] = useAutoAnimate<HTMLOListElement>();
 
@@ -24,7 +26,9 @@ export const UpcomingEvents = ({ popup }: { popup: Popup }) => {
               </span>
             </li>
           ) : (
-            <div className="text-center text-sm text-base-content">Recent + Upcoming Events</div>
+            <div className="text-center text-sm text-base-content">
+              Recent + Upcoming Events
+            </div>
           )}
           {popup.events?.slice(0, upperLimit).map((event) => (
             <li
@@ -35,9 +39,14 @@ export const UpcomingEvents = ({ popup }: { popup: Popup }) => {
                 <div>
                   {`${event.date
                     .toLocaleString('default', { month: 'long' })
-                    .slice(0, 3)} ${event.date.getDate()}, ${event.date.getFullYear()}`}
+                    .slice(
+                      0,
+                      3
+                    )} ${event.date.getDate()}, ${event.date.getFullYear()}`}
                 </div>
-                <Link href={event.location.mapsUrl}>@{event.location.name}</Link>
+                <Link href={event.location.mapsUrl}>
+                  @{event.location.name}
+                </Link>
               </div>
               <div className="flex justify-between">
                 {' '}
@@ -64,4 +73,4 @@ export const UpcomingEvents = ({ popup }: { popup: Popup }) => {
       </div>
     </>
   );
-};
+}

@@ -1,6 +1,6 @@
 import { Container } from '~/components/Container';
 import { api } from '~/utils/api';
-import { EventCard } from '~/components/Event';
+import EventCard from '~/components/Event';
 import { PopupSkeleton } from '~/components/Popups';
 
 const EventsPage = () => {

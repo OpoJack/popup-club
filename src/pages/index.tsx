@@ -1,9 +1,33 @@
 import type { NextPage } from 'next';
 import { api } from '~/utils/api';
 
-import { PopupSkeleton } from '~/components/Popups';
+import Popups, { PopupSkeleton } from '~/components/Popups';
 import { Container } from '~/components/Container';
-import { PopupCard } from '~/components/Popups';
+import { Skeleton } from '~/components/ui/Skeleton';
+import { badgeVariants } from '~/components/ui/Badge';
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/Avatar';
+import { Badge } from '~/components/ui/Badge';
+import { Button } from '~/components/ui/Button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '~/components/ui/Card';
+import { Input } from '~/components/ui/Input';
+import { Label } from '~/components/ui/Label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '~/components/ui/Select';
+import SocialMedia from '~/components/SocialMedia';
+import { Popup } from '~/types/types';
+import PopupCard from '~/components/Popups';
 
 const Home: NextPage = () => {
   return (
