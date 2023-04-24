@@ -3,7 +3,6 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Popup } from '~/types/types';
 import Image from 'next/image';
-// import UpcomingEvents from
 import SocialMedia from './SocialMedia';
 import Link from 'next/link';
 import UpcomingEvents from './UpcomingEvents';
@@ -59,10 +58,7 @@ export default function PopupModal({
                     />
                   </div>
                   <div className="mt-3 text-center sm:mt-5">
-                    <Dialog.Title
-                      as="h3"
-                      className="text-2xl font-medium leading-6 text-neutral"
-                    >
+                    <Dialog.Title as="h3" className="text-2xl font-medium leading-6 text-neutral">
                       {popup.name}
                     </Dialog.Title>
                     <div className="mt-1">

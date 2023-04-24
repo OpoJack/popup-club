@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useState } from 'react';
 import type { Popup } from '~/types/types';
 import SocialMedia from './SocialMedia';
