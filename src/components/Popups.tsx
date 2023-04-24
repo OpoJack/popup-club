@@ -1,61 +1,70 @@
-import Image from 'next/image';
 import { useState } from 'react';
 import type { Popup } from '~/types/types';
 import SocialMedia from './SocialMedia';
-import Tag from '~/components/Tag';
-import { HeartIcon, ShareIcon } from '@heroicons/react/24/solid';
 import PopupModal from './PopupModal';
+import { Skeleton } from './ui/Skeleton';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/Card';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/Avatar';
+import { Badge } from './ui/Badge';
 
-export default function Popups({ popup }: { popup: Popup }) {
+export default function PopupCard({ popup }: { popup: Popup }): JSX.Element {
   const [open, setOpen] = useState(false);
   return (
     <>
       <PopupModal open={open} setOpen={setOpen} popup={popup} />
-      <li
-        className="mx-2 flex flex-col divide-y divide-base-200 rounded-lg  border bg-base-100 shadow-md  transition-all hover:bg-base-200 hover:shadow-xl"
+      <Card
+        className="h-full transition hover:bg-base-200 hover:shadow-md"
         onClick={() => setOpen(true)}
       >
-        <div className="p-3">
-          <div className="flex flex-row space-x-2 object-cover sm:h-fit ">
-            <div className="flex-none">
-              <Image
-                key={popup.links?.id}
-                className="flex-shrink-1 h-20 w-20 rounded-full shadow-md hover:shadow-lg"
-                src={popup.imageUrl ?? '/hotdog.jpg'}
-                alt=""
-                width={80}
-                height={80}
-              />
-            </div>
-            <div className="flex w-fit shrink flex-col">
-              <div className="flex h-5 flex-row space-x-2">
-                <SocialMedia links={popup.links} />
-                <ShareIcon fill="black" width={17} height={17} />{' '}
-                <HeartIcon fill="red" width={17} height={17} />
-              </div>
-              <div className="-mt-1 text-xl font-bold tracking-tight text-base-content antialiased">
-                {popup.name}
-              </div>
-              <div className="inline-block flex-shrink-0 text-xs font-normal text-base-content">
-                {popup.description}
-              </div>
-              <div className="text-xs font-semibold text-base-content">
-                Based in: {popup.basedIn}
-              </div>
-            </div>
+        <CardHeader className="flex-row space-y-0 p-3">
+          <Avatar className="mx-2 h-20 w-20">
+            <AvatarImage width={80} height={80} src={popup.imageUrl} />
+            <AvatarFallback>{popup.name}</AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col">
+            <SocialMedia links={popup.links} />
+            <CardTitle className="-mt-0 text-lg font-bold sm:text-xl">{popup.name}</CardTitle>
+            <CardDescription className="text-xs ">{popup.description}</CardDescription>
+            <CardDescription className="text-xs font-semibold">
+              Based in: {popup.basedIn}
+            </CardDescription>
           </div>
-          <div className="flex flex-row space-x-1">
-            {popup.tags?.map((tag) => (
-              <Tag
-                key={tag.id}
-                id={tag.id}
-                popupId={popup.id}
-                name={tag?.name}
-              />
+        </CardHeader>
+        <CardContent className="pb-4 pl-4">
+          <div className="flex flex-row gap-1">
+            {popup.tags.map((tag) => (
+              <Badge key={tag.id} variant={'secondary'} className="cursor-pointer">
+                {tag.name}
+              </Badge>
             ))}
           </div>
-        </div>
-      </li>
+        </CardContent>
+      </Card>
     </>
+  );
+}
+
+export function PopupSkeleton(): JSX.Element {
+  return (
+    <Skeleton className="mx-2 flex flex-col divide-base-200 rounded-lg border bg-base-100 shadow-md">
+      <div className="p-3">
+        <div className="flex flex-row space-x-2 object-cover sm:h-fit ">
+          <div className="flex-none">
+            <Skeleton className="flex-shrink-1 h-20 w-20 rounded-full shadow-md hover:shadow-lg" />
+          </div>
+          <div className="flex w-full flex-col gap-2">
+            <Skeleton className="flex h-5 flex-row" />
+            <Skeleton className="-mt-1 h-20 text-xl font-bold tracking-tight antialiased" />
+          </div>
+        </div>
+        <div className="flex flex-row space-x-1">
+          <div className="mt-1 flex flex-row gap-2 truncate px-0.5 py-2 text-sm">
+            <Skeleton className="h-6 w-20 rounded-full" />
+            <Skeleton className="h-6 w-20 rounded-full" />
+            <Skeleton className="h-6 w-20 rounded-full" />
+          </div>
+        </div>
+      </div>
+    </Skeleton>
   );
 }

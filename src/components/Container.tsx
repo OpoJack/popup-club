@@ -9,14 +9,11 @@ export const Container = ({ children }: { children: ReactNode }) => {
     <>
       <Head>
         <title>Popup Club</title>
-        <meta
-          name="description"
-          content="Popup club - The latest and greatest"
-        />
+        <meta name="description" content="Popup club - The latest and greatest" />
 
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="isolate min-h-screen bg-base-100">
+      <div className="isolate w-full bg-base-100">
         <Nav />
         {/* Gradient stuff */}
         <Gradient />

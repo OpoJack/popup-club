@@ -1,9 +1,5 @@
 import { z } from 'zod';
-import {
-  createTRPCRouter,
-  publicProcedure,
-  protectedProcedure,
-} from '~/server/api/trpc';
+import { createTRPCRouter, publicProcedure, protectedProcedure } from '~/server/api/trpc';
 
 export const popupRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
@@ -24,39 +20,41 @@ export const popupRouter = createTRPCRouter({
             },
           },
         },
-        tags: true,
+        tags: {
+          orderBy: {
+            name: 'asc',
+          },
+        },
       },
     });
   }),
 
   //This will find the popup by the given popup id
-  getOne: publicProcedure
-    .input(z.object({ id: z.string() }))
-    .query(async ({ ctx, input }) => {
-      return ctx.prisma.popup.findUnique({
-        where: {
-          id: input.id,
-        },
-        include: {
-          links: true,
-          events: {
-            include: {
-              location: true,
-            },
-            orderBy: {
-              date: 'asc',
-            },
-            where: {
-              date: {
-                gte: new Date(new Date().setDate(new Date().getDate() - 60)),
-                lte: new Date(new Date().setDate(new Date().getDate() + 60)),
-              },
+  getOne: publicProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
+    return ctx.prisma.popup.findUnique({
+      where: {
+        id: input.id,
+      },
+      include: {
+        links: true,
+        events: {
+          include: {
+            location: true,
+          },
+          orderBy: {
+            date: 'asc',
+          },
+          where: {
+            date: {
+              gte: new Date(new Date().setDate(new Date().getDate() - 60)),
+              lte: new Date(new Date().setDate(new Date().getDate() + 60)),
             },
           },
-          tags: true,
         },
-      });
-    }),
+        tags: true,
+      },
+    });
+  }),
 
   updateOne: protectedProcedure
     .input(
