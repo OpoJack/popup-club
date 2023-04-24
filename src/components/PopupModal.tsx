@@ -3,11 +3,11 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Popup } from '~/types/types';
 import Image from 'next/image';
-import SocialMedia from './SocialMedia';
+import { SocialMedia } from './SocialMedia';
 import Link from 'next/link';
-import UpcomingEvents from './UpcomingEvents';
+import { UpcomingEvents } from './UpcomingEvents';
 
-export default function PopupModal({
+export const PopupModal = ({
   open,
   setOpen,
   popup,
@@ -15,7 +15,7 @@ export default function PopupModal({
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   popup: Popup;
-}) {
+}) => {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -89,4 +89,4 @@ export default function PopupModal({
       </Dialog>
     </Transition.Root>
   );
-}
+};

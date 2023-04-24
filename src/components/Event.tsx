@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import SocialMedia from './SocialMedia';
-import PopupModal from './PopupModal';
+import { SocialMedia } from './SocialMedia';
+import { PopupModal } from './PopupModal';
 import { Skeleton } from './ui/Skeleton';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/Card';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/Avatar';
@@ -8,7 +8,7 @@ import { Badge } from './ui/Badge';
 import { Popup } from '~/types/types';
 import Link from 'next/link';
 
-export default function EventCard({ popup }: { popup: Popup }): JSX.Element {
+export const EventCard = ({ popup }: { popup: Popup }) => {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -76,7 +76,7 @@ export default function EventCard({ popup }: { popup: Popup }): JSX.Element {
       ))}
     </>
   );
-}
+};
 
 export function PopupSkeleton(): JSX.Element {
   return (

@@ -2,13 +2,12 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { Container } from '~/components/Container';
 import { api } from '~/utils/api';
-import { Loading } from '~/components/Loading';
-import Popups, { PopupSkeleton } from '~/components/Popups';
+import { PopupCard, PopupSkeleton } from '~/components/Popups';
 
-const AllPopups = () => {
-  const { data: session, status } = useSession();
+export const AllPopups = () => {
+  // const { data: session, status } = useSession();
   const popups = api.popup.getAll.useQuery();
-  const router = useRouter();
+  // const router = useRouter();
 
   return (
     <Container>
@@ -33,7 +32,7 @@ const AllPopups = () => {
             ) : (
               <>
                 {popups.data?.map((popup) => (
-                  <Popups popup={popup} key={popup.id} />
+                  <PopupCard popup={popup} key={popup.id} />
                 ))}
               </>
             )}
@@ -43,5 +42,3 @@ const AllPopups = () => {
     </Container>
   );
 };
-
-export default AllPopups;
