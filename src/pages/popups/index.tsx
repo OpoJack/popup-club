@@ -14,7 +14,7 @@ const AllPopups = () => {
     <Container>
       <div className="relative sm:py-10 lg:pb-40">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="pb-20 pt-10">
+          <div className="pb-10 pt-10 sm:pb-20">
             <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
               <span className="block text-base-content">The latest and greatest</span>
               <span className="block text-secondary">Popups</span>

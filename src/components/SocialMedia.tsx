@@ -13,17 +13,12 @@ export default function SocialMedia({ links }: { links: TLink }) {
 
 function InstagramLink({ link }: { link: string | null }) {
   return (
-    <Link
-      target={'_blank'}
-      rel={'noreferrer'}
-      href={link ?? '#'}
-      className="h-5 w-5 hover:cursor-pointer"
-    >
+    <Link target={'_blank'} rel={'noreferrer'} href={link ?? '#'} className=" hover:cursor-pointer">
       <Image
         src={'/instagram.svg'}
         width={17}
         height={17}
-        className="shadow-md hover:cursor-pointer hover:shadow-lg"
+        className="shadow-sm hover:cursor-pointer hover:shadow-md"
         alt="Instagram"
       />
     </Link>
