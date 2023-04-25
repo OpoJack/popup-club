@@ -44,25 +44,13 @@ export default function Nav() {
                   }}
                 >
                   <img
-                    className="hidden h-8 w-auto lg:block"
+                    className="hidden h-8 w-auto sm:block"
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                     alt="Your Company"
                   />
                 </Link>
               </div>
-              <div className="flex flex-1 items-center justify-center sm:items-stretch">
-                <Link
-                  href={{
-                    pathname: '/',
-                  }}
-                  className="flex flex-shrink-0"
-                >
-                  <img
-                    className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                    alt="Your Company"
-                  />
-                </Link>
+              <div className="flex flex-1 justify-center sm:items-stretch">
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                   {navigation.map((item) => (
                     <Link
@@ -133,8 +121,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
         pathname: `/user/${sessionData.user.id}`,
       },
       display: true,
-      styles:
-        'block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus',
+      styles: 'block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus',
     },
     {
       name: 'Popup Settings',
@@ -145,8 +132,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
         },
       },
       display: sessionData.user.popupId ? true : false,
-      styles:
-        'block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus',
+      styles: 'block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus',
     },
     {
       name: 'Create popup',
@@ -163,11 +149,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
       <div>
         <Menu.Button className="flex rounded-full bg-secondary-content text-sm focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-secondary-content">
           <span className="sr-only">Open user menu</span>
-          <img
-            className="h-8 w-8 rounded-full"
-            src={sessionData.user.image ?? ''}
-            alt=""
-          />
+          <img className="h-8 w-8 rounded-full" src={sessionData.user.image ?? ''} alt="" />
         </Menu.Button>
       </div>
       <Transition
@@ -187,10 +169,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
                   {({ active }) => (
                     <Link
                       href={item.href}
-                      className={classNames(
-                        active ? 'bg-secondary' : '',
-                        item.styles
-                      )}
+                      className={classNames(active ? 'bg-secondary' : '', item.styles)}
                     >
                       {item.name}
                     </Link>
@@ -206,9 +185,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
                   active ? 'bg-secondary' : '',
                   'block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus'
                 )}
-                onClick={
-                  sessionData ? () => void signOut() : () => void signIn()
-                }
+                onClick={sessionData ? () => void signOut() : () => void signIn()}
               >
                 {sessionData ? 'Sign out' : 'Sign in with Discord'}
                 <span aria-hidden="true"> &rarr;</span>
