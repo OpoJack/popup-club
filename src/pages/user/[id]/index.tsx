@@ -49,26 +49,14 @@ const User = () => {
             <div className="px-4 py-5 sm:p-6">
               <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                 <div className="sm:col-span-2">
-                  <dt className="text-sm font-medium text-base-content">
-                    About
-                  </dt>
-                  <dd className="mt-1 text-sm text-base-content">
-                    {session.user.name}
-                  </dd>
+                  <dt className="text-sm font-medium text-base-content">About</dt>
+                  <dd className="mt-1 text-sm text-base-content">{session.user.name}</dd>
 
-                  <dt className="text-sm font-medium text-base-content">
-                    Email address
-                  </dt>
-                  <dd className="mt-1 text-sm text-base-content">
-                    {session.user.email}
-                  </dd>
+                  <dt className="text-sm font-medium text-base-content">Email address</dt>
+                  <dd className="mt-1 text-sm text-base-content">{session.user.email}</dd>
 
-                  <dt className="text-sm font-medium text-base-content">
-                    Role
-                  </dt>
-                  <dd className="mt-1 text-sm text-base-content">
-                    {session.user.role}
-                  </dd>
+                  <dt className="text-sm font-medium text-base-content">Role</dt>
+                  <dd className="mt-1 text-sm text-base-content">{session.user.role}</dd>
                 </div>
               </dl>
             </div>

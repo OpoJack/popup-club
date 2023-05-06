@@ -30,8 +30,8 @@ export default function EventCard({ popup }: { popup: Popup }): JSX.Element {
                     <CardDescription className="text-xs font-semibold">
                       {`${
                         event.date.getMonth() + 1
-                      }/${event.date.getDate()}/${event.date.getFullYear()}`}
-                      {' • '}
+                      }/${event.date.getDate()}/${event.date.getFullYear()}`}{' '}
+                      •&nbsp;
                     </CardDescription>
                     <CardDescription className="text-xs font-bold">
                       @{convertTime(event.date)}

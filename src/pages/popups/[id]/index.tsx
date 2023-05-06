@@ -8,18 +8,9 @@ import { Loading } from '~/components/Loading';
 import UpcomingEvents from '~/components/UpcomingEvents';
 
 const PopupPage = () => {
-  const { data: session, status } = useSession();
   const router = useRouter();
   const { id } = router.query;
   const { data: popup } = api.popup.getOne.useQuery({ id: id as string });
-
-  if (status === 'loading') {
-    return (
-      <Container>
-        <Loading />
-      </Container>
-    );
-  }
 
   return (
     <Container>
@@ -47,26 +38,14 @@ const PopupPage = () => {
             <div className="px-4 py-5 sm:p-6">
               <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                 <div className="sm:col-span-2">
-                  <dt className="text-xl font-medium text-base-content">
-                    About
-                  </dt>
-                  <dd className="mt-1 text-sm text-base-content">
-                    {popup?.description}
-                  </dd>
+                  <dt className="text-xl font-medium text-base-content">About</dt>
+                  <dd className="mt-1 text-sm text-base-content">{popup?.description}</dd>
 
-                  <dt className="text-sm font-medium text-base-content">
-                    Email address
-                  </dt>
-                  <dd className="mt-1 text-sm text-base-content">
-                    {popup?.basedIn}
-                  </dd>
+                  <dt className="text-sm font-medium text-base-content">Primary Location</dt>
+                  <dd className="mt-1 text-sm text-base-content">{popup?.basedIn}</dd>
 
-                  <dt className="text-sm font-medium text-base-content">
-                    Role
-                  </dt>
-                  <dd className="mt-1 text-sm text-base-content">
-                    {popup?.orderType}
-                  </dd>
+                  <dt className="text-sm font-medium text-base-content">Order Type</dt>
+                  <dd className="mt-1 text-sm text-base-content">{popup?.orderType}</dd>
                 </div>
                 <div className="col-span-2 flex flex-col">
                   {popup?.events && <UpcomingEvents popup={popup} />}

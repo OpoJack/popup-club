@@ -57,11 +57,9 @@ const CreatePopup: NextPage = () => {
 
   // Checks if the user already has a popup and redirects them to their edit popup page if they do.
   if (session?.user.popupId) {
-    router
-      .push(`/popups/edit-popup/?popupId=${session.user.popupId}`)
-      .catch((err) => {
-        console.error(err);
-      });
+    router.push(`/popups/edit-popup/?popupId=${session.user.popupId}`).catch((err) => {
+      console.error(err);
+    });
   }
 
   if (session?.user.role === 'USER') {
@@ -85,19 +83,16 @@ const CreatePopup: NextPage = () => {
                   Welcome to Popup Club!
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-base-content">
-                  We&apos;re building a community of people who love food,
-                  cooking and small-businesses. You bring the food, we get the
-                  word out. Thank you for sharing your passion with us.
+                  We&apos;re building a community of people who love food, cooking and
+                  small-businesses. You bring the food, we get the word out. Thank you for sharing
+                  your passion with us.
                 </p>
                 <p className="mt-6 text-xl font-semibold leading-8 text-base-content">
                   When&apos;s the next popup?
                 </p>
               </div>
               {/* Popup info */}
-              <form
-                className="space-y-8 divide-y divide-neutral"
-                onSubmit={handleSubmitPopup}
-              >
+              <form className="space-y-8 divide-y divide-neutral" onSubmit={handleSubmitPopup}>
                 <div className="divide-neut space-y-8 divide-y">
                   <div>
                     <div className="mt-6 grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-6 ">
