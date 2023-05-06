@@ -13,7 +13,7 @@ export default function PopupCard({ popup }: { popup: Popup }): JSX.Element {
     <>
       <PopupModal open={open} setOpen={setOpen} popup={popup} />
       <Card
-        className="h-full transition hover:bg-base-200 hover:shadow-md"
+        className="h-full rounded-none transition hover:bg-base-200 hover:shadow-offset-neutral"
         onClick={() => setOpen(true)}
       >
         <CardHeader className="flex-row space-y-0 p-3">

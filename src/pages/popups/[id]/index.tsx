@@ -14,7 +14,7 @@ const PopupPage = () => {
 
   return (
     <Container>
-      <div className="mx-auto max-w-xl px-4 pt-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-xl rounded-xl bg-black px-4 pt-20 sm:px-6 lg:px-8">
         {/* We've used 3xl here, but feel free to try other max-widths based on your needs */}
         <div className="-mb-5">
           <Image
@@ -26,7 +26,7 @@ const PopupPage = () => {
           />
         </div>
         <div className="mx-auto max-w-3xl">
-          <div className="overflow-hidden rounded-lg bg-neutral-content shadow">
+          <div className="overflow-hidden border-secondary bg-white shadow-offset-secondary ">
             <div className="flex justify-end pr-2 pt-2">
               {popup?.links && <SocialMedia links={popup?.links} />}
             </div>

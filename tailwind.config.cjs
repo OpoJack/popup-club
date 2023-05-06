@@ -6,6 +6,12 @@ const config = {
   darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
+      boxShadow: {
+        'offset-neutral': '4px 4px #333c4d',
+        'offset-secondary': '4px 4px #377cfb',
+        'offset-primary': '4px 4px #66cc8a',
+        'offset-accent': '4px 4px #ea5234',
+      },
       colors: {
         primary: {
           DEFAULT: '#66cc8a',
