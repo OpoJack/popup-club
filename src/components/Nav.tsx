@@ -150,7 +150,8 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
       <div>
         <Menu.Button className="flex rounded-full bg-secondary-content text-sm focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-secondary-content">
           <span className="sr-only">Open user menu</span>
-          <Avatar className="h-8 w-8">
+          <img className="h-8 w-8 rounded-full" src={sessionData.user.image ?? ''} alt="" />
+          {/* <Avatar className="h-8 w-8">
             <AvatarImage
               width={80}
               height={80}
@@ -158,7 +159,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
               src={sessionData.user.image ?? ''}
             />
             <AvatarFallback>{'A'}</AvatarFallback>
-          </Avatar>
+          </Avatar> */}
         </Menu.Button>
       </div>
       <Transition
@@ -170,7 +171,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-secondary py-1 shadow-offset-neutral ring-1 ring-secondary ring-opacity-5 focus:outline-none ">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-secondary py-0 shadow-offset-neutral ring-1 ring-secondary ring-opacity-5 focus:outline-none ">
           {userNavigation.map(
             (item) =>
               item.display && (
@@ -178,7 +179,10 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
                   {({ active }) => (
                     <Link
                       href={item.href}
-                      className={classNames(active ? 'bg-secondary' : '', item.styles)}
+                      className={classNames(
+                        active ? 'bg-secondary first:rounded-t-md' : '',
+                        item.styles
+                      )}
                     >
                       {item.name}
                     </Link>
@@ -192,7 +196,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
                 href="#"
                 className={classNames(
                   active ? 'bg-secondary' : '',
-                  'block px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus'
+                  'block rounded-b-md px-4 py-2 text-sm text-secondary-content hover:bg-secondary-focus'
                 )}
                 onClick={sessionData ? () => void signOut() : () => void signIn()}
               >
