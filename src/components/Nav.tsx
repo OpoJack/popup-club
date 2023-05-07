@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Session } from 'next-auth';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { type NextRouter, useRouter } from 'next/router';
+import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
 
 const navigation = [
   { name: 'Vendors', href: '/popups', current: false },
@@ -60,7 +61,7 @@ export default function Nav() {
                       }}
                       className={`inline-flex items-center border-b-2  px-1 pt-1 text-sm font-medium text-base-content hover:border-secondary ${
                         router.asPath === item.href
-                          ? 'border-secondary-focus'
+                          ? 'border-b-4 border-secondary-focus'
                           : 'border-base-content'
                       }`}
                     >
@@ -149,7 +150,15 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
       <div>
         <Menu.Button className="flex rounded-full bg-secondary-content text-sm focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-secondary-content">
           <span className="sr-only">Open user menu</span>
-          <img className="h-8 w-8 rounded-full" src={sessionData.user.image ?? ''} alt="" />
+          <Avatar className="h-8 w-8">
+            <AvatarImage
+              width={80}
+              height={80}
+              className="rounded-full"
+              src={sessionData.user.image ?? ''}
+            />
+            <AvatarFallback>{'A'}</AvatarFallback>
+          </Avatar>
         </Menu.Button>
       </div>
       <Transition
