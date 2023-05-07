@@ -42,7 +42,7 @@ export default function PopupModal({
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative w-full max-w-xs transform overflow-hidden rounded-sm border-4 border-neutral bg-base-200 px-11 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8  sm:max-w-sm sm:p-6">
+              <Dialog.Panel className="relative w-full max-w-xs transform overflow-hidden rounded-sm border-4 border-neutral bg-base-200 px-5 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8  sm:max-w-sm sm:p-6">
                 <div className="absolute right-4 top-2 flex space-x-2">
                   <SocialMedia links={popup.links} />
                 </div>
