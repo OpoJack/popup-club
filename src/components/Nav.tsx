@@ -6,6 +6,7 @@ import { Session } from 'next-auth';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { type NextRouter, useRouter } from 'next/router';
 import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
+import Image from 'next/image';
 
 const navigation = [
   { name: 'Vendors', href: '/popups', current: false },
@@ -148,10 +149,10 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
   return (
     <Menu as="div" className="relative ml-3">
       <div>
-        <Menu.Button className="flex rounded-full bg-secondary-content text-sm focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-secondary-content">
+        <Menu.Button className="flex rounded-full bg-secondary-content text-sm active:ring-2 active:ring-secondary-focus">
+          {/* ring-2 ring-secondary focus:outline-2 focus:ring-accent-focus focus:ring-offset-1 focus:ring-offset-secondary-content */}
           <span className="sr-only">Open user menu</span>
-          <img className="h-8 w-8 rounded-full" src={sessionData.user.image ?? ''} alt="" />
-          {/* <Avatar className="h-8 w-8">
+          <Avatar className="h-8 w-8">
             <AvatarImage
               width={80}
               height={80}
@@ -159,7 +160,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
               src={sessionData.user.image ?? ''}
             />
             <AvatarFallback>{'A'}</AvatarFallback>
-          </Avatar> */}
+          </Avatar>
         </Menu.Button>
       </div>
       <Transition
@@ -171,7 +172,7 @@ const UserProfile = ({ sessionData }: { sessionData: Session }) => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-secondary py-0 shadow-offset-neutral ring-1 ring-secondary ring-opacity-5 focus:outline-none ">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-secondary shadow-offset-neutral ring-1 ring-secondary ring-opacity-5 focus:outline-none ">
           {userNavigation.map(
             (item) =>
               item.display && (

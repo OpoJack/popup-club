@@ -27,6 +27,34 @@ import { Button } from '~/components/ui/Button';
 import { Loader2 } from 'lucide-react';
 import { toast } from '~/hooks/use-toast';
 
+//trimUrl will take a string containing the social media url and return a string with the username only. By passing in the HTMLInputElement, it will also update the value of the input.
+const trimUrl = (target: HTMLInputElement) => {
+  const input = target.value;
+
+  const newInput = input
+    .replace('http://', '')
+    .replace('https://', '')
+    .replace('www.', '')
+    .replace('instagram.com/', '')
+    .replace('facebook.com/', '')
+    .replace('tiktok.com/@', '');
+
+  target.value = newInput;
+
+  //Checks to see which social media the input is for and returns the username only
+  if (input.includes('instagram')) {
+    return newInput;
+  } else if (input.includes('facebook')) {
+    return newInput;
+  } else if (input.includes('tiktok')) {
+    return newInput;
+  } else if (input.includes('www')) {
+    return newInput;
+  } else {
+    return input;
+  }
+};
+
 const EditPopup: NextPage = () => {
   const router = useRouter();
   const { data: session, status } = useSession();
@@ -88,34 +116,6 @@ const EditPopup: NextPage = () => {
     return url;
   };
 
-  //trimUrl will take a string containing the social media url and return a string with the username only. By passing in the HTMLInputElement, it will also update the value of the input.
-  const trimUrl = (target: HTMLInputElement) => {
-    const input = target.value;
-
-    const newInput = input
-      .replace('http://', '')
-      .replace('https://', '')
-      .replace('www.', '')
-      .replace('instagram.com/', '')
-      .replace('facebook.com/', '')
-      .replace('tiktok.com/@', '');
-
-    target.value = newInput;
-
-    //Checks to see which social media the input is for and returns the username only
-    if (input.includes('instagram')) {
-      return newInput;
-    } else if (input.includes('facebook')) {
-      return newInput;
-    } else if (input.includes('tiktok')) {
-      return newInput;
-    } else if (input.includes('www')) {
-      return newInput;
-    } else {
-      return input;
-    }
-  };
-
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -172,7 +172,7 @@ const EditPopup: NextPage = () => {
                   </div>
                   <div className="mt-5  md:col-span-2 md:mt-0">
                     <div className="overflow-visible shadow-lg">
-                      <div className="bg-base-100 px-4 py-5 sm:rounded-md sm:p-6">
+                      <div className="border border-neutral bg-primary px-4 py-5 shadow-offset-neutral sm:rounded-sm sm:p-6">
                         <div className="grid grid-cols-6 gap-6">
                           {/* Popup name */}
                           <div className="col-span-6 sm:col-span-3">
@@ -188,6 +188,7 @@ const EditPopup: NextPage = () => {
                                 type="text"
                                 name="name"
                                 id="popup-name"
+                                className="bg-base-200"
                                 autoComplete="popup-name"
                                 defaultValue={popup.name}
                                 onKeyDown={(e) => {
@@ -346,9 +347,9 @@ const EditPopup: NextPage = () => {
                       </Label>
                     </div>
                   </div>
-                  <div className="mt-5 md:col-span-2 md:mt-0">
-                    <div className="overflow-hidden shadow-lg sm:rounded-md">
-                      <div className="bg-base-100 px-4 py-5 sm:p-6">
+                  <div className="mt-5 rounded-sm border border-neutral shadow-offset-neutral md:col-span-2 md:mt-0">
+                    <div className="shadow-lg sm:rounded-md">
+                      <div className="rounded-sm bg-base-100 px-4 py-5 sm:p-6">
                         <div className="grid grid-cols-6 grid-rows-2 gap-4">
                           {/* Instagram */}
                           <div className="col-span-6 row-start-1 sm:col-span-4">

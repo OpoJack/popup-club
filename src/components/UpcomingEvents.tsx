@@ -15,23 +15,23 @@ export default function UpcomingEvents({ popup }: { popup: Popup }) {
   };
   return (
     <>
-      <div className="overflow-hidden rounded-md border border-base-200 bg-base-200">
+      <div className="overflow-hidden border border-base-200 bg-base-200">
         <ol ref={parent} role="list" className="divide-y divide-base-200">
           {popup.events.length === 0 ? (
             <li className="mx-1 px-1 py-4">
-              <span className="flex flex-row justify-center text-sm text-base-content">
+              <span className="flex flex-row justify-center text-lg font-semibold text-base-content">
                 No events posted 😢
               </span>
             </li>
           ) : (
-            <div className="text-center text-sm text-base-content">Recent + Upcoming Events</div>
+            <div className="text-center text-lg font-semibold text-base-content">Coming soon</div>
           )}
           {popup.events?.slice(0, upperLimit).map((event) => (
             <li
               key={event.id}
-              className="-mx-3 flex flex-col bg-base-200 px-6 py-4 text-xs text-base-content hover:bg-base-300"
+              className="-mx-3 flex flex-col bg-base-200 px-6 py-2 text-sm text-base-content transition hover:bg-primary-focus hover:text-neutral-content"
             >
-              <div className="flex justify-between ">
+              <div className="flex justify-between">
                 <div>
                   {`${event.date
                     .toLocaleString('default', { month: 'long' })

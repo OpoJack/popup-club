@@ -7,10 +7,10 @@ const config = {
   theme: {
     extend: {
       boxShadow: {
-        'offset-neutral': '4px 4px #333c4d',
-        'offset-secondary': '4px 4px #377cfb',
-        'offset-primary': '4px 4px #66cc8a',
-        'offset-accent': '4px 4px #ea5234',
+        'offset-neutral': '8px 8px #333c4d',
+        'offset-secondary': '8px 8px #377cfb',
+        'offset-primary': '8px 8px #66cc8a',
+        'offset-accent': '8px 8px #ea5234',
       },
       colors: {
         primary: {

@@ -18,11 +18,11 @@ export default function Tag({ name, id, popupId }: { name: string; id: string; p
   };
 
   return (
-    <p className="mt-1 truncate px-0.5 py-2 text-sm text-secondary-content">
+    <p className="relative mt-1 truncate px-0.5 py-2 text-sm text-secondary-content">
       {showTag && (
         <Link
           href={'#'}
-          className={badgeVariants({ variant: 'secondary' }) + 'relative inline-block'}
+          className={badgeVariants({ variant: 'secondary' }) + 'inline-block'}
           onMouseEnter={() => setIsShown(true)}
           onMouseLeave={() => setIsShown(false)}
         >
@@ -44,6 +44,8 @@ export default function Tag({ name, id, popupId }: { name: string; id: string; p
                 <XCircleIcon
                   className="rounded-full bg-neutral text-accent hover:text-accent-focus"
                   aria-hidden="true"
+                  width={12}
+                  height={12}
                 />
               </button>
             )
